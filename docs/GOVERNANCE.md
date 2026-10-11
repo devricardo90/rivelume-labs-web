@@ -49,7 +49,7 @@ Revisão técnica independente deve ser feita por revisor diferente do implement
 
 ## Branches, publicação e segurança
 
-Trabalhe em branch de tarefa/governança e use PR para revisão. Não faça merge sem revisão e gates aplicáveis; não publique em produção sem aprovação explícita. Branch protection e rulesets do GitHub não puderam ser lidos pela integração (respostas 403), então seu estado permanece desconhecido. Não altere configurações administrativas sem autorização.
+Trabalhe em branch de tarefa/governança e use PR para revisão. Não faça merge sem revisão e gates aplicáveis; não publique em produção sem aprovação explícita. A leitura da branch de governança atual retornou `protected: false`; `main` ainda não existe como ref. O endpoint de rulesets retornou 403 para o repositório privado e não pôde ser avaliado. Não altere configurações administrativas sem autorização.
 
 Nunca versionar credenciais. Não criar workflows de build antes de existir aplicação aprovada. Não adicionar serviços pagos ou infraestrutura sem aprovação.
 

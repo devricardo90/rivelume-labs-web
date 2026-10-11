@@ -14,7 +14,7 @@
 - GitHub é privado. A branch `governance/sprint-0-foundation` foi publicada no remote com o commit `1cbb5acca84bae7e44332e403c6f31ee32036718`. `main` é somente a default branch configurada na metadata; não há ref remota `main`.
 - A tentativa de PR para `main` retornou 422 (`base` inválida). É necessário inicializar `main` para permitir PR; não foi criado um commit vazio na base automaticamente.
 - A identidade local Git coincide com o perfil GitHub autenticado.
-- Branch protection e rulesets não puderam ser avaliados via MCP (403).
+- A branch de governança retornou `protected: false`; `main` não existe e o endpoint de rulesets retornou 403.
 
 ## Protocolo Rick
 
