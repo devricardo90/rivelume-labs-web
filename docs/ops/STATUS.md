@@ -1,29 +1,44 @@
-# Estado operacional
+# Estado operacional — 11/10/2026
 
-Verificado em 11/10/2026 18:28 UTC.
+## Source of Truth
 
-## Fontes
+- **Documento:** [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit)
+- **Document ID:** `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`
+- **Versão/status:** V1.0 — APROVADA PELO OWNER em 11/10/2026.
+- **Leitura verificada:** conteúdo integral relido e alterações lidas de volta pela integração Google Docs nesta execução.
+- **Escopo da aprovação:** objetivo e escopo B2B inicial, DEC-RIV-006 (stack) e governança. DEC-RIV-005 e DEC-RIV-007–009, proposta de valor final, contato e demais propostas seguem explicitamente pendentes. Não são aprovação implícita.
+- **Stack aprovada:** Next.js, TypeScript, Tailwind CSS e Vercel para o website comercial B2B inicial. Nenhum website ou infraestrutura de produção iniciado.
 
-- **Google Docs:** localizado e lido integralmente por integração. Documento “FONTE DA VERDADE — RIVELUME LABS”, ID `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`, versão 0.1, atualizado em 11/10/2026 17:47 UTC. **RASCUNHO**, aprovação final pendente.
-- **Jira:** conexão de leitura confirmada na instância `ricardodesouzafrancisco.atlassian.net`. Busca de projetos, issues e chave RIV não encontrou projeto. AXY existe, mas não será reutilizado. A integração disponível não expõe criação de projeto Jira.
-- **GitHub:** repositório privado `devricardo90/rivelume-labs-web`, ID 1414630553. A branch `governance/sprint-0-foundation` está publicada; o readback confirmou o HEAD `2f281b32573329e7560b641f38cf9e0732b293b7` e `protected: false`. A criação do PR contra `main` retornou 422 porque essa ref base não existe. O endpoint de rulesets retornou 403. Perfil autenticado e identidade Git local correspondem a Ricardo Souza / `devricardo90@gmail.com`. Acesso push/admin confirmado pelo conector.
+## Jira
+
+- **Projeto esperado:** Rivelume Labs, chave `RIV`.
+- **Estado verificado:** o projeto não existe na instância conectada; busca/listagem retornou zero projetos RIV.
+- **Capacidade da integração:** não há operação Jira disponível para criar projetos. Nenhuma issue ou sprint foi criada em projeto alternativo.
+- **Ação manual única do Owner:** criar um projeto Jira Software novo com nome `Rivelume Labs` e chave `RIV`. Não reutilizar AXY. Depois da criação, verificar tipo de projeto, issue types, workflow/estados, board e sprints antes de planejar ou iniciar Sprint 1.
+- Confirmar a URL real do projeto diretamente no Jira após o provisionamento; não presumir URL antes da criação.
+
+## GitHub
+
+- **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web), remote `https://github.com/devricardo90/rivelume-labs-web.git`.
+- **Branch de governança de entrada:** `governance/sprint-0-foundation`, HEAD validado antes desta atualização: `b64655fafdeb730dcecc3e5432507f2e5fdbab22`; leitura remota confirmou o mesmo SHA.
+- **Bootstrap de main:** criada a partir do HEAD final validado da branch de governança, sem commit artificial; o readback remoto confirma o mesmo SHA no momento do bootstrap.
+- **Proteção:** GitHub readback mostra `protected: false`. O endpoint de rulesets retornou HTTP 403 com mensagem de que rulesets exigem GitHub Pro ou tornar o repositório público. Nenhuma configuração foi alterada.
+- **Ação administrativa manual:** proteger `main`; exigir PR, ao menos uma aprovação, bloquear force-push e exclusão. Não exigir check de CI antes de existir workflow aprovado. Não mudar plano ou visibilidade nesta operação.
+
+## Protocolo e auditoria
+
+- Não foi identificada versão global formalmente aprovada do Rick Loop.
+- Governança local vigente por decisão do Owner: `Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`.
+- REVIEW deve ser independente; aprovação humana continua exigida quando gates canônicos se aplicarem.
 
 ## Sprint 0
 
-- **Estado:** fundação em preparação; incompleta.
-- **Definido:** objetivo B2B, rascunho do MVP e cinco sprints na fonte canônica; sistemas conectados identificados.
-- **Pendente:** aprovação da Fonte da Verdade V1.0; criação do projeto Jira RIV; confirmação do protocolo Rick que o Owner quer aplicar; decisões DEC-RIV-007 a 010; critérios e workflow Jira; branch base remota `main` para permitir PR.
-- **Bloqueios:** Jira RIV não existe e a integração não tem operação de criação de projeto; GitHub ainda não tem branch `main` publicada, e o PR falhou com 422 (`base` inválida); branch de governança sem proteção e rulesets inacessíveis (403); Rick Loop v2 está em estado CANDIDATE e RIC-012 está em rascunho.
-- **Não iniciado:** implementação do website, stack, CI/CD, Vercel e infraestrutura.
+- **Estado:** DONE, com um único bloqueio operacional externo documentado para criar Jira RIV manualmente; nenhuma implementação de produto iniciada.
+- **Concluído:** Fonte da Verdade V1.0 aprovada e lida de volta; decisões abertas preservadas; governança local atualizada; `main` criada e verificada a partir do HEAD final da branch de governança; configuração manual de proteção documentada.
+- **Pendente do Owner:** provisionar Jira Software `Rivelume Labs` / `RIV`.
+- **Configuração GitHub recomendada:** aplicar manualmente as regras descritas acima quando a interface/plano permitir; a integração não pode alterá-las.
+- **Próxima ação elegível:** depois do Jira criado, verificar configurações reais e preparar a Sprint 1; não iniciar nesta execução.
 
-## Git local no início desta execução
+## Limites
 
-- Diretório: `C:\Users\ricardodev\rivelume-labs-web`.
-- Remote `origin`: `https://github.com/devricardo90/rivelume-labs-web.git` (correto).
-- Branch inicial: `main`, sem commit/HEAD local.
-- Branch de trabalho atual: `governance/sprint-0-foundation`, publicada e acompanhando `origin/governance/sprint-0-foundation`.
-- Commits publicados: `1cbb5acca84bae7e44332e403c6f31ee32036718` (fundação) e `2f281b32573329e7560b641f38cf9e0732b293b7` (status remoto).
-- Árvore de trabalho inicial: sem arquivos versionados ou alterações do Owner.
-- Identidade Git: `Ricardo Souza` / `devricardo90@gmail.com`, igual ao perfil GitHub autenticado.
-
-O checkout começou sem `HEAD` nem refs remotas. A branch de governança agora existe local e remotamente. A branch base `main` e o PR seguem pendentes.
+Não implementar website, componentes, infraestrutura de produção ou funcionalidades. Não criar issues em AXY, não alterar configuração administrativa, segredos, visibilidade ou plano do GitHub.

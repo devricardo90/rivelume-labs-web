@@ -1,60 +1,57 @@
 # Governança do projeto
 
-## Responsabilidade das fontes
+## Responsabilidades das ferramentas
 
 | Sistema | Autoridade |
 | --- | --- |
-| Google Docs | Produto, escopo, MVP, requisitos, roadmap, decisões, critérios de aceitação e gates. |
+| Google Docs | Produto, escopo, MVP, requisitos, roadmap, decisões comerciais, critérios de aceitação e gates. |
 | Jira | Epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. |
 | GitHub | Código implementado, testes, histórico de commits, PRs, revisões e evidências técnicas. |
 
-O documento canônico atual é a [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 0.1, rascunho não aprovado. O Jira RIV ainda não existe. O remote GitHub existe, é privado e está vazio.
+A [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) é a versão 1.0 aprovada pelo Owner em 11/10/2026. Propostas e pendências continuam abertas conforme indicadas no documento. O projeto Jira RIV ainda não existe e requer criação manual; não reutilizar AXY. O repositório é [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web).
 
-## Contrato de trabalho
+## Contrato de trabalho Jira
 
-Cada item Jira, quando o projeto estiver disponível, deve conter sua chave, sprint, objetivo, contexto, escopo, fora de escopo, dependências, critérios de aceitação, Definition of Done, evidências esperadas e gate aplicável. A tarefa deve derivar do documento canônico aprovado; nenhuma tarefa antiga de AXY ou roadmap anterior pode ser importada automaticamente.
+Após a criação do projeto novo `Rivelume Labs` / `RIV`, verificar seu tipo, issue types, workflow, estados, board e sprints. Não assumir nomes de status. Estrutura prevista: Epic → Task → Subtask quando necessário. Cada tarefa deve registrar objetivo, contexto, escopo, fora de escopo, dependências, critérios de aceitação, Definition of Done, evidências esperadas e gate aplicável, sempre derivados da Fonte da Verdade. Não criar issues agora nem importar backlog de AXY.
 
-Estrutura operacional desejada: Epic → Task → Subtask quando necessário. Tipos, workflow e nomes de status reais ainda não foram verificados para RIV. Inspecione-os após a criação e documente o mapeamento antes de operar o backlog.
+## Fluxo operacional local vigente
 
-## Ciclo de execução
+Autorizado pelo Owner até existir uma versão global formalmente aprovada do Rick Loop:
 
-1. Identificar projeto, repositório, branch e estado de trabalho.
-2. Ler a versão vigente e aprovada da Fonte da Verdade.
-3. Confirmar item Jira, critérios de aceitação, dependências e autorização.
-4. Verificar decisões pendentes e o gate de entrada.
-5. Implementar somente o escopo autorizado.
-6. Executar testes e validações pertinentes, registrando comandos e resultados reais.
-7. Solicitar auditoria independente do diff e das evidências.
-8. Aplicar gates humanos obrigatórios.
-9. Revisar diff, validar `git diff --check` e criar commit em branch de trabalho.
-10. Abrir PR e validar o estado remoto quando houver branch base.
-11. Atualizar Jira somente com evidências verificadas; confirmar a leitura de volta.
-12. Selecionar a próxima tarefa elegível.
+`Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`
+
+1. Leia a Fonte da Verdade integralmente e confirme versão, status, escopo e decisões pendentes.
+2. Verifique tarefa, critérios e dependências no Jira.
+3. Crie branch a partir de `main`; implemente apenas o escopo autorizado.
+4. Execute testes pertinentes, documente evidências e passe por REVIEW independente.
+5. Aplique revisão/aprovação do Owner quando o gate exigir.
+6. Integre por PR após as aprovações; push direto para `main` não é o fluxo normal.
+7. Confirme o estado remoto e sincronize Jira com evidência verificável antes de marcar `Remote DONE`.
+
+O fluxo é orientação de governança do projeto, não autorização para ignorar gates humanos nem executar escopo sem issue elegível.
 
 ## Estados e aprovação
 
-Não há workflow de RIV para mapear ainda. O agente não pode presumir que Jira usa estados como “Ready”, “In Progress” ou “Done”. Depois que o Owner provisionar o projeto, ler os estados configurados por tipo e relacioná-los ao protocolo aprovado.
+Até existir RIV, não há estados para mapear. Após criação, ler a configuração real e documentar o mapeamento para este fluxo. Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e estado Jira coerentes. Commit, push ou resposta de API isolados não significam conclusão.
 
-Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e Jira coerentes e documentação atualizada. Commit, push e resposta da API não significam automaticamente Done.
-
-Revisão técnica independente deve ser feita por revisor diferente do implementador quando o gate exigir auditoria. Aprovação do Owner continua obrigatória para gates de produto, identidade visual, validação do website e lançamento conforme o roadmap canônico. Produção exige aprovação explícita.
+REVIEW deve ser independente do implementador. Gates canônicos de produto, identidade visual, validação do website e lançamento continuam exigindo aprovação humana quando aplicáveis. Publicação em produção exige aprovação explícita.
 
 ## Reconciliação de divergências
 
-1. Registre o dado divergente e sua origem.
-2. Determine qual sistema tem autoridade sobre esse tipo de informação.
-3. Corrija divergência operacional objetiva sem alterar o produto.
-4. Se houver conflito de produto ou decisão pendente, bloqueie a tarefa e encaminhe ao Owner.
-5. Registre a decisão e sua referência no [registro de decisões](DECISIONS.md).
+1. Registre a divergência e sua origem.
+2. Determine qual sistema tem autoridade sobre aquele dado.
+3. Corrija divergências operacionais objetivas sem alterar produto.
+4. Escale conflitos de produto e decisões ambíguas ao Owner.
+5. Registre decisões aprovadas em [DECISIONS.md](DECISIONS.md) com referência canônica.
 
-## Branches, publicação e segurança
+## Branches, controles e segurança
 
-Trabalhe em branch de tarefa/governança e use PR para revisão. Não faça merge sem revisão e gates aplicáveis; não publique em produção sem aprovação explícita. A leitura da branch de governança atual retornou `protected: false`; `main` ainda não existe como ref. O endpoint de rulesets retornou 403 para o repositório privado e não pôde ser avaliado. Não altere configurações administrativas sem autorização.
+Use branch → revisão/evidências → PR → `main`. Não faça push direto em `main` como rotina de desenvolvimento e não faça merge sem revisão e gates. O bootstrap inicial usa a branch validada `governance/sprint-0-foundation`; sua integração na criação inicial de `main` não cria base artificial nem substitui o fluxo normal posterior.
 
-Nunca versionar credenciais. Não criar workflows de build antes de existir aplicação aprovada. Não adicionar serviços pagos ou infraestrutura sem aprovação.
+O readback do GitHub mostrou `main` sem proteção. A leitura do endpoint de rulesets retornou HTTP 403 informando que rulesets requerem GitHub Pro ou repositório público. A integração disponível não permite alterar configuração administrativa. Configuração manual necessária: nas configurações do repositório, proteger `main`, exigir PR para merge, exigir ao menos uma aprovação e impedir force-push e exclusão; não exigir checks de CI enquanto não existirem workflows aprovados. Não mudar visibilidade/plano nesta etapa.
 
-## Protocolo Rick e execução autônoma
+Não versionar segredos, modificar credenciais, criar workflow de build antes de existir aplicação ou adicionar serviços/infraestrutura sem escopo aprovado.
 
-Discovery → validação da Fonte da Verdade → contrato Jira → dependências → implementação → testes → revisão independente → evidências → gates → commit/PR → validação remota → sincronização Jira → próxima tarefa.
+## Execução autônoma e Protocolo Rick
 
-No ambiente consultado, Rick Loop `RICK_LOOP_V2_0_0` está identificado como **CANDIDATE** e ainda não como release. RIC-012, no RICK Control Center, está em **Draft for implementation**, versão 1.0. Nenhum dos dois foi confirmado como versão aprovada para este projeto. O fluxo acima foi fornecido pelo Owner nesta execução e é a orientação operacional provisória; decisões e gates humanos continuam obrigatórios.
+Não foi confirmada uma versão global formalmente aprovada do Rick Loop. Até isso ocorrer, o fluxo acima é a governança local vigente autorizada pelo Owner. Agentes podem executar correções determinísticas no escopo aprovado, mas não substituem auditoria independente, decisão do Owner ou gates humanos. Bloqueie se faltarem autoridade, dependências, identidade ou aprovação exigida. Após três tentativas sem progresso verificável para o mesmo bloqueio, registre `BLOCKED` e a ação necessária.

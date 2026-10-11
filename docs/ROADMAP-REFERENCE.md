@@ -1,11 +1,12 @@
 # Referência do roadmap
 
-Roadmap canônico: seção 15 da [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 0.1, rascunho aguardando aprovação. Este arquivo apenas aponta para a fonte; não mantém um roadmap independente.
+Roadmap canônico: seção 15 da [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 1.0 aprovada em 11/10/2026. Este arquivo só referencia o roadmap; não mantém planejamento independente.
 
-- **Sprint atual:** Sprint 0 — Product Foundation.
-- **Referência Jira:** nenhuma; RIV ainda não foi criado.
-- **Gate de entrada:** não formalizado além do objetivo de formalizar produto e governança; requer a validação dos itens pendentes da Sprint 0.
-- **Gate de saída:** `OWNER PRODUCT APPROVAL`.
-- **Gate posterior:** Sprint 1 termina em `TECHNICAL FOUNDATION VALIDATION`.
+- **Sprint registrada nesta operação:** Sprint 0 — Product Foundation; governança concluída, com provisionamento Jira manual registrado como ação operacional externa.
+- **Sprint seguinte:** Sprint 1 — somente após Jira RIV existir e seu workflow, tipos, board e sprints reais serem verificados. Não iniciada por esta execução.
+- **Referência Jira:** RIV ainda não existe; nenhum ticket ou sprint foi criado.
+- **Gate de saída da Sprint 0:** `OWNER PRODUCT APPROVAL`, concedido pela aprovação V1.0 do Owner em 11/10/2026. O conteúdo aprovado e as pendências estão delimitados na Fonte da Verdade.
+- **Gate de saída da Sprint 1:** `TECHNICAL FOUNDATION VALIDATION`.
+- **Gates posteriores:** Sprint 2 `OWNER VISUAL APPROVAL`; Sprint 3 `OWNER WEBSITE VALIDATION`; Sprint 4 `OWNER LAUNCH APPROVAL`.
 
-O rascunho define também Sprint 2 com `OWNER VISUAL APPROVAL`, Sprint 3 com `OWNER WEBSITE VALIDATION` e Sprint 4 com `OWNER LAUNCH APPROVAL`. A produção exige aprovação explícita. A divisão pode ser refinada na Sprint 0; não reordene nem transforme gates em aprovação até a fonte canônica ser aprovada.
+A identidade visual, domínio/e-mail, portfólio e demais propostas de conteúdo continuam pendentes conforme a Fonte da Verdade. Não as marque como aprovadas. Publicação em produção exige aprovação explícita do Owner.

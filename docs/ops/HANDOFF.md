@@ -1,33 +1,32 @@
-# Handoff
+# Handoff — Rivelume Labs Sprint 0
 
-## Projeto
+## Projeto e autorização
 
 - Produto: website institucional e comercial B2B da Rivelume Labs.
 - Repositório: `devricardo90/rivelume-labs-web`.
-- Objetivo desta etapa: governança Sprint 0. Não desenvolver o website.
-- Estado do Google Docs: versão 0.1, rascunho aguardando aprovação final do Owner. Leia o documento original pelo link em `README.md` antes de agir.
+- Esta etapa fecha governança da Sprint 0. Não desenvolver website, componentes, infraestrutura de produção ou funcionalidades de produto; não iniciar Sprint 1.
+- Fonte canônica: [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), ID `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`, V1.0 aprovada pelo Owner em 11/10/2026. Foi lida integralmente e a aprovação foi verificada por readback. Leia novamente antes de atuar.
 
-## Estado verificado
+## Escopo e stack aprovados
 
-- Google Drive/Docs foi lido por MCP; documento ID `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`.
-- Jira conectado; não há projeto ou issue RIV. Não reutilizar AXY. A integração não expõe criação de projeto Jira.
-- GitHub é privado. A branch `governance/sprint-0-foundation` foi publicada no remote com o commit `1cbb5acca84bae7e44332e403c6f31ee32036718`. `main` é somente a default branch configurada na metadata; não há ref remota `main`.
-- A tentativa de PR para `main` retornou 422 (`base` inválida). É necessário inicializar `main` para permitir PR; não foi criado um commit vazio na base automaticamente.
-- A identidade local Git coincide com o perfil GitHub autenticado.
-- A branch de governança retornou `protected: false`; `main` não existe e o endpoint de rulesets retornou 403.
+- O produto é um website comercial B2B. Stack inicial aprovada: Next.js, TypeScript, Tailwind CSS e Vercel.
+- Não adicionar SaaS, autenticação, dashboard, banco de dados, CMS complexo ou backend sem requisito explícito aprovado na Fonte da Verdade.
+- DEC-RIV-005 (página única/seis seções), identidade visual, domínio/e-mail, portfólio, proposta de valor final e contato permanecem pendentes onde assim indicados. A V1.0 não os aprovou.
 
-## Protocolo Rick
+## Fontes externas
 
-Rick Loop `RICK_LOOP_V2_0_0` consta como CANDIDATE, ainda sem release; RIC-012 do RICK Control Center está em rascunho para implementação. Não declarar nenhum deles como protocolo aprovado do Rivelume sem confirmação do Owner. Use o fluxo desta governança como orientação provisória.
+- Jira: foi verificado que RIV não existe; a integração não expõe criação de projeto. Ação manual necessária do Owner: criar novo projeto Jira Software `Rivelume Labs`, chave `RIV`; não reutilizar AXY. Depois, verificar tipo, issue types, workflow/status, board e sprints reais. Nenhum issue foi criado.
+- GitHub: o HEAD de entrada de `governance/sprint-0-foundation` foi confirmado em `b64655fafdeb730dcecc3e5432507f2e5fdbab22` local e remotamente. `main` foi inicializada a partir do HEAD final validado da branch de governança e seu readback confirmou o mesmo SHA no bootstrap.
+- Proteção: readback da branch `main` mostrou `protected: false`. Rulesets retornou HTTP 403, informando que exige GitHub Pro ou repositório público. A integração atual não altera controles administrativos. Configuração manual documentada: proteger `main`, exigir PR, ao menos uma aprovação e bloquear force-push/exclusão; não exigir checks inexistentes. Não alterar plano nem visibilidade.
 
-## Bloqueios e decisões do Owner
+## Governança local vigente
 
-1. Aprovar a Fonte da Verdade V1.0 ou manter a Sprint 0 bloqueada para produto.
-2. Criar o projeto Jira com nome Rivelume Labs e chave proposta RIV. A conexão atual não disponibiliza operação para isso; confirmar criação manual ou outra integração autorizada.
-3. Confirmar o protocolo Rick aplicável ao projeto.
-4. Resolver as decisões DEC-RIV-007 a DEC-RIV-010 conforme o documento canônico.
-5. Após Jira existir, inspecionar tipo de projeto, workflow, status, board e sprints; não presumir configurações.
+Até haver versão global formalmente aprovada do Rick Loop, seguir decisão do Owner:
+
+`Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`
+
+Google Docs governa produto, Jira organiza execução e GitHub comprova desenvolvimento. REVIEW independente e aprovações humanas dos gates continuam obrigatórias.
 
 ## Retomada
 
-Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Confirme Git e fontes novamente. Não inicie implementação até a Fonte da Verdade estar aprovada e a Sprint 0 passar seu gate.
+Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Confirme Git local/remoto e os três sistemas. O próximo trabalho elegível após o provisionamento manual do Jira é inspecionar seu workflow e preparar Sprint 1. Não selecione nem inicie tarefa de produto antes dessa conferência.

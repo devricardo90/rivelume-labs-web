@@ -2,51 +2,58 @@
 
 ## Autoridade
 
-1. **Google Docs** é canônico para produto, MVP, requisitos, roadmap, decisões comerciais, critérios de aceitação e gates. Documento atual: [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 0.1, rascunho.
-2. **Jira** deve organizar epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. O projeto RIV ainda não foi criado; não use o projeto AXY nem outro projeto existente como substituto.
-3. **GitHub** comprova código, testes, commits, pull requests, revisões e evidências técnicas. Remote esperado: `https://github.com/devricardo90/rivelume-labs-web.git`.
+1. **Google Docs** é a fonte canônica para produto, escopo, MVP, requisitos, roadmap, decisões comerciais, critérios de aceitação e gates. Leia a [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) antes de qualquer tarefa de produto. Ela está na versão 1.0, aprovada pelo Owner em 11/10/2026; decisões identificadas como propostas ou pendentes não foram aprovadas.
+2. **Jira** organiza epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. O projeto novo Rivelume Labs, chave RIV, ainda aguarda criação manual. Não reutilize AXY nem crie issues em outro projeto.
+3. **GitHub** comprova código, testes, commits, PRs, revisões e evidências técnicas. Remote: `https://github.com/devricardo90/rivelume-labs-web.git`.
 
-As ferramentas não são fontes concorrentes. Ao detectar divergência, registre-a, identifique qual fonte tem autoridade sobre o dado e reconcilie apenas correções operacionais objetivas. Conflitos de produto, decisões ambíguas e mudança de escopo devem ser escalados ao Owner; nunca altere requisitos silenciosamente.
+As ferramentas têm responsabilidades distintas. Registre divergências, determine qual fonte governa o dado e corrija apenas divergências operacionais objetivas. Escale conflitos de produto ao Owner; nunca altere requisitos silenciosamente.
 
 ## Início de cada execução
 
 - Leia estas instruções, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md`, `docs/ops/CURRENT-OBJECTIVE.md` e `docs/ops/HANDOFF.md`.
-- Confirme diretório, identidade do repositório, branch, `HEAD`, `origin`, `git status`, commits e identidade Git antes de editar.
-- Consulte a versão atual e o estado de aprovação da Fonte da Verdade; não confie em cópias locais antigas.
-- Consulte o Jira e confirme projeto, tarefa, estado, dependências, critérios de aceitação e evidências esperadas. Não invente status nem crie tarefas duplicadas.
-- Verifique se há decisões pendentes que bloqueiem a tarefa. Se faltar autoridade, registre o bloqueio e não implemente produto.
+- Confirme diretório, remote, branch, `HEAD`, `git status`, commits e identidade Git antes de editar.
+- Releia a Fonte da Verdade integralmente e confirme versão, aprovação e pendências diretamente no Google Docs.
+- Confirme o projeto e a tarefa Jira, estado real, critérios, dependências, evidências e gate. Não invente estados nem crie duplicatas.
+- Se não houver tarefa Jira elegível, projeto inacessível, autoridade insuficiente ou decisão pendente que bloqueie o escopo, registre o bloqueio e não implemente produto.
 
-## Fluxo autorizado
+## Fluxo local vigente — governança autorizada pelo Owner
 
-Discovery → validação da Fonte da Verdade → contrato Jira → dependências → implementação → testes pertinentes → auditoria independente → evidências → gates → commit/PR → validação remota → sincronização Jira → próxima tarefa elegível.
+`Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`
 
-O Protocolo Rick Loop `RICK_LOOP_V2_0_0` foi encontrado como **CANDIDATE**, não como release aprovada. O protocolo RIC-012 do RICK Control Center está em rascunho. Não os apresente como protocolo vigente aprovado para este repositório. Até confirmação do Owner, siga somente o fluxo e os limites definidos nesta governança e na instrução autorizada da tarefa.
+- Use o documento de produto aprovado para decidir o que pode ser feito; Jira deve organizar o trabalho correspondente.
+- Crie branch a partir de `main`. Faça revisão técnica independente do diff e das evidências.
+- Obtenha aprovação do Owner quando o gate canônico ou a decisão em questão exigir.
+- Integre por PR após as aprovações aplicáveis. Não use push direto em `main` como fluxo normal.
+- Verifique o estado remoto e sincronize Jira apenas com evidência real antes de marcar `Remote DONE`.
+- Até existir uma versão global formalmente aprovada do Rick Loop, este fluxo é a governança local vigente do projeto. Não apresente protocolo candidato ou rascunho como versão global aprovada.
 
 ## Implementação, qualidade e auditoria
 
-- Implemente somente uma tarefa elegível, rastreável a um item Jira e ao escopo aprovado.
-- Respeite os critérios de aceitação e a Definition of Done da fonte canônica. Escolha testes pertinentes à mudança; não declare validações não executadas.
-- Uma revisão independente deve avaliar o diff, testes, riscos e cobertura dos critérios antes de fechar trabalho. O implementador não declara sua própria revisão independente.
-- Registre evidências verificáveis. Commit, push ou resposta de API isolados não provam que uma tarefa está concluída ou sincronizada.
-- Não adicione dependências, infraestrutura, workflows de build, aplicação, hospedagem ou integrações sem escopo aprovado.
+- A stack aprovada para o website comercial B2B inicial é Next.js, TypeScript, Tailwind CSS e Vercel. Isso não autoriza SaaS, autenticação, dashboard, banco de dados, CMS complexo ou backend sem requisito explícito aprovado na Fonte da Verdade.
+- Implemente somente uma tarefa Jira elegível e autorizada, respeitando escopo, critérios de aceitação e Definition of Done canônicos.
+- Execute testes pertinentes e registre comandos/resultados verificáveis. Não declare verificações que não foram executadas.
+- REVIEW deve ser independente do implementador. Registre revisão de diff, riscos, testes e evidências antes de fechar o trabalho.
+- Aprovações humanas de produto, identidade visual, validação do website e lançamento continuam obrigatórias quando os gates canônicos se aplicarem. Produção exige aprovação explícita.
+- Não adicione aplicação, dependências, workflow de build, serviços pagos ou infraestrutura fora do escopo aprovado.
 
 ## Git e credenciais
 
-- Preserve alterações existentes e nunca modifique autoria de commits anteriores.
-- Trabalhe em branch de tarefa/governança; não faça commit direto em `main`.
-- Antes do commit, revise o diff completo e `git diff --check`; inclua apenas arquivos autorizados.
-- Abra PR quando houver branch base válida e integração disponível. Não faça merge sem revisão e gates aplicáveis.
-- Não inclua segredos em arquivos, logs, commits, evidências ou Jira. Mantenha arquivos de ambiente locais fora do Git.
-- Confirme que `user.name` e `user.email` correspondem a uma identidade autorizada do Owner. A identidade local observada corresponde ao perfil GitHub autenticado de Ricardo Souza.
+- Preserve alterações existentes e autoria de commits; não atribua commits a identidade genérica.
+- Confirme que a identidade Git pertence ao Owner autorizado.
+- Trabalhe em branch de governança/tarefa; use PR para integrar em `main`. Não faça push direto em `main` como fluxo normal.
+- Antes de commit, revise o diff completo, valide `git diff --check` e inclua apenas arquivos autorizados.
+- Nunca versionar credenciais, tokens ou dados de ambiente. Não altere credenciais.
 
-## Gates e autonomia
+## Gates, autonomia e bloqueios
 
-- Gates concretos são os aprovados na Fonte da Verdade. Atualmente a fonte está em rascunho, e os gates de produto não autorizam iniciar a implementação.
-- Correções documentais determinísticas dentro da solicitação autorizada podem ser executadas autonomamente.
-- Não tome decisões pelo Owner sobre escopo, proposta comercial, identidade pública, arquitetura material, custos, segurança, credenciais ou publicação.
-- Aprovação humana obrigatória não pode ser substituída por automação. Interrompa se identidade, autoridade, dependências ou gates não puderem ser verificados.
-- Após três tentativas sem progresso verificável para o mesmo bloqueio, marque o trabalho como `BLOCKED`, registre a causa e peça intervenção.
+- Correções documentais determinísticas dentro da autorização podem ser executadas autonomamente.
+- Não decida pelo Owner sobre escopo, conteúdo comercial, identidade pública, arquitetura material além da stack aprovada, custos, segurança, credenciais ou publicação.
+- Execução autônoma não substitui revisão independente ou aprovação humana obrigatória.
+- Não inicie a Sprint 1 até que o projeto Jira RIV esteja criado, o workflow/tipos/board/sprints reais tenham sido verificados e as dependências da tarefa estejam claras.
+- Após três tentativas sem progresso verificável para o mesmo bloqueio, registre `BLOCKED`, a causa e a intervenção necessária.
 
-## Estados Jira
+## Jira
 
-O workflow de RIV não está disponível para inspeção porque o projeto não existe. Não invente nomes nem mapeamentos de status. Após a criação, inventarie os tipos e estados reais e documente o mapeamento para o protocolo antes de sincronizar tarefas.
+- Criar manualmente apenas o novo projeto Jira Software chamado `Rivelume Labs`, chave `RIV`; não reutilizar AXY.
+- Depois da criação, inspecione tipos, workflow, status, board e sprints reais antes de operar. Estrutura prevista: Epic → Task → Subtask quando necessário.
+- Cada issue deve conter objetivo, contexto, escopo, fora de escopo, dependências, critérios de aceitação, Definition of Done, evidências e gate aplicável, derivados da Fonte da Verdade.
