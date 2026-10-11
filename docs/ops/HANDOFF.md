@@ -11,7 +11,8 @@
 
 - Google Drive/Docs foi lido por MCP; documento ID `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`.
 - Jira conectado; não há projeto ou issue RIV. Não reutilizar AXY. A integração não expõe criação de projeto Jira.
-- GitHub está privado, vazio e sem branches. `main` é somente a default branch configurada na metadata; ainda não há referência remota.
+- GitHub é privado. A branch `governance/sprint-0-foundation` foi publicada no remote com o commit `1cbb5acca84bae7e44332e403c6f31ee32036718`. `main` é somente a default branch configurada na metadata; não há ref remota `main`.
+- A tentativa de PR para `main` retornou 422 (`base` inválida). É necessário inicializar `main` para permitir PR; não foi criado um commit vazio na base automaticamente.
 - A identidade local Git coincide com o perfil GitHub autenticado.
 - Branch protection e rulesets não puderam ser avaliados via MCP (403).
 

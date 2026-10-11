@@ -6,7 +6,7 @@ Repositório do website institucional e comercial B2B da Rivelume Labs. Esta exe
 
 - A Fonte da Verdade foi localizada e lida. É a versão 0.1, em rascunho, aguardando aprovação do Owner.
 - O projeto Jira RIV ainda não existe na instância conectada.
-- O repositório GitHub está vazio. A fundação documental está na branch local `governance/sprint-0-foundation`; ainda não há commit nem branch remota.
+- A branch `governance/sprint-0-foundation` foi publicada com o commit inicial de governança. O repositório não tem ref `main`, então o PR ainda não pode ser aberto.
 - A stack técnica permanece proposta, sem aprovação.
 
 ## Fontes e autoridade
