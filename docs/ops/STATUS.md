@@ -13,7 +13,7 @@
 - **Projeto:** Rivelume Labs, chave `RIV`, id 10232, Software team-managed, em `https://ricardodesouzafrancisco.atlassian.net/browse/RIV`. Criado pelo Owner; verificado por leitura de retorno em 13/10/2026.
 - **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board e sprints ainda não verificados (pendente em RIV-8).
 - **Links disponíveis:** Blocks, Cloners, Duplicate, Relates.
-- **Sprint:** o Owner informa que o Jira já tem a "RIV Sprint 1". A integração não lista nem edita sprints, então nenhuma issue foi atribuída a ela. A Sprint 1 não foi iniciada.
+- **Sprint:** o Owner informa que o Jira já tem a "RIV Sprint 1". A integração não lista nem edita sprints, e a sessão do agente não tem autenticação para a API ágil (`/rest/agile/1.0/board/233`), então board, estado da sprint e issues associadas NÃO foram verificados; nenhuma issue foi atribuída a ela e as labels `sprint-1` não equivalem a associação real. A Sprint 1 não foi iniciada.
 - **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-1`, `sprint-3-backlog`, `sprint-0-residual` (mais `epic-*` nos épicos).
 
 ### Épicos
@@ -52,7 +52,7 @@
 
 Dependências registradas como links "Blocks" e lidas de volta. Nenhuma tarefa foi iniciada.
 
-**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração. **Pendência do Owner:** remover esse link no Jira e reler RIV-20; até lá, ignorar (RIV-20 não depende de RIV-16).
+**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração. **Pendência do Owner:** remover esse link no Jira (id 10291, tipo Blocks, RIV-16 bloqueia RIV-20) e reler RIV-20; a sessão do agente não tem autenticação para `DELETE /rest/api/3/issueLink/{id}`; até lá, ignorar (RIV-20 não depende de RIV-16).
 
 ## GitHub
 
