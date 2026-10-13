@@ -3,7 +3,7 @@
 ## Autoridade
 
 1. **Google Docs** é a fonte canônica para produto, escopo, MVP, requisitos, roadmap, decisões comerciais, critérios de aceitação e gates. Leia a [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) antes de qualquer tarefa de produto. Ela está na versão 1.0, aprovada pelo Owner em 11/10/2026; decisões identificadas como propostas ou pendentes não foram aprovadas.
-2. **Jira** organiza epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. O projeto novo Rivelume Labs, chave RIV, ainda aguarda criação manual. Não reutilize AXY nem crie issues em outro projeto.
+2. **Jira** organiza epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. O projeto Rivelume Labs, chave RIV, foi criado pelo Owner e verificado em 13/10/2026 (ver `docs/ops/STATUS.md`). Não reutilize AXY nem crie issues em outro projeto.
 3. **GitHub** comprova código, testes, commits, PRs, revisões e evidências técnicas. Remote: `https://github.com/devricardo90/rivelume-labs-web.git`.
 
 As ferramentas têm responsabilidades distintas. Registre divergências, determine qual fonte governa o dado e corrija apenas divergências operacionais objetivas. Escale conflitos de produto ao Owner; nunca altere requisitos silenciosamente.
@@ -54,6 +54,6 @@ As ferramentas têm responsabilidades distintas. Registre divergências, determi
 
 ## Jira
 
-- Criar manualmente apenas o novo projeto Jira Software chamado `Rivelume Labs`, chave `RIV`; não reutilizar AXY.
-- Depois da criação, inspecione tipos, workflow, status, board e sprints reais antes de operar. Estrutura prevista: Epic → Task → Subtask quando necessário.
+- Usar apenas o projeto Jira Software `Rivelume Labs`, chave `RIV` (já criado); não reutilizar AXY nem outros projetos do site.
+- Antes de operar, inspecione tipos, workflow, status, board e sprints reais; o board e as sprints ainda precisam de verificação (RIV-8). Estrutura: Epic → Tarefa → Subtask quando necessário.
 - Cada issue deve conter objetivo, contexto, escopo, fora de escopo, dependências, critérios de aceitação, Definition of Done, evidências e gate aplicável, derivados da Fonte da Verdade.
