@@ -19,5 +19,5 @@ Para o website comercial B2B inicial: Next.js, TypeScript, Tailwind CSS e Vercel
 ## Referências oficiais
 
 - Produto: [Google Docs — Fonte da Verdade](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit)
-- Jira: [instância conectada](https://ricardodesouzafrancisco.atlassian.net) — projeto novo Rivelume Labs / `RIV`, criação manual pendente.
+- Jira: [instância conectada](https://ricardodesouzafrancisco.atlassian.net) — projeto Rivelume Labs / `RIV` (criado e verificado em 13/10/2026; ver `docs/ops/STATUS.md`).
 - Repositório: [GitHub — rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web)

@@ -4,7 +4,7 @@ Roadmap canônico: seção 15 da [Fonte da Verdade — Rivelume Labs](https://do
 
 - **Sprint registrada nesta operação:** Sprint 0 — Product Foundation; governança concluída, com provisionamento Jira manual registrado como ação operacional externa.
 - **Sprint seguinte:** Sprint 1 — somente após Jira RIV existir e seu workflow, tipos, board e sprints reais serem verificados. Não iniciada por esta execução.
-- **Referência Jira:** RIV ainda não existe; nenhum ticket ou sprint foi criado.
+- **Referência Jira:** projeto RIV existe desde 13/10/2026; épicos RIV-1..7 e tarefas RIV-8..20 criados (ver `docs/ops/STATUS.md`). Nenhuma sprint iniciada.
 - **Gate de saída da Sprint 0:** `OWNER PRODUCT APPROVAL`, concedido pela aprovação V1.0 do Owner em 11/10/2026. O conteúdo aprovado e as pendências estão delimitados na Fonte da Verdade.
 - **Gate de saída da Sprint 1:** `TECHNICAL FOUNDATION VALIDATION`.
 - **Gates posteriores:** Sprint 2 `OWNER VISUAL APPROVAL`; Sprint 3 `OWNER WEBSITE VALIDATION`; Sprint 4 `OWNER LAUNCH APPROVAL`.

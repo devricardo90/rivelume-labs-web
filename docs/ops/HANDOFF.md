@@ -15,8 +15,8 @@
 
 ## Fontes externas
 
-- Jira: projeto RIV (`https://ricardodesouzafrancisco.atlassian.net/browse/RIV`). Épicos RIV-1 a RIV-7. Sprint 1 em RIV-11 a RIV-20. Prontidão por rótulos (`ready`, `waiting-dependency`, `blocked-owner`, `owner-gate`). Não use AXY nem outros projetos do site.
-- GitHub: `main` em `b67d29b7689ec7255dde616b8089c194b321da25` em 13/10/2026; proteção pendente (RIV-10). Mudanças entram por branch → PR.
+- Jira: projeto RIV (`https://ricardodesouzafrancisco.atlassian.net/browse/RIV`). Épicos RIV-1 a RIV-7. Sprint 1 em RIV-11 a RIV-15 e RIV-17 a RIV-20. Prontidão por rótulos (`ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`). Não use AXY nem outros projetos do site.
+- GitHub: `main` em `b67d29b7689ec7255dde616b8089c194b321da25` em 13/10/2026; protegida pelo ruleset "Protect Main" (id 24971542, 0 aprovações, sem bypass), verificado por leitura da API. Mudanças entram por branch → PR.
 
 ## Governança local vigente
 
@@ -26,4 +26,4 @@ Google Docs governa produto, Jira organiza execução, GitHub comprova desenvolv
 
 ## Retomada
 
-Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Só pegue tarefa com rótulo `ready` e Sprint 1 autorizada pelo Owner.
+Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Só pegue tarefa com rótulo `ready` depois que RIV-8 estiver concluída (workflow, board e sprints verificados) e a Sprint 1 for autorizada pelo Owner.
