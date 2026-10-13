@@ -14,7 +14,7 @@
 - **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board e sprints ainda não verificados (pendente em RIV-8).
 - **Links disponíveis:** Blocks, Cloners, Duplicate, Relates.
 - **Sprint:** o Owner informa que o Jira já tem a "RIV Sprint 1". A integração não lista nem edita sprints, então nenhuma issue foi atribuída a ela. A Sprint 1 não foi iniciada.
-- **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `sprint-1`, `sprint-0-residual` (mais `epic-*` nos épicos).
+- **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-1`, `sprint-3-backlog`, `sprint-0-residual` (mais `epic-*` nos épicos).
 
 ### Épicos
 
@@ -32,9 +32,9 @@
 
 ### Governança (Sprint 0 residual)
 
-- RIV-8 Registrar o projeto Jira e mapear o workflow — `ready`
+- RIV-8 Registrar o projeto Jira e mapear o workflow — `ready`, `owner-assisted` (mapeamento feito; a leitura de board e sprints exige o Owner ou outra integração)
 - RIV-9 Reconciliar STATUS.md com a Fonte da Verdade — `ready`
-- RIV-10 Proteger `main` — `blocked-owner`
+- RIV-10 Verificar a proteção de `main` — `evidence-verified` (proteção ativa; fecha após o merge deste PR)
 
 ### Sprint 1 — Technical Foundation
 
@@ -52,7 +52,7 @@
 
 Dependências registradas como links "Blocks" e lidas de volta. Nenhuma tarefa foi iniciada.
 
-**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração e deve ser ignorado/removido manualmente no Jira; RIV-20 não depende de RIV-16.
+**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração. **Pendência do Owner:** remover esse link no Jira e reler RIV-20; até lá, ignorar (RIV-20 não depende de RIV-16).
 
 ## GitHub
 

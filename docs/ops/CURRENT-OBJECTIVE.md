@@ -11,7 +11,7 @@ Backlog do Jira RIV preparado e Sprint 1 organizada para execução. Aguardando 
 
 ## Próxima ação elegível (após revisão do Owner)
 
-1. Concluir RIV-8: ler de volta board e sprints do Jira (pré-condição para iniciar a Sprint 1, conforme AGENTS.md). Hoje a integração não os expõe; pode exigir verificação do Owner.
+1. Concluir RIV-8: ler de volta board e sprints do Jira (pré-condição para iniciar a Sprint 1, conforme AGENTS.md). A integração Jira atual não os expõe, então esta etapa depende do Owner ou de outra integração. Também pendente do Owner: remover o link Blocks RIV-16 → RIV-20.
 2. Owner revisa este PR, coloca as tarefas `sprint-1` na RIV Sprint 1 e autoriza o início.
 3. Tarefas sem dependência aberta: RIV-11 e RIV-12 (e RIV-15, redigir ADR de i18n). RIV-8 e RIV-9 são documentais.
 4. Decisões que realmente bloqueiam execução: aprovação do ADR de i18n (bloqueia só RIV-16, que está fora da Sprint 1); a proteção de `main` já está ativa (RIV-10). DEC-RIV-005/007/008/009 não bloqueiam a Sprint 1.
