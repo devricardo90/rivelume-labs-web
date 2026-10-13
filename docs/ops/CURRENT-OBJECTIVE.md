@@ -1,15 +1,17 @@
 # Objetivo atual
 
-Sprint 0 de governança concluída. Não iniciar Sprint 1 neste comando e não desenvolver website, componentes, infraestrutura de produção ou funcionalidades de produto.
+Backlog do Jira RIV preparado e Sprint 1 organizada para execução. Aguardando revisão do Owner. Não iniciar a Sprint 1 no Jira nem desenvolver website, componentes, infraestrutura de produção ou funcionalidades de produto até autorização.
 
-## Estado de fechamento
+## Estado
 
-- Fonte da Verdade Google Docs: V1.0 aprovada pelo Owner e lida de volta; propostas e decisões explicitamente pendentes continuam sem aprovação.
-- Stack aprovada somente para o website comercial B2B inicial: Next.js, TypeScript, Tailwind CSS e Vercel.
-- `main` foi inicializada a partir da branch `governance/sprint-0-foundation` validada; o readback remoto confirmou o bootstrap.
-- Jira RIV não existe e a integração não permite criação. Única dependência externa que bloqueia o início da Sprint 1: o Owner criar novo projeto Jira Software `Rivelume Labs` / chave `RIV`; nunca usar AXY.
-- Proteção de `main`: não ativa no readback. Integração não permite alteração administrativa; instruções exatas estão em `docs/GOVERNANCE.md`.
+- Fonte da Verdade V1.0 aprovada; propostas e DEC-RIV-005/007/008/009 continuam pendentes.
+- Projeto Jira RIV existe (id 10232). Sete épicos (RIV-1 a RIV-7), três tarefas de governança (RIV-8 a RIV-10) e dez tarefas da Sprint 1 (RIV-11 a RIV-20) criadas e lidas de volta.
+- Sprint 0 não está totalmente encerrada: ver tabela em `STATUS.md`.
+- A "RIV Sprint 1" existente no Jira não foi iniciada nem preenchida; a integração não gerencia sprints.
 
-## Próxima ação elegível
+## Próxima ação elegível (após revisão do Owner)
 
-O Owner provisiona manualmente o Jira RIV. Depois, verificar tipos, workflow e estados, board e sprints reais, mapear os estados para o protocolo local e só então preparar uma tarefa elegível da Sprint 1. Não criar issues antes da inspeção e não presumir estados.
+1. Owner revisa este PR, a estrutura de épicos e as tarefas.
+2. Owner coloca as tarefas `sprint-1` na RIV Sprint 1 e autoriza o início.
+3. Tarefas sem dependência aberta: RIV-11 e RIV-12 (e RIV-15, redigir ADR de i18n). RIV-8 e RIV-9 são documentais.
+4. Decisões que realmente bloqueiam execução: aprovação do ADR de i18n (bloqueia só RIV-16); proteção de `main` (RIV-10) não bloqueia o trabalho por PR. DEC-RIV-005/007/008/009 não bloqueiam a Sprint 1.

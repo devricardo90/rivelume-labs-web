@@ -8,7 +8,7 @@
 | Jira | Epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. |
 | GitHub | Código implementado, testes, histórico de commits, PRs, revisões e evidências técnicas. |
 
-A [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) é a versão 1.0 aprovada pelo Owner em 11/10/2026. Propostas e pendências continuam abertas conforme indicadas no documento. O projeto Jira RIV ainda não existe e requer criação manual; não reutilizar AXY. O repositório é [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web).
+A [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) é a versão 1.0 aprovada pelo Owner em 11/10/2026. Propostas e pendências continuam abertas conforme indicadas no documento. O projeto Jira RIV foi criado pelo Owner e verificado em 13/10/2026 (ver `docs/ops/STATUS.md`); não reutilizar AXY nem outros projetos do site. O repositório é [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web).
 
 ## Contrato de trabalho Jira
 
