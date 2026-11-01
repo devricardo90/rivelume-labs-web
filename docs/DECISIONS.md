@@ -20,7 +20,7 @@ Referência canônica de produto: [Fonte da Verdade — Rivelume Labs](https://d
 | ID | Data | Decisão | Autoridade | Status |
 | --- | --- | --- | --- | --- |
 | GOV-RIV-001 | 11/10/2026 | Google Docs governa produto, Jira organiza execução e GitHub comprova o desenvolvimento. | Owner | Vigente |
-| GOV-RIV-002 | 11/10/2026 | Usar apenas projeto Jira novo `Rivelume Labs` / `RIV`; não reutilizar AXY. | Owner | Vigente; criação manual pendente |
+| GOV-RIV-002 | 11/10/2026 | Usar apenas projeto Jira novo `Rivelume Labs` / `RIV`; não reutilizar AXY. | Owner | Vigente; projeto RIV criado e verificado em 13/10/2026 |
 | GOV-RIV-003 | 11/10/2026 | A branch `governance/sprint-0-foundation` validada será a origem do bootstrap inicial de `main`; sem commit artificial. | Owner | Vigente |
 | GOV-RIV-004 | 11/10/2026 | Após o bootstrap, desenvolvimento usa branch → revisão/evidências → PR → main; push direto em main não é a rotina. | Owner | Vigente |
 | GOV-RIV-005 | 11/10/2026 | Até existir versão global formalmente aprovada do Rick Loop, adotar fluxo local `Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`. | Owner | Vigente como protocolo local |
