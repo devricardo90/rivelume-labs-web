@@ -11,7 +11,7 @@
 ## Jira
 
 - **Projeto:** Rivelume Labs, chave `RIV`, id 10232, Software team-managed, em `https://ricardodesouzafrancisco.atlassian.net/browse/RIV`. Criado pelo Owner; verificado por leitura de retorno em 13/10/2026.
-- **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board e sprints ainda não verificados (pendente em RIV-8).
+- **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board 233 e sprint 179 verificados em 01/11/2026 (ver abaixo).
 - **Links disponíveis:** Blocks, Cloners, Duplicate, Relates.
 - **Board e sprint (verificados em 01/11/2026 pelo conector Atlassian MCP, leitura direta):** board 233 "RIV board" (tipo simple, projeto RIV), colunas A fazer / Fazendo / Feito, iguais ao workflow. Única sprint do board: **"RIV Sprint 1", id 179, estado `future` (não iniciada)**. Foram associadas à sprint, pelo campo Sprint (operação `addIssues`), exatamente RIV-11 a RIV-15 e RIV-17 a RIV-20 (9 tarefas); a leitura de retorno por três consultas (dados da sprint, JQL `sprint = 179`, JQL `sprint is EMPTY`) confirma a associação e que RIV-16, RIV-8, RIV-9 e RIV-10 estão fora da sprint. Labels `sprint-1` não são a evidência: vale o campo Sprint. A sprint NÃO foi iniciada.
 - **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-1`, `sprint-3-backlog`, `sprint-0-residual` (mais `epic-*` nos épicos).
