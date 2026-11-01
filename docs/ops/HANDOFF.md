@@ -26,4 +26,4 @@ Google Docs governa produto, Jira organiza execução, GitHub comprova desenvolv
 
 ## Retomada
 
-Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Só pegue tarefa com rótulo `ready` depois que RIV-8 estiver concluída (workflow, board e sprints verificados; a leitura final de board e sprints depende do Owner ou de outra integração) e a Sprint 1 for autorizada pelo Owner.
+Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Só pegue tarefa com rótulo `ready` e a Sprint 1 for autorizada pelo Owner (workflow, board 233 e sprint 179 já verificados em 01/11/2026; RIV-8 fecha após o merge do PR #1).

@@ -42,7 +42,7 @@ Estados reais lidos do Jira em 13/10/2026 (transições globais): **A fazer**, *
 | REVIEW independente e revisão do Owner | "Fazendo" + comentário com evidências do PR e da revisão (lacuna: sem estado próprio) |
 | Remote DONE | "Feito" somente após merge em `main`, estado remoto verificado e DoD (§17) comprovada |
 
-O board e as sprints ainda não foram verificados (a integração não os expõe); a verificação é pré-condição para iniciar a Sprint 1 (RIV-8). Uma tarefa só vai a "Feito" com evidência. Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e estado Jira coerentes. Commit, push ou resposta de API isolados não significam conclusão.
+O board 233 e a sprint "RIV Sprint 1" (id 179, `future`) foram verificados em 01/11/2026 (ver `docs/ops/STATUS.md`); a associação de tarefas à sprint é lida pelo campo Sprint, não por labels. Uma tarefa só vai a "Feito" com evidência. Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e estado Jira coerentes. Commit, push ou resposta de API isolados não significam conclusão.
 
 REVIEW deve ser independente do implementador. Gates canônicos de produto, identidade visual, validação do website e lançamento continuam exigindo aprovação humana quando aplicáveis. Publicação em produção exige aprovação explícita.
 

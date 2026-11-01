@@ -13,7 +13,7 @@
 - **Projeto:** Rivelume Labs, chave `RIV`, id 10232, Software team-managed, em `https://ricardodesouzafrancisco.atlassian.net/browse/RIV`. Criado pelo Owner; verificado por leitura de retorno em 13/10/2026.
 - **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board e sprints ainda não verificados (pendente em RIV-8).
 - **Links disponíveis:** Blocks, Cloners, Duplicate, Relates.
-- **Sprint:** o Owner informa que o Jira já tem a "RIV Sprint 1". A integração não lista nem edita sprints, e a sessão do agente não tem autenticação para a API ágil (`/rest/agile/1.0/board/233`), então board, estado da sprint e issues associadas NÃO foram verificados; nenhuma issue foi atribuída a ela e as labels `sprint-1` não equivalem a associação real. A Sprint 1 não foi iniciada.
+- **Board e sprint (verificados em 01/11/2026 pelo conector Atlassian MCP, leitura direta):** board 233 "RIV board" (tipo simple, projeto RIV), colunas A fazer / Fazendo / Feito, iguais ao workflow. Única sprint do board: **"RIV Sprint 1", id 179, estado `future` (não iniciada)**. Foram associadas à sprint, pelo campo Sprint (operação `addIssues`), exatamente RIV-11 a RIV-15 e RIV-17 a RIV-20 (9 tarefas); a leitura de retorno por três consultas (dados da sprint, JQL `sprint = 179`, JQL `sprint is EMPTY`) confirma a associação e que RIV-16, RIV-8, RIV-9 e RIV-10 estão fora da sprint. Labels `sprint-1` não são a evidência: vale o campo Sprint. A sprint NÃO foi iniciada.
 - **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-1`, `sprint-3-backlog`, `sprint-0-residual` (mais `epic-*` nos épicos).
 
 ### Épicos
@@ -32,7 +32,7 @@
 
 ### Governança (Sprint 0 residual)
 
-- RIV-8 Registrar o projeto Jira e mapear o workflow — `ready`, `owner-assisted` (mapeamento feito; a leitura de board e sprints exige o Owner ou outra integração)
+- RIV-8 Registrar o projeto Jira e mapear o workflow — `ready`, `owner-assisted` (mapeamento do workflow feito; board 233 e sprint 179 verificados em 01/11/2026)
 - RIV-9 Reconciliar STATUS.md com a Fonte da Verdade — `ready`
 - RIV-10 Verificar a proteção de `main` — `evidence-verified` (proteção ativa; fecha após o merge deste PR)
 
@@ -52,7 +52,7 @@
 
 Dependências registradas como links "Blocks" e lidas de volta. Nenhuma tarefa foi iniciada.
 
-**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração. **Pendência do Owner:** remover esse link no Jira (id 10291, tipo Blocks, RIV-16 bloqueia RIV-20) e reler RIV-20; a sessão do agente não tem autenticação para `DELETE /rest/api/3/issueLink/{id}`; até lá, ignorar (RIV-20 não depende de RIV-16).
+**RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. Nota: o link "Blocks" RIV-16 → RIV-20 criado antes dessa correção não pôde ser removido pela integração. **Pendência do Owner:** remover esse link no Jira (id 10291, tipo Blocks, RIV-16 bloqueia RIV-20) e reler RIV-20. Verificado em 01/11/2026: o conector Atlassian MCP (descoberta de operações) não oferece exclusão de links entre issues, e a sessão não tem autenticação para `DELETE /rest/api/3/issueLink/{id}`; o link continua presente. Até lá, ignorar (RIV-20 não depende de RIV-16).
 
 ## GitHub
 
