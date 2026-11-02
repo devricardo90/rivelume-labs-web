@@ -1,17 +1,18 @@
 # Objetivo atual
 
-Backlog do Jira RIV preparado e Sprint 1 organizada para execução. Aguardando revisão do Owner. Não iniciar a Sprint 1 no Jira nem desenvolver website, componentes, infraestrutura de produção ou funcionalidades de produto até autorização.
+Sprint 1 — Technical Foundation em andamento (RIV Sprint 1, id 179, 02/11/2026 a 13/11/2026), iniciada por autorização do Owner. Escopo: RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar RIV-16, não implementar internacionalização antes da aprovação do ADR (RIV-15), não publicar em produção e não fazer merge sem autorização do Owner.
 
 ## Estado
 
-- Fonte da Verdade V1.0 aprovada; propostas e DEC-RIV-005/007/008/009 continuam pendentes.
-- Projeto Jira RIV existe (id 10232). Criados e lidos de volta: sete épicos (RIV-1 a RIV-7), três tarefas de governança (RIV-8 a RIV-10), nove tarefas da Sprint 1 (RIV-11 a RIV-15 e RIV-17 a RIV-20) e RIV-16 (esqueleto de i18n), que pertence ao épico RIV-5 e à Sprint 3.
-- Sprint 0 não está totalmente encerrada: ver tabela em `STATUS.md`.
-- "RIV Sprint 1" (id 179, board 233) existe, está em `future` (não iniciada) e contém exatamente RIV-11 a RIV-15 e RIV-17 a RIV-20, verificado pelo campo Sprint em 01/11/2026. RIV-16 está fora.
+- Fundação de governança concluída: PR #1 mesclado (`54267d6`), `main` protegida, RIV-8, RIV-9 e RIV-10 em Feito, link indevido RIV-16 → RIV-20 removido.
+- Fonte da Verdade V1.0 aprovada; DEC-RIV-005/007/008/009 e propostas de conteúdo continuam pendentes e não bloqueiam a Sprint 1.
+- Em andamento: **RIV-11** (baseline do repositório, `docs/REPOSITORY.md`) e **RIV-15** (ADR de i18n, apenas proposta), ambos em PR para revisão do Owner.
+- Próximo: **RIV-12** (Next.js + TypeScript). O plano técnico foi apresentado ao Owner; a implementação só começa após a validação do ponto de controle.
+- CI não configurado (RIV-19, depende de RIV-12, RIV-17 e RIV-18).
 
-## Próxima ação elegível (após revisão do Owner)
+## Próxima ação elegível
 
-1. Owner remove o link Blocks RIV-16 → RIV-20 (id 10291), que nenhuma ferramenta disponível exclui, e conclui RIV-8 depois do merge deste PR.
-2. Owner revisa e aprova este PR e autoriza o início da Sprint 1 (a sprint ainda não foi iniciada).
-3. Tarefas sem dependência aberta: RIV-11 e RIV-12 (e RIV-15, redigir ADR de i18n). RIV-8 e RIV-9 são documentais.
-4. Decisões que realmente bloqueiam execução: aprovação do ADR de i18n (bloqueia só RIV-16, que está fora da Sprint 1); a proteção de `main` já está ativa (RIV-10). DEC-RIV-005/007/008/009 não bloqueiam a Sprint 1.
+1. Owner revisa e decide o merge dos PRs de RIV-11 e RIV-15.
+2. Owner valida o plano técnico da RIV-12 e autoriza a implementação.
+3. Depois de RIV-12: RIV-13, RIV-14 e RIV-17 podem avançar; RIV-18 depende de RIV-17; RIV-19 depende de RIV-18; RIV-20 é o gate do Owner.
+4. Decisão pendente do Owner: aprovação do ADR de i18n (RIV-15). Ela só bloqueia RIV-16, que está fora da Sprint 1.
