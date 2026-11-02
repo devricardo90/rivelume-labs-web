@@ -42,4 +42,6 @@ Verificação de tipos (a configuração de qualidade entra na RIV-17): `npx tsc
 
 Telemetria: o Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fica desativada no ambiente de desenvolvimento (`npx next telemetry disable`, configuração local de cada máquina, que não vai para o repositório). Para desativar apenas em uma execução: `NEXT_TELEMETRY_DISABLED=1`.
 
+Arquivos de governança: o `next dev` detecta agentes de IA e, por padrão, escreve um bloco de instruções no `AGENTS.md`. Isso fica desligado em `next.config.ts` (`agentRules: false`) porque o `AGENTS.md` é um arquivo de governança do Owner. Se um dia ele aparecer modificado após `npm run dev`, é um defeito: reverta e reporte.
+
 Escopo: Tailwind CSS pertence à RIV-13, lint e formatação à RIV-17, testes à RIV-18, CI à RIV-19 e internacionalização à RIV-16 (após a decisão do ADR da RIV-15).
