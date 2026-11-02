@@ -1,6 +1,6 @@
 # Rivelume Labs
 
-Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0. A aplicação base (RIV-12, Sprint 1) é um placeholder técnico em Next.js, sem conteúdo comercial; o website comercial ainda não foi implementado.
+Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0. A aplicação base (RIV-12, Sprint 1) é um placeholder técnico em Next.js, sem conteúdo comercial; o website comercial ainda não foi implementado. Como executá-la: `docs/DEVELOPMENT.md`.
 
 ## Estado
 
@@ -26,22 +26,3 @@ Google Docs governa o produto, Jira organiza a execução e GitHub comprova o qu
 3. Confirme o projeto e o item RIV, seus estados reais, dependências, critérios e gate antes de iniciar trabalho.
 4. Use branch, revisão/evidências e PR para integrar alterações em `main`.
 5. Não implemente nada além do escopo aprovado nem inicie a Sprint 1 sem autorização do Owner e sem as dependências da tarefa verificadas (RIV-8 fecha após o merge do PR #1).
-
-## Como executar a aplicação
-
-Pré-requisitos: Node.js 20.9 ou superior e npm. A aplicação é um placeholder técnico (Next.js 16.4.4, TypeScript, App Router, sem `src/`); não contém conteúdo comercial.
-
-```bash
-npm ci            # instala as dependências do package-lock.json
-npm run dev       # servidor de desenvolvimento em http://localhost:3000
-npm run build     # build de produção
-npm start         # serve o build de produção (rode `npm run build` antes)
-```
-
-Verificação de tipos (a configuração de qualidade entra na RIV-17): `npx tsc --noEmit`.
-
-Telemetria: o Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fica desativada no ambiente de desenvolvimento (`npx next telemetry disable`, configuração local de cada máquina, que não vai para o repositório). Para desativar apenas em uma execução: `NEXT_TELEMETRY_DISABLED=1`.
-
-Arquivos de governança: o `next dev` detecta agentes de IA e, por padrão, escreve um bloco de instruções no `AGENTS.md`. Isso fica desligado em `next.config.ts` (`agentRules: false`) porque o `AGENTS.md` é um arquivo de governança do Owner. Se um dia ele aparecer modificado após `npm run dev`, é um defeito: reverta e reporte.
-
-Escopo: Tailwind CSS pertence à RIV-13, lint e formatação à RIV-17, testes à RIV-18, CI à RIV-19 e internacionalização à RIV-16 (após a decisão do ADR da RIV-15).
