@@ -39,7 +39,7 @@ Versões abaixo lidas do registro npm em 02/11/2026: Next.js 16.4.4 (Node ≥ 20
 Rota dinâmica por idioma, dicionários em arquivos TypeScript/JSON no repositório, uma função `getDictionary(locale)` e um pequeno arquivo de interceptação de requisição (`proxy`) apenas para reescrever/redirecionar. Segue o padrão do guia de internacionalização do Next.js para o App Router (**a validar contra a documentação da versão 16 antes da RIV-16**, pois não foi reconferido nesta sessão).
 
 - **Prós:** zero dependências novas; total controle de URLs, metadados e `lang`; conteúdo 100% no repositório; fácil de entender e remover; alinhado a §11.2.
-- **Contras:** formatação de plurais/datas/números e mensagens ICU precisam ser feitas à mão (não necessárias agora); helpers de link e de troca de idioma escritos por nós (~dezenas de linhas); a paridade EN/PT depende de tipos e testes nossos.
+- **Contras:** formatação de plurais/datas/números e mensagens ICU precisam ser feitas à mão (não necessárias agora); helpers de link e de troca de idioma escritos por nós (~dezenas de linhas); a paridade EN/PT depende de tipos e testes nossos. Servir o EN **sem prefixo** em `/` exige uma regra de reescrita no arquivo de interceptação (`proxy`); com prefixo nos dois idiomas (`/en`, `/pt-br`) essa regra não é necessária. A diferença de complexidade é pequena, mas é uma das razões da pergunta 2 ao Owner.
 
 ### Opção B — `next-intl`
 
@@ -59,7 +59,7 @@ Ecossistema genérico de i18n para React.
 
 Descartada por ora: depende do domínio (DEC-RIV-008, pendente), aumenta infraestrutura e custos de DNS/certificados e não é necessária para o escopo.
 
-`next-i18next` não foi considerada porque é voltada ao Pages Router (a confirmar) e o projeto usa o App Router.
+`next-i18next` (16.4.6; peers lidos no npm em 02/11/2026: `next >= 14.1`, `i18next >= 23.7.13`, `react-i18next >= 14`) é uma camada sobre o i18next e não foi avaliada em separado: para este escopo ela cai na mesma análise da Opção C (mais dependências e configuração).
 
 ## 5. Avaliação
 
@@ -98,7 +98,7 @@ Motivo: o requisito atual (duas línguas, poucas seções, conteúdo no reposit�
 - Trocar para a Opção B depois exige migrar os dicionários e os links; custo estimado baixo enquanto o conteúdo for pequeno. Estimativa qualitativa, não medida.
 - Hreflang e sitemap precisam do domínio final (DEC-RIV-008); até lá usam um valor configurável.
 - O tema depende do que a DEC-RIV-005 decidir sobre página única.
-- Mudanças na API de interceptação de requisição do Next.js entre versões podem exigir ajuste; mitigação: manter o arquivo pequeno e coberto por teste.
+- Mudanças na API de interceptação de requisição do Next.js entre versões podem exigir ajuste; mitigação: manter o arquivo pequeno e coberto por teste. EN sem prefixo (`/`) acrescenta uma regra de reescrita a esse arquivo; a alternativa `/en` e `/pt-br` a dispensa.
 
 ## 8. Perguntas para o Owner
 
