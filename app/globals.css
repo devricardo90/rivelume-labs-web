@@ -1,0 +1,13 @@
+/* Estilos mínimos (RIV-12). Tailwind entra na RIV-13; identidade visual na Sprint 2. */
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  line-height: 1.5;
+}

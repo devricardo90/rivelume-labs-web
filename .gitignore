@@ -14,3 +14,10 @@ coverage/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# TypeScript and Next.js generated files
+*.tsbuildinfo
+next-env.d.ts
+
+# Package manager logs
+npm-debug.log*
