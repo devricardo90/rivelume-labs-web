@@ -40,17 +40,17 @@
 
 | Chave | Tarefa | Prontidão | Depende de |
 | --- | --- | --- | --- |
-| RIV-11 | S1-01 Baseline do repositório e política de branches | Fazendo (`docs/REPOSITORY.md`, PR em revisão) | — |
-| RIV-12 | S1-02 Next.js + TypeScript | ready (plano técnico apresentado ao Owner; sem implementação) | — |
+| RIV-11 | S1-01 Baseline do repositório e política de branches | Fazendo (`docs/REPOSITORY.md`; este PR, aguardando merge do Owner) | — |
+| RIV-12 | S1-02 Next.js + TypeScript | Fazendo (implementada e validada em clone limpo; PR #4 aguardando merge do Owner) | — |
 | RIV-13 | S1-03 Tailwind CSS | waiting-dependency | RIV-12 |
 | RIV-14 | S1-04 Estrutura de componentes e conteúdo | waiting-dependency | RIV-12 |
-| RIV-15 | S1-05 ADR da estratégia i18n EN/PT-BR | Fazendo (ADR proposto, PR em revisão; decisão final do Owner) | — |
+| RIV-15 | S1-05 ADR da estratégia i18n EN/PT-BR | Fazendo (ADR **proposto** com a direção do Owner, PR #3; decisões P1 a P4 pendentes antes de "Accepted") | — |
 | RIV-17 | S1-07 Qualidade (lint, formatação, typecheck) | waiting-dependency | RIV-12 |
 | RIV-18 | S1-08 Testes básicos | waiting-dependency | RIV-12, RIV-17 |
 | RIV-19 | S1-09 CI inicial | waiting-dependency | RIV-12, RIV-17, RIV-18 |
 | RIV-20 | S1-10 Gate Technical Foundation Validation | waiting-dependency, owner-gate | RIV-11 a RIV-15, RIV-17 a RIV-19 |
 
-Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 links, de RIV-11 a RIV-15 e RIV-17 a RIV-19, verificados em 02/11/2026). RIV-11 e RIV-15 estão em "Fazendo"; as demais, em "A fazer".
+Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 links, de RIV-11 a RIV-15 e RIV-17 a RIV-19, verificados em 02/11/2026). RIV-11, RIV-12 e RIV-15 estão em "Fazendo"; as demais, em "A fazer".
 
 **RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. O link "Blocks" RIV-16 → RIV-20 (id 10291), criado antes dessa correção, foi removido manualmente pelo Owner; a releitura de RIV-20 em 02/11/2026 confirma 8 links restantes.
 
@@ -58,7 +58,7 @@ Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 lin
 
 - **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web). `main` em `54267d61b3c3dbf729c81b4ad37b0104eb0e2f32` em 02/11/2026 (merge do PR #1). Baseline completa em `docs/REPOSITORY.md`.
 - **Visibilidade:** pública. **Proteção de `main`:** ativa. Ruleset "Protect Main" (id 24971542), verificado por leitura da API em 13/10/2026 e 02/11/2026: PR obrigatório com 0 aprovações, bloqueio de force-push e de exclusão, sem bypass e sem checks exigidos (configuração do Owner; 0 aprovações é a decisão vigente).
-- **CI:** `CI_NOT_CONFIGURED` — Actions habilitado, 0 workflows, 0 execuções, sem `.github/` e sem aplicação. Implementação em RIV-19, que depende de RIV-12, RIV-17 e RIV-18 (ainda em "A fazer").
+- **CI:** `CI_NOT_CONFIGURED` — Actions habilitado, 0 workflows, 0 execuções e sem `.github/` em `main` (a aplicação base da RIV-12 está no PR #4, ainda não mesclado). Implementação em RIV-19, que depende de RIV-12, RIV-17 e RIV-18 (ainda em "A fazer").
 
 ## Protocolo
 
