@@ -14,7 +14,7 @@ Entrega da tarefa RIV-11 (Fonte da Verdade §15 Sprint 1, "Repositório"; fluxo 
 | Regras do ruleset | `pull_request` (0 aprovações), `non_fast_forward`, `deletion`; sem bypass; sem checks exigidos |
 | Métodos de merge | o repositório habilita merge, squash e rebase, mas o ruleset permite apenas **merge** e **rebase** |
 | Exclusão automática de branch após merge | desabilitada (`delete_branch_on_merge: false`) |
-| Conteúdo | 10 arquivos rastreados, apenas documentação e `.gitignore`: sem aplicação, sem `package.json`, sem `.github/` |
+| Conteúdo | em 02/11/2026, antes dos PRs desta data: 10 arquivos rastreados, apenas documentação e `.gitignore`; sem aplicação, sem `package.json`, sem `.github/` |
 | GitHub Actions | habilitado, 0 workflows, 0 execuções |
 | Identidade Git | Ricardo Souza `<devricardo90@gmail.com>` |
 
@@ -29,7 +29,7 @@ Conforme `docs/GOVERNANCE.md` e a Fonte da Verdade §16.3:
 3. Implemente somente o escopo da tarefa; rode os testes pertinentes; valide `git diff --check`.
 4. Abra um PR para `main` com critérios de aceitação e evidências.
 5. Faça a REVIEW independente do implementador e registre o resultado.
-6. O Owner aprova e executa (ou autoriza) o merge. Não há merge automático e não há push direto em `main`; o ruleset impõe isso.
+6. O Owner aprova e executa (ou autoriza) o merge. Não há merge automático nem push direto em `main`. O ruleset impõe o PR obrigatório e bloqueia force-push e exclusão; a ausência de merge automático e a autorização do Owner são regra de governança, não regra técnica.
 7. Confirme o estado remoto (SHA de `main`) e atualize o Jira com evidência real antes de mover a tarefa para "Feito".
 
 O ruleset exige PR mas não exige aprovação do GitHub (0 aprovações, decisão do Owner para um repositório de um único mantenedor). Por isso a independência da REVIEW fica registrada nas evidências do PR e do Jira, e o merge segue dependendo do Owner por regra de governança, não por regra técnica.
