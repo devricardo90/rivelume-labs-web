@@ -1,8 +1,8 @@
 # ADR 0001 — Estratégia de internacionalização (EN / PT-BR)
 
-- **Status:** **PROPOSTA — direção do Owner registrada em 02/11/2026; ainda NÃO é "Accepted".** Há decisões pendentes (seção 9). Nada neste documento deve ser implementado antes da aprovação final.
+- **Status:** **ACCEPTED — decisões P1 a P4 e solução nativa aprovadas pelo Owner em 03/11/2026** (vigente a partir do merge deste PR, que depende de autorização do Owner). **Sem implementação:** a RIV-16 (Sprint 3) não foi iniciada.
 - **Tarefa Jira:** RIV-15 (S1-05). A implementação é a RIV-16 (Sprint 3, bloqueada por este ADR).
-- **Data:** 02/11/2026
+- **Data:** proposta em 02/11/2026; decisão do Owner em 03/11/2026
 - **Decisor:** Owner (arquitetura material, Fonte da Verdade §16.4).
 - **Referências:** Fonte da Verdade §2.4 (idiomas), §11.2 (princípios), §11.5 (conteúdo no repositório), §11.6 (i18n definida na fundação técnica), §12 RF-03, §13.3 (SEO), §13.5 (privacidade), DEC-RIV-006 (stack).
 
@@ -36,10 +36,10 @@ Versões abaixo lidas do registro npm em 02/11/2026: Next.js 16.4.4 (Node ≥ 20
 
 ### Opção A — Solução nativa do Next.js, sem biblioteca (dicionários tipados + segmento `[lang]`)
 
-Rota dinâmica por idioma, dicionários em arquivos TypeScript/JSON no repositório, uma função `getDictionary(locale)` e um pequeno arquivo de interceptação de requisição (`proxy`) apenas para reescrever/redirecionar. Segue o padrão do guia de internacionalização do Next.js para o App Router (**a validar contra a documentação da versão 16 antes da RIV-16**, pois não foi reconferido nesta sessão).
+Rota dinâmica por idioma, dicionários em arquivos TypeScript/JSON no repositório, uma função `getDictionary(locale)` e `hasLocale` para validar o idioma. Segue o padrão do guia de internacionalização do Next.js para o App Router, **conferido em 03/11/2026 na documentação empacotada com o Next.js 16.4.4** (`node_modules/next/dist/docs/01-app/02-guides/internationalization.md`): pasta `app/[lang]`, dicionários por idioma, `hasLocale` + `notFound()` para idioma desconhecido e `generateStaticParams` para rotas estáticas. Com a decisão P1 (sem detecção de idioma) e P4 (redirecionamento estático), **nenhum arquivo `proxy` é necessário**.
 
 - **Prós:** zero dependências novas; total controle de URLs, metadados e `lang`; conteúdo 100% no repositório; fácil de entender e remover; alinhado a §11.2.
-- **Contras:** formatação de plurais/datas/números e mensagens ICU precisam ser feitas à mão (não necessárias agora); helpers de link e de troca de idioma escritos por nós (~dezenas de linhas); a paridade EN/PT depende de tipos e testes nossos. Servir o EN **sem prefixo** em `/` exige uma regra de reescrita no arquivo de interceptação (`proxy`); com prefixo nos dois idiomas (`/en`, `/pt-br`) essa regra não é necessária. A diferença de complexidade é pequena, mas é uma das razões da pergunta 2 ao Owner.
+- **Contras:** formatação de plurais/datas/números e mensagens ICU precisam ser feitas à mão (não necessárias agora); helpers de link e de troca de idioma escritos por nós (~dezenas de linhas); a paridade EN/PT depende de tipos e testes nossos. O guia do Next.js usa detecção por `Accept-Language` num `proxy` como padrão; a decisão P1 do Owner não a adota, o que simplifica a solução (ver seção 6).
 
 ### Opção B — `next-intl`
 
@@ -73,84 +73,82 @@ Descartada por ora: depende do domínio (DEC-RIV-008, pendente), aumenta infraes
 | Reversibilidade | **alta** | média | média |
 | Esforço inicial | médio | **menor** | maior |
 
-## 6. Direção do Owner (02/11/2026) e recomendação
+## 6. Decisão
 
-### 6.1 Direção recebida do Owner
+**Decisão geral (Owner, 03/11/2026):** manter a **solução nativa do Next.js (Opção A), sem biblioteca adicional inicialmente**. EN é o idioma principal e PT-BR o segundo (§2.4). Nenhuma implementação nesta tarefa.
 
-Registrada como **recomendação arquitetural do Owner**, ainda não como aprovação final do ADR:
+### 6.1 Decisões aprovadas, justificativas e consequências
 
-- Inglês como idioma principal; português brasileiro como segundo idioma.
-- **Solução nativa do Next.js** (Opção A), sem biblioteca de i18n.
-- Rotas **`/en`** e **`/pt`**; redirecionamento de **`/` para `/en`**.
-- Dicionários separados por idioma.
-- Preparação para `canonical` e `hreflang`.
-- **Sem implementação de i18n nesta tarefa** (a RIV-16 continua bloqueada e fora da Sprint 1).
+**P1 — Idioma determinado exclusivamente pela URL; sem detecção automática e sem cookie de preferência.**
+- *Justificativa:* uma URL por idioma torna cada versão indexável, compartilhável e cacheable sem variação por cabeçalho; atende à privacidade (§13.5, coleta mínima e sem cookie) e à simplicidade (§11.2). O guia do Next.js 16.4.4 mostra a detecção por `Accept-Language` como padrão *recomendado*, mas ela é opcional; a escolha do Owner é deliberadamente diferente.
+- *Consequências técnicas:* não há `proxy` nem leitura de cabeçalhos; não há cookie de idioma (nenhuma implicação de consentimento por causa do idioma); quem entra em `/` sempre vê EN e precisa usar o link para PT-BR (custo de experiência aceito); a troca de idioma é um link comum para a mesma página/seção no outro idioma. Uma sugestão não intrusiva de idioma só poderia ser reavaliada depois, com nova decisão.
 
-Esta direção **substitui** os parâmetros 1 e 5 da proposta original abaixo (EN em `/` sem prefixo e PT-BR em `/pt-br`; sem redirecionamento). Onde houver divergência, vale a direção do Owner.
+**P2 — Arquitetura compatível com website de página única ou múltiplas páginas, sem implementar páginas adicionais.**
+- *Justificativa:* a DEC-RIV-005 (página única com seis seções) ainda é uma proposta e não foi aprovada; a estrutura não deve forçar nenhuma das duas.
+- *Consequências técnicas:* todas as rotas ficam sob `app/[lang]/`; seções por âncora (`/en#services`) ou páginas (`/en/services`) cabem sem mudar a estrutura; os dicionários são organizados por seção/página; nenhuma página adicional é criada agora.
 
-### 6.2 Recomendação técnica original (proposta)
+**P3 — `/en` para inglês e `/pt` para português brasileiro; `hreflang` `en` e `pt-BR`, respectivamente.**
+- *Justificativa:* URLs curtas e previsíveis; o idioma segue sendo PT-BR (§2.4), expresso na tag (`lang` e `hreflang`), não no caminho. A recomendação técnica original era `/pt-br`; o Owner decidiu por `/pt`.
+- *Consequências técnicas:* o mapeamento *slug → tag* (`en` → `en`, `pt` → `pt-BR`) fica em **um único lugar** e é coberto por teste; `<html lang>` usa a tag (`en` / `pt-BR`); o dicionário PT chama-se `pt`. *Risco aceito:* `/pt` é um caminho genérico; se o mercado europeu (§2.3) exigir português de Portugal no futuro, haverá conflito de nome e será preciso nova decisão (por exemplo, adicionar `/pt-pt` e reavaliar `/pt`). Por isso `/pt` deve ser documentado como **português do Brasil**.
 
-**Opção A**, com os parâmetros abaixo, e **gatilho explícito para migrar para a Opção B** se o escopo crescer.
+**P4 — Redirecionar `/` para `/en` com HTTP 307; `x-default` = `/en`.**
+- *Justificativa:* 307 é temporário e não fica em cache indefinidamente em navegadores e buscadores, o que preserva a liberdade de mudar a estrutura enquanto DEC-RIV-005 e DEC-RIV-008 estão pendentes. `x-default` em `/en` é coerente com EN como idioma principal.
+- *Consequências técnicas:* **verificado em 03/11/2026 na documentação do Next.js 16.4.4** (`.../05-config/01-next-config-js/redirects.md`): `redirects()` em `next.config` usa **307 com `permanent: false`** e 308 com `permanent: true`. Logo, uma regra estática `{ source: '/', destination: '/en', permanent: false }` basta, sem `proxy`. Parâmetros de consulta são repassados (documentação). `/` não é página indexável (é só redirecionamento); `canonical` e `hreflang` ficam apenas em `/en` e `/pt`. Se um dia existir um seletor de idioma em `/`, o redirecionamento sai e o `x-default` muda. O comportamento do fragmento (`#secao`) através do redirecionamento não foi testado: **validar na RIV-16**.
 
-Motivo: o requisito atual (duas línguas, poucas seções, conteúdo no repositório, baixa dependência) é proporcional à solução nativa. A Opção B é a alternativa forte e segura; é a escolha preferível se o Owner priorizar menos código próprio em troca de uma dependência.
+### 6.2 Parâmetros técnicos resultantes (para a RIV-16, sem implementar agora)
 
-**Gatilhos para reavaliar e migrar para B:** (a) a DEC-RIV-005 mudar para um site com várias páginas; (b) surgirem plurais, datas/moedas localizadas ou mais de dois idiomas; (c) o conteúdo passar a vir de um CMS.
+1. **Rotas:** `app/[lang]/...` com `lang` ∈ {`en`, `pt`}; idioma desconhecido responde 404 via `hasLocale` + `notFound()`; `generateStaticParams` devolve `[{ lang: 'en' }, { lang: 'pt' }]` (páginas estáticas).
+2. **Redirecionamento:** regra estática de `/` para `/en` (307) em `next.config.ts`; nenhum `proxy`.
+3. **Atributo de idioma:** `<html lang="en">` em `/en` e `<html lang="pt-BR">` em `/pt`.
+4. **SEO:** `canonical` por idioma; `<link rel="alternate" hreflang="en|pt-BR|x-default">` com `x-default` apontando para `/en`; sitemap com as duas versões e alternates; URLs absolutas montadas a partir de uma **URL-base configurável** (o domínio é a DEC-RIV-008, pendente).
+5. **Conteúdo:** um dicionário por idioma no repositório (`en` e `pt`), com **um tipo único** que obriga as mesmas chaves; componentes recebem o texto por props, **nenhum componente é duplicado por idioma**. Sem CMS (§11.5).
+6. **Alternância de idioma:** link comum, acessível por teclado, com `lang`/`hreflang` no link; sem JavaScript obrigatório e sem cookie.
+7. **Testes (RIV-16/RIV-18):** paridade de chaves EN/PT; mapeamento slug→tag; resposta 307 de `/` para `/en`; `lang` e `hreflang` no HTML; 404 para idioma desconhecido.
+8. **Dependências:** nenhuma biblioteca de i18n.
 
-### Parâmetros propostos
+### 6.3 Gatilhos para reavaliar (e considerar `next-intl`)
 
-1. **URLs (conforme direção do Owner):** EN em `/en` e PT-BR em `/pt`; `/` redireciona para `/en`. Âncoras preservadas (`/en#services`, `/pt#services`). O prefixo `/pt` é o *slug* de URL; o atributo de idioma continua `pt-BR` (ver ponto de atenção 1 na seção 8). *Original da proposta: EN em `/` e PT-BR em `/pt-br`.*
-2. **Atributo de idioma:** `<html lang="en">` em `/en` e `<html lang="pt-BR">` em `/pt`.
-3. **SEO (preparação pedida pelo Owner):** `canonical` por idioma e `<link rel="alternate" hreflang="en|pt-BR|x-default">` com URLs absolutas montadas a partir de uma URL-base configurável (o domínio depende da DEC-RIV-008, pendente); sitemap listando as duas versões com alternates. Qual URL recebe `x-default` é decisão pendente (seção 9).
-4. **Alternância de idioma:** um link simples para a mesma seção no outro idioma, acessível por teclado e com `lang`/`hreflang` no link. Sem JavaScript obrigatório.
-5. **Redirecionamento e detecção:** a direção do Owner define apenas o redirecionamento **fixo** de `/` para `/en`. A proposta original recomendava **não** redirecionar por `Accept-Language` e **não** usar cookie de idioma (idioma vem da URL; evita problemas de indexação e mantém a privacidade, §13.5). O Owner **não se pronunciou** sobre detecção por `Accept-Language` nem sobre cookie: seguem como recomendação e pendentes de confirmação (seção 9).
-6. **Conteúdo:** um dicionário por idioma em `content/` (ex.: `en.ts`, `pt.ts`), com um tipo único que obriga as mesmas chaves nos dois. Componentes recebem o texto por props; **nenhum componente é duplicado por idioma**.
-7. **Testes (para a RIV-16/RIV-18):** teste de paridade de chaves EN/PT, teste de seleção de idioma por rota e verificação de `lang`/hreflang no HTML gerado.
-8. **Fallback:** rota de idioma desconhecido responde 404; não há mistura de idiomas na mesma página.
-9. **Mecanismo (a validar na RIV-16):** como as rotas têm prefixo nos dois idiomas, o redirecionamento de `/` para `/en` pode ser uma regra estática de redirecionamento na configuração do Next.js, sem arquivo de interceptação de requisição (`proxy`) e sem regra de reescrita; isso simplifica a Opção A. Não foi validado contra a documentação do Next.js 16 nesta sessão.
+(a) a DEC-RIV-005 ou o crescimento do site pedir muitas páginas e namespaces; (b) surgirem plurais, datas/moedas localizadas ou mais de dois idiomas; (c) o conteúdo passar a vir de um CMS; (d) a manutenção dos helpers próprios (links, metadados) passar a custar mais do que uma dependência.
 
 ## 7. Consequências e riscos
 
-- A manutenção dos helpers (links, metadados) é nossa; mitigada pelo tamanho pequeno e pelos testes.
-- Trocar para a Opção B depois exige migrar os dicionários e os links; custo estimado baixo enquanto o conteúdo for pequeno. Estimativa qualitativa, não medida.
-- Hreflang e sitemap precisam do domínio final (DEC-RIV-008); até lá usam um valor configurável.
-- O tema depende do que a DEC-RIV-005 decidir sobre página única; a estrutura `/en` + `/pt` serve tanto para página única quanto para poucas páginas.
-- O redirecionamento de `/` para `/en` precisa de um código de status definido (temporário 307 ou permanente 308): um redirecionamento permanente pode ficar em cache de navegadores e buscadores se o idioma padrão mudar um dia. Decisão pendente (seção 9). O comportamento do fragmento (`#secao`) em redirecionamentos deve ser validado na RIV-16.
-- Mudanças na API de interceptação de requisição do Next.js entre versões podem exigir ajuste; mitigação: manter o arquivo pequeno e coberto por teste. Com a direção do Owner (prefixo nos dois idiomas), a regra de reescrita para EN sem prefixo deixa de ser necessária.
+- A manutenção dos helpers (links, metadados) é nossa; mitigada pelo tamanho pequeno e pelos testes. Trocar para a Opção B depois exige migrar dicionários e links; custo estimado baixo enquanto o conteúdo for pequeno (estimativa qualitativa, não medida).
+- Sem detecção de idioma (P1), visitantes de língua portuguesa chegam em EN e precisam trocar manualmente.
+- `/pt` pode conflitar com português de Portugal no futuro (P3).
+- `canonical`, `hreflang` e sitemap dependem do domínio final (DEC-RIV-008); até lá usam uma URL-base configurável.
+- A estrutura funciona para página única e para várias páginas (P2), mas o formato definitivo depende da DEC-RIV-005.
+- Mudanças de comportamento do Next.js entre versões: as afirmações acima foram conferidas na documentação da versão 16.4.4; reconferir ao atualizar a versão.
 
-## 8. Perguntas da proposta original, respostas e pontos de atenção
+## 8. Consistência com a Fonte da Verdade
 
-### 8.1 As quatro perguntas
+Verificação de 03/11/2026 contra o texto da Fonte da Verdade V1.0:
 
-| # | Pergunta | Situação após a direção do Owner |
+| Referência | Exigência | Situação |
 | --- | --- | --- |
-| 1 | Opção A (nativa) ou B (next-intl)? | **Respondida pela direção:** solução nativa do Next.js (Opção A). Falta apenas a aprovação formal. |
-| 2 | EN em `/` + PT-BR em `/pt-br`, ou ambos com prefixo? | **Respondida pela direção:** ambos com prefixo, mas com o *slug* **`/pt`** (não `/pt-br`) e `/` redirecionando para `/en`. O slug `/pt` é uma escolha nova, não analisada na proposta (ponto de atenção 1). |
-| 3 | Sem redirecionamento automático por idioma do navegador e sem cookie? | **Parcialmente respondida:** o redirecionamento fixo `/` → `/en` está decidido. **Pendente:** detecção por `Accept-Language` (recomendação: não) e cookie de idioma (recomendação: não). |
-| 4 | A decisão vale para página única e para poucas páginas enquanto a DEC-RIV-005 estiver pendente? | **Não respondida.** A estrutura proposta serve para ambos; precisa de confirmação explícita. |
+| §2.4 | EN principal, PT-BR secundário, alternância, sem duplicar componentes | Atendido (P3, 6.2 itens 5 e 6) |
+| §2.3 | Mercados Brasil, Suécia e outros países europeus | Sem conflito; risco de nome `/pt` registrado (P3) |
+| §6, §7 | Página principal com seções e âncoras; versão portuguesa com rótulos traduzidos | Compatível (P2) |
+| §11.2, §11.5 | Arquitetura simples, baixa dependência, conteúdo no repositório, sem CMS | Atendido (nativa, 0 dependências) |
+| §11.6 | Estratégia de roteamento e tradução definida na fundação técnica | Cumprido por este ADR |
+| §12 RF-03 | Conteúdo disponível em EN/PT | Preparado; implementação na RIV-16 |
+| §13.3 | Metadados, configuração de idioma, sitemap, indexação | Atendido (6.2 itens 3 e 4) |
+| §13.5 | Coleta mínima, transparência | Atendido (P1: sem cookie nem detecção) |
+| §14 | Fora de escopo V1 | Nada adicionado |
+| §15 | Sprint 0 e Sprint 1 listam a estratégia; Sprint 3 a implementação | Este ADR é a estratégia; a implementação fica na RIV-16 (Sprint 3) |
+| DEC-RIV-005 | Página única — **proposta, não aprovada** | Não tratada como aprovada (P2) |
+| DEC-RIV-008 | Domínio — **pendente** | Não tratada como aprovada (URL-base configurável) |
+| DEC-RIV-006 | Stack aprovada | Respeitada |
 
-### 8.2 Conflitos e pontos de atenção frente à Fonte da Verdade
+**Conclusão:** nenhum conflito com requisitos aprovados. Os pontos em aberto não bloqueiam este ADR (seção 9).
 
-Não foi identificado **conflito direto** com requisitos aprovados. Pontos de atenção:
+## 9. Pendências que não bloqueiam este ADR
 
-1. **Slug `/pt` x idioma PT-BR (§2.4).** A Fonte da Verdade define o segundo idioma como PT-BR. `/pt` é apenas o caminho de URL e não contradiz isso, desde que `lang` e `hreflang` usem `pt-BR`. Risco: `/pt` sugere português genérico, e o mercado europeu (§2.3) pode um dia pedir português de Portugal, o que colidiria com o mesmo caminho. Mitigação: documentar `/pt` como português do Brasil, ou usar `/pt-br`.
-2. **Redirecionamento `/` → `/en`.** A Fonte da Verdade não o especifica nem o impede. Em SEO, o redirecionamento fixo não é o problema; o cuidado é o código de status e qual URL é canônica/`x-default` (seção 9). Mostra a página inicial sempre em inglês, coerente com EN como idioma principal (§2.4).
-3. **DEC-RIV-005 (página única) pendente.** O ADR é neutro: a estrutura `/en`/`/pt` funciona com uma ou várias páginas. Não é tratada como aprovada.
-4. **DEC-RIV-008 (domínio) pendente.** `canonical`, `hreflang` e sitemap precisam de URLs absolutas. Solução: URL-base configurável; não bloqueia a aceitação do ADR, mas bloqueia concluir a parte de SEO na RIV-16.
-5. **§11.6.** A estratégia de roteamento e tradução deve ser definida na fundação técnica: este ADR cumpre isso. O §15 também lista a estratégia na Sprint 0 (divergência interna já registrada em `docs/ops/STATUS.md`).
-6. **Privacidade (§13.5).** A direção não menciona cookies; a recomendação de não usar cookie de idioma permanece e está pendente de confirmação.
-7. **Sem implementação.** Coerente com a RIV-15 (apenas ADR) e com a RIV-16 fora da Sprint 1.
-
-## 9. Decisões ainda pendentes antes de marcar como "Accepted"
-
-| # | Decisão pendente | Recomendação técnica | Bloqueia "Accepted"? |
-| --- | --- | --- | --- |
-| P1 | Detecção por `Accept-Language` e cookie de idioma (pergunta 3) | Não detectar e não usar cookie | Sim |
-| P2 | Validade para página única e para poucas páginas (pergunta 4) | Sim, a estrutura serve para ambos | Sim |
-| P3 | Slug **`/pt`** ou `/pt-br` (ponto de atenção 1) | `/pt` aceitável se documentado como português do Brasil; `/pt-br` evita ambiguidade futura | Sim |
-| P4 | Código do redirecionamento `/` → `/en` (307 temporário ou 308 permanente) e qual URL recebe `x-default` | 307 enquanto a estrutura não estiver estável; `x-default` apontando para `/en` | Sim |
-| P5 | URL-base/domínio para `canonical` e `hreflang` (DEC-RIV-008) | Valor configurável até a DEC-RIV-008 | Não (bloqueia só o SEO da RIV-16) |
-| P6 | Estrutura de página única (DEC-RIV-005) | ADR neutro | Não |
+| # | Pendência | Efeito |
+| --- | --- | --- |
+| P5 | URL-base/domínio (DEC-RIV-008) | Bloqueia apenas concluir `canonical`, `hreflang` e sitemap na RIV-16 |
+| P6 | Estrutura de página única (DEC-RIV-005) | O ADR é neutro (P2) |
+| P7 | Comportamento do fragmento `#secao` no redirecionamento de `/` | Validar na RIV-16 |
 
 ## 10. Aprovação
 
-**Pendente.** O ADR só passa a "Accepted" depois que o Owner decidir P1 a P4. Então: registrar em `docs/DECISIONS.md` (seção de decisões operacionais) com referência a este ADR, atualizar o status acima e só então planejar a RIV-16.
+**Aprovado pelo Owner em 03/11/2026:** solução nativa do Next.js sem biblioteca inicial e as decisões P1 a P4 conforme a seção 6.1. Registrado em `docs/DECISIONS.md` como **ADR-0001**. A implementação pertence à RIV-16 (Sprint 3), que **não foi iniciada**. O merge do PR deste ADR exige nova autorização do Owner.

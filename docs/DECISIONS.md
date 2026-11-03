@@ -24,3 +24,11 @@ Referência canônica de produto: [Fonte da Verdade — Rivelume Labs](https://d
 | GOV-RIV-003 | 11/10/2026 | A branch `governance/sprint-0-foundation` validada será a origem do bootstrap inicial de `main`; sem commit artificial. | Owner | Vigente |
 | GOV-RIV-004 | 11/10/2026 | Após o bootstrap, desenvolvimento usa branch → revisão/evidências → PR → main; push direto em main não é a rotina. | Owner | Vigente |
 | GOV-RIV-005 | 11/10/2026 | Até existir versão global formalmente aprovada do Rick Loop, adotar fluxo local `Source of Truth → Jira → branch → implementação → testes/evidências → REVIEW → revisão/Owner quando aplicável → merge main → Remote DONE`. | Owner | Vigente como protocolo local |
+
+## Decisões técnicas do Owner (ADRs)
+
+| ID | Data | Decisão | Autoridade | Status | Referência |
+| --- | --- | --- | --- | --- | --- |
+| ADR-0001 | 03/11/2026 | Internacionalização EN/PT-BR com a solução nativa do Next.js, sem biblioteca inicial. **P1:** idioma só pela URL, sem detecção automática e sem cookie de preferência. **P2:** arquitetura compatível com página única ou múltiplas páginas, sem criar páginas adicionais. **P3:** rotas `/en` (hreflang `en`) e `/pt` (hreflang `pt-BR`). **P4:** `/` redireciona para `/en` com HTTP 307; `x-default` = `/en`. Implementação na RIV-16 (Sprint 3), não iniciada. | Owner | Aprovado (vigente a partir do merge do PR #3) | [`docs/adr/0001-estrategia-i18n.md`](adr/0001-estrategia-i18n.md) |
+
+Esta decisão não aprova DEC-RIV-005 (página única) nem DEC-RIV-008 (domínio), que continuam pendentes na Fonte da Verdade.
