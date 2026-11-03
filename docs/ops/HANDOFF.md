@@ -4,7 +4,7 @@
 
 - Produto: website institucional e comercial B2B da Rivelume Labs.
 - Repositório: `devricardo90/rivelume-labs-web`.
-- Estado (02/11/2026): governança inicial concluída e Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). Nenhum código de produto na `main` ainda; a aplicação base (RIV-12, placeholder técnico) está no PR #4 e o ADR de i18n (RIV-15, **Accepted** em 03/11/2026, ADR-0001) no PR #3, ambos aguardando o Owner. A baseline do repositório (RIV-11) foi mesclada no PR #2.
+- Estado (03/11/2026): governança inicial concluída e Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). Nenhum código de produto na `main` ainda; a aplicação base (RIV-12, placeholder técnico) está no PR #4 e o ADR de i18n (RIV-15, **Accepted** em 03/11/2026, ADR-0001) no PR #3, ambos aguardando o Owner. A baseline do repositório (RIV-11) foi mesclada no PR #2.
 - Fonte canônica: [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), V1.0 aprovada em 11/10/2026. Releia antes de atuar.
 
 ## Escopo e stack aprovados

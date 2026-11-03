@@ -1,4 +1,4 @@
-# Estado operacional — 02/11/2026
+# Estado operacional — 03/11/2026
 
 ## Source of Truth
 
@@ -72,7 +72,7 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 | Escopo do MVP | §6, aprovado como escopo B2B inicial; DEC-RIV-005 (página única/seis seções) ainda proposta | Parcial |
 | Identidade comercial definida | Nome aprovado com ressalva jurídica (DEC-RIV-002); proposta de valor, identidade visual (DEC-RIV-007) e domínio (DEC-RIV-008) pendentes | Parcial |
 | Arquitetura aprovada | DEC-RIV-006 | Cumprida |
-| Estratégia de internacionalização | Idiomas EN/PT-BR definidos; roteamento e tradução ficam para a fundação técnica (§11.6), em RIV-15 (Fonte da Verdade §15 lista a estratégia nas Sprints 0 e 1; §11.6 a adia para a fundação técnica) | Parcial |
+| Estratégia de internacionalização | Idiomas EN/PT-BR definidos; estratégia de roteamento e tradução **decidida no ADR-0001** (`docs/adr/0001-estrategia-i18n.md`, RIV-15; aprovado pelo Owner em 03/11/2026, vigente a partir do merge do PR #3). A Fonte da Verdade §15 lista a estratégia nas Sprints 0 e 1; §11.6 a adia para a fundação técnica | Parcial até o merge do PR #3 |
 | Repositório definido | Repositório, `main` e branch de governança verificados | Cumprida; `main` protegida pelo ruleset 24971542 |
 | Projeto Jira criado | Projeto RIV lido de volta em 13/10/2026; workflow, board 233 e sprint 179 verificados | Cumprida |
 | Critérios de qualidade definidos | DoD (§17) e RNF (§13) existem; sem ferramentas configuradas | Parcial |

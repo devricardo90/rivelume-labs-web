@@ -1,6 +1,6 @@
 # Objetivo atual
 
-Sprint 1 — Technical Foundation em andamento (RIV Sprint 1, id 179, 02/11/2026 a 13/11/2026), iniciada por autorização do Owner. Escopo: RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar RIV-16, não implementar internacionalização antes da aprovação do ADR (RIV-15), não publicar em produção e não fazer merge sem autorização do Owner.
+Sprint 1 — Technical Foundation em andamento (RIV Sprint 1, id 179, 02/11/2026 a 13/11/2026), iniciada por autorização do Owner. Escopo: RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar RIV-16, não implementar internacionalização antes do merge do ADR (PR #3) e da Sprint 3 (RIV-16 não iniciada), não publicar em produção e não fazer merge sem autorização do Owner.
 
 ## Estado
 
