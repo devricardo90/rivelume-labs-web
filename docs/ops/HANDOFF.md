@@ -4,7 +4,7 @@
 
 - Produto: website institucional e comercial B2B da Rivelume Labs.
 - Repositório: `devricardo90/rivelume-labs-web`.
-- Estado (02/11/2026): governança inicial concluída e Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). Nenhum código de produto na `main` ainda; a aplicação base (RIV-12, placeholder técnico) está no PR #4, a baseline do repositório (RIV-11) neste PR e o ADR de i18n (RIV-15, proposto) no PR #3, todos aguardando o Owner.
+- Estado (03/11/2026): governança inicial concluída e Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). Nenhum código de produto na `main` ainda; a aplicação base (RIV-12, placeholder técnico) está no PR #4 e o ADR de i18n (RIV-15, **Accepted** em 03/11/2026, ADR-0001) no PR #3, ambos aguardando o Owner. A baseline do repositório (RIV-11) foi mesclada no PR #2.
 - Fonte canônica: [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), V1.0 aprovada em 11/10/2026. Releia antes de atuar.
 
 ## Escopo e stack aprovados
@@ -16,7 +16,7 @@
 ## Fontes externas
 
 - Jira: projeto RIV (`https://ricardodesouzafrancisco.atlassian.net/browse/RIV`). Épicos RIV-1 a RIV-7. Sprint 1 em RIV-11 a RIV-15 e RIV-17 a RIV-20. RIV-8, RIV-9 e RIV-10 em Feito. Prontidão por rótulos (`ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-3-backlog`). Não use AXY nem outros projetos do site.
-- GitHub: `main` em `54267d61b3c3dbf729c81b4ad37b0104eb0e2f32` em 02/11/2026 (merge do PR #1); protegida pelo ruleset "Protect Main" (id 24971542, 0 aprovações, sem bypass), verificado por leitura da API. Mudanças entram por branch → PR (ver `docs/REPOSITORY.md`); sem merge automático.
+- GitHub: `main` em `5644df85a80f0ac52fa2e34b8c8fb423ab78cb21` em 03/11/2026 (merge do PR #2); protegida pelo ruleset "Protect Main" (id 24971542, 0 aprovações, sem bypass), verificado por leitura da API. Mudanças entram por branch → PR (ver `docs/REPOSITORY.md`); sem merge automático.
 
 ## Governança local vigente
 
