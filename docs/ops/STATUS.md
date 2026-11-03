@@ -81,4 +81,4 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 
 ## Limites
 
-A Sprint 1 está em andamento por autorização do Owner (02/11/2026), com escopo estrito nas tarefas RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar a RIV-16. Não implementar internacionalização antes da aprovação do ADR (RIV-15). Não publicar em produção. Merges só com autorização do Owner. Não alterar segredos, visibilidade ou plano do GitHub.
+A Sprint 1 está em andamento por autorização do Owner (02/11/2026), com escopo estrito nas tarefas RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar a RIV-16. Não implementar internacionalização antes do merge do ADR (PR #3) e da Sprint 3 (RIV-16 não iniciada). Não publicar em produção. Merges só com autorização do Owner. Não alterar segredos, visibilidade ou plano do GitHub.
