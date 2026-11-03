@@ -1,8 +1,8 @@
 export default function Home() {
   return (
-    <main>
-      <h1>Rivelume Labs</h1>
-      <p>Website under construction.</p>
+    <main className="p-8">
+      <h1 className="text-2xl font-semibold">Rivelume Labs</h1>
+      <p className="mt-2">Website under construction.</p>
     </main>
   );
 }
