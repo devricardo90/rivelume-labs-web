@@ -1,6 +1,6 @@
 # Rivelume Labs
 
-Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0; nenhuma implementação do website foi iniciada.
+Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0. A aplicação base (RIV-12, Sprint 1) é um placeholder técnico em Next.js, sem conteúdo comercial; o website comercial ainda não foi implementado. Como executá-la: `docs/DEVELOPMENT.md`.
 
 ## Estado
 
