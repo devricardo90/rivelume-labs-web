@@ -25,4 +25,4 @@ Google Docs governa o produto, Jira organiza a execução e GitHub comprova o qu
 2. Releia integralmente a Fonte da Verdade vigente antes de iniciar uma tarefa de produto.
 3. Confirme o projeto e o item RIV, seus estados reais, dependências, critérios e gate antes de iniciar trabalho.
 4. Use branch, revisão/evidências e PR para integrar alterações em `main`.
-5. Não implemente nada além do escopo aprovado nem inicie a Sprint 1 sem autorização do Owner e sem as dependências da tarefa verificadas (RIV-8 fecha após o merge do PR #1).
+5. Não implemente nada além do escopo aprovado nem inicie tarefa fora da Sprint 1 ativa (RIV-11 a RIV-15 e RIV-17 a RIV-20) nem antes de suas dependências estarem satisfeitas; não inicie RIV-16.

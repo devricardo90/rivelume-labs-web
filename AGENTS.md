@@ -55,5 +55,5 @@ As ferramentas têm responsabilidades distintas. Registre divergências, determi
 ## Jira
 
 - Usar apenas o projeto Jira Software `Rivelume Labs`, chave `RIV` (já criado); não reutilizar AXY nem outros projetos do site.
-- Antes de operar, inspecione tipos, workflow, status, board e sprints reais; board 233 e "RIV Sprint 1" (id 179, `future`) foram verificados em 01/11/2026 (ver `docs/ops/STATUS.md`). Estrutura: Epic → Tarefa → Subtask quando necessário.
+- Antes de operar, inspecione tipos, workflow, status, board e sprints reais; board 233 e "RIV Sprint 1" (id 179) foram verificados em 01/11/2026 e a sprint foi iniciada pelo Owner em 02/11/2026 (ver `docs/ops/STATUS.md`). Estrutura: Epic → Tarefa → Subtask quando necessário.
 - Cada issue deve conter objetivo, contexto, escopo, fora de escopo, dependências, critérios de aceitação, Definition of Done, evidências e gate aplicável, derivados da Fonte da Verdade.
