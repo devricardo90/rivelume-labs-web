@@ -1,6 +1,6 @@
 # ADR 0001 — Estratégia de internacionalização (EN / PT-BR)
 
-- **Status:** **ACCEPTED — decisões P1 a P4 e solução nativa aprovadas pelo Owner em 03/11/2026** (vigente a partir do merge deste PR, que depende de autorização do Owner). **Sem implementação:** a RIV-16 (Sprint 3) não foi iniciada.
+- **Status:** **ACCEPTED — decisões P1 a P4 e solução nativa aprovadas pelo Owner em 03/11/2026** (vigente desde o merge do PR #3 em `ce1ef45`, 03/11/2026, autorizado pelo Owner). **Sem implementação:** a RIV-16 (Sprint 3) não foi iniciada.
 - **Tarefa Jira:** RIV-15 (S1-05). A implementação é a RIV-16 (Sprint 3, bloqueada por este ADR).
 - **Data:** proposta em 02/11/2026; decisão do Owner em 03/11/2026
 - **Decisor:** Owner (arquitetura material, Fonte da Verdade §16.4).
@@ -151,4 +151,4 @@ Verificação de 03/11/2026 contra o texto da Fonte da Verdade V1.0:
 
 ## 10. Aprovação
 
-**Aprovado pelo Owner em 03/11/2026:** solução nativa do Next.js sem biblioteca inicial e as decisões P1 a P4 conforme a seção 6.1. Registrado em `docs/DECISIONS.md` como **ADR-0001**. A implementação pertence à RIV-16 (Sprint 3), que **não foi iniciada**. O merge do PR deste ADR exige nova autorização do Owner.
+**Aprovado pelo Owner em 03/11/2026:** solução nativa do Next.js sem biblioteca inicial e as decisões P1 a P4 conforme a seção 6.1. Registrado em `docs/DECISIONS.md` como **ADR-0001**. A implementação pertence à RIV-16 (Sprint 3), que **não foi iniciada**. O PR deste ADR (#3) foi mesclado em 03/11/2026 (`ce1ef45`) com autorização do Owner.

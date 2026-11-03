@@ -41,24 +41,24 @@
 | Chave | Tarefa | Prontidão | Depende de |
 | --- | --- | --- | --- |
 | RIV-11 | S1-01 Baseline do repositório e política de branches | **Feito** (PR #2 mesclado em `5644df8`, 03/11/2026; `docs/REPOSITORY.md`) | — |
-| RIV-12 | S1-02 Next.js + TypeScript | Fazendo (implementada e validada em clone limpo; PR #4 aguardando merge do Owner) | — |
-| RIV-13 | S1-03 Tailwind CSS | waiting-dependency | RIV-12 |
-| RIV-14 | S1-04 Estrutura de componentes e conteúdo | waiting-dependency | RIV-12 |
-| RIV-15 | S1-05 ADR da estratégia i18n EN/PT-BR | Fazendo (ADR **Accepted**: decisões P1 a P4 aprovadas pelo Owner em 03/11/2026, registradas como ADR-0001; PR #3 aguardando merge do Owner) | — |
-| RIV-17 | S1-07 Qualidade (lint, formatação, typecheck) | waiting-dependency | RIV-12 |
-| RIV-18 | S1-08 Testes básicos | waiting-dependency | RIV-12, RIV-17 |
-| RIV-19 | S1-09 CI inicial | waiting-dependency | RIV-12, RIV-17, RIV-18 |
-| RIV-20 | S1-10 Gate Technical Foundation Validation | waiting-dependency, owner-gate | RIV-11 a RIV-15, RIV-17 a RIV-19 |
+| RIV-12 | S1-02 Next.js + TypeScript | **Feito** (PR #4 mesclado em `575550b`, 03/11/2026; Next.js 16.4.4 + TypeScript) | — |
+| RIV-13 | S1-03 Tailwind CSS | ready (plano apresentado ao Owner) | RIV-12 (Feito) |
+| RIV-14 | S1-04 Estrutura de componentes e conteúdo | ready | RIV-12 (Feito) |
+| RIV-15 | S1-05 ADR da estratégia i18n EN/PT-BR | **Feito** (PR #3 mesclado em `ce1ef45`, 03/11/2026; ADR-0001 **Accepted**: decisões P1 a P4 do Owner, vigente) | — |
+| RIV-17 | S1-07 Qualidade (lint, formatação, typecheck) | ready | RIV-12 (Feito) |
+| RIV-18 | S1-08 Testes básicos | waiting-dependency | RIV-17 (RIV-12 Feito) |
+| RIV-19 | S1-09 CI inicial | waiting-dependency | RIV-17, RIV-18 (RIV-12 Feito) |
+| RIV-20 | S1-10 Gate Technical Foundation Validation | waiting-dependency, owner-gate | RIV-13, RIV-14, RIV-17 a RIV-19 (RIV-11, RIV-12 e RIV-15 Feito) |
 
-Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 links, de RIV-11 a RIV-15 e RIV-17 a RIV-19, verificados em 02/11/2026). RIV-11 está em "Feito"; RIV-12 e RIV-15 estão em "Fazendo"; as demais, em "A fazer".
+Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 links, de RIV-11 a RIV-15 e RIV-17 a RIV-19, verificados em 02/11/2026). RIV-11, RIV-12 e RIV-15 estão em "Feito"; RIV-13, RIV-14 e RIV-17 estão `ready` (sem dependência aberta); as demais, em "A fazer".
 
 **RIV-16 (esqueleto de i18n) fica fora da Sprint 1.** A Fonte da Verdade §15 lista só "Estratégia EN/PT" na Sprint 1; a implementação de "Internacionalização" é entrega da Sprint 3. RIV-16 permanece no épico RIV-5, bloqueada pelo ADR aprovado (RIV-15) e por RIV-12. O link "Blocks" RIV-16 → RIV-20 (id 10291), criado antes dessa correção, foi removido manualmente pelo Owner; a releitura de RIV-20 em 02/11/2026 confirma 8 links restantes.
 
 ## GitHub
 
-- **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web). `main` em `5644df85a80f0ac52fa2e34b8c8fb423ab78cb21` em 03/11/2026 (merge do PR #2; antes, `54267d6`, merge do PR #1). Baseline completa em `docs/REPOSITORY.md`.
+- **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web). `main` em `ce1ef45ec16fae16d2c64deec10e5da3f6d5f343` em 03/11/2026 (merge do PR #3; antes `575550b` PR #4, `5644df8` PR #2, `54267d6` PR #1). Baseline completa em `docs/REPOSITORY.md`.
 - **Visibilidade:** pública. **Proteção de `main`:** ativa. Ruleset "Protect Main" (id 24971542), verificado por leitura da API em 13/10/2026 e 02/11/2026: PR obrigatório com 0 aprovações, bloqueio de force-push e de exclusão, sem bypass e sem checks exigidos (configuração do Owner; 0 aprovações é a decisão vigente).
-- **CI:** `CI_NOT_CONFIGURED` — Actions habilitado, 0 workflows, 0 execuções e sem `.github/` em `main` (a aplicação base da RIV-12 está no PR #4, ainda não mesclado). Implementação em RIV-19, que depende de RIV-12, RIV-17 e RIV-18 (ainda em "A fazer").
+- **CI:** `CI_NOT_CONFIGURED` — Actions habilitado, 0 workflows, 0 execuções e sem `.github/` em `main` (a aplicação base da RIV-12 já está na `main`). Implementação em RIV-19, que depende de RIV-17 e RIV-18 (RIV-12 em Feito; as duas em "A fazer").
 
 ## Protocolo
 
@@ -72,7 +72,7 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 | Escopo do MVP | §6, aprovado como escopo B2B inicial; DEC-RIV-005 (página única/seis seções) ainda proposta | Parcial |
 | Identidade comercial definida | Nome aprovado com ressalva jurídica (DEC-RIV-002); proposta de valor, identidade visual (DEC-RIV-007) e domínio (DEC-RIV-008) pendentes | Parcial |
 | Arquitetura aprovada | DEC-RIV-006 | Cumprida |
-| Estratégia de internacionalização | Idiomas EN/PT-BR definidos; estratégia de roteamento e tradução **decidida no ADR-0001** (`docs/adr/0001-estrategia-i18n.md`, RIV-15; aprovado pelo Owner em 03/11/2026, vigente a partir do merge do PR #3). A Fonte da Verdade §15 lista a estratégia nas Sprints 0 e 1; §11.6 a adia para a fundação técnica | Parcial até o merge do PR #3 |
+| Estratégia de internacionalização | Idiomas EN/PT-BR definidos; estratégia de roteamento e tradução **decidida no ADR-0001** (`docs/adr/0001-estrategia-i18n.md`, RIV-15; aprovado pelo Owner em 03/11/2026, vigente desde o merge do PR #3 em `ce1ef45`). A Fonte da Verdade §15 lista a estratégia nas Sprints 0 e 1; §11.6 a adia para a fundação técnica | Cumprida |
 | Repositório definido | Repositório, `main` e branch de governança verificados | Cumprida; `main` protegida pelo ruleset 24971542 |
 | Projeto Jira criado | Projeto RIV lido de volta em 13/10/2026; workflow, board 233 e sprint 179 verificados | Cumprida |
 | Critérios de qualidade definidos | DoD (§17) e RNF (§13) existem; sem ferramentas configuradas | Parcial |
@@ -81,4 +81,4 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 
 ## Limites
 
-A Sprint 1 está em andamento por autorização do Owner (02/11/2026), com escopo estrito nas tarefas RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar a RIV-16. Não implementar internacionalização antes do merge do ADR (PR #3) e da Sprint 3 (RIV-16 não iniciada). Não publicar em produção. Merges só com autorização do Owner. Não alterar segredos, visibilidade ou plano do GitHub.
+A Sprint 1 está em andamento por autorização do Owner (02/11/2026), com escopo estrito nas tarefas RIV-11 a RIV-15 e RIV-17 a RIV-20. Não iniciar a RIV-16. Não implementar internacionalização antes da Sprint 3 (RIV-16 não iniciada; o ADR-0001 já está vigente). Não publicar em produção. Merges só com autorização do Owner. Não alterar segredos, visibilidade ou plano do GitHub.
