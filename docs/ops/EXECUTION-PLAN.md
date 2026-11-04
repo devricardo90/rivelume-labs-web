@@ -3,7 +3,7 @@
 - **Status:** **PROPOSTA.** Só vigora depois do merge, que exige autorização do Owner.
 - **Data:** 04/11/2026 · **Tarefa de origem:** pedido do Owner "Execution Plan V1.0"
 - **Subordinação:** este documento é **subordinado** à Fonte da Verdade V1.0 (Google Docs), ao `AGENTS.md` e a `docs/GOVERNANCE.md`. Em caso de conflito, prevalecem essas fontes. Ele **não** cria requisitos, **não** altera decisões de produto e **não** é uma segunda Fonte da Verdade.
-- **Estado corrente do projeto** fica em `docs/ops/STATUS.md` e no Jira. Este documento define o **método**; os instantâneos datados (seções 3 e 14) existem só como evidência e envelhecem.
+- **Estado corrente do projeto** fica em `docs/ops/STATUS.md` e no Jira. Este documento define o **método**; os instantâneos datados (seções 3 e 15) existem só como evidência e envelhecem.
 
 ## 1. Hierarquia e papéis das fontes
 
@@ -36,7 +36,7 @@ Nada abaixo foi presumido: cada linha foi lida ou exercitada com confirmação d
 | **Jira (conector Atlassian)** | Projeto, board 233, sprint 179, issues, links, estados, comentários, transições | Com leitura de retorno: criar e editar issues, comentar, transitar, criar links "Blocks", associar issues a sprint, iniciar sprint. A operação de encerrar sprint **existe e não foi exercida** (irreversível) | **Não há operação para excluir link entre issues** (a remoção do link 10291 foi manual, pelo Owner). O **painel de desenvolvimento** das issues está vazio: não há integração Jira↔GitHub, então nada no Jira se atualiza sozinho a partir de commits, PRs ou merges. Automações internas do Jira não são consultáveis pelo conector |
 | **GitHub (`gh` e `git`)** | `main`, ruleset, PRs, comentários, Actions, permissões | Criar branch, PR, comentários e merge, com a conta do Owner (permissão admin) | O token do `gh` tem os escopos `repo`, `gist` e `read:org` e **não tem `workflow`**, necessário para enviar arquivos em `.github/workflows/`. O `git push` usa o Git Credential Manager, cujo token não pôde ser inspecionado: se o push de um workflow funciona é **não verificado** |
 | **GitHub Actions / CI** | Habilitado, **0 workflows, 0 execuções**, sem `.github/` na `main` | — | CI **não configurado** (RIV-19). Não há testes automatizados no projeto (RIV-18) |
-| **Codex (revisão automática)** | Revisão observada nos PRs #1 e #2, associada ao **primeiro commit** de cada PR (`241cc0b`, `c517e4e`); no PR #6 há um comentário do Codex, sem commit associado | — | Nos PRs #1 e #2 não há revisão do Codex sobre os commits seguintes: não presumir que ele reavalia o HEAD final |
+| **Codex (revisão automática)** | Revisão observada nos PRs #1 e #2, associada ao **primeiro commit** de cada PR (`241cc0b`, `c517e4e`; no PR #1 há também um comentário inline remapeado para o HEAD final, sem nova avaliação); no PR #6 o resumo do Codex referencia o primeiro commit (`467e1ce`), não o HEAD atual | — | Nos PRs #1 e #2 não há revisão do Codex sobre os commits seguintes: não presumir que ele reavalia o HEAD final |
 | **Navegador para validação visual** | A extensão do Chrome **não está conectada** nesta máquina (03/11/2026) | — | Usa-se Chrome e Edge **já instalados**, em modo headless, via o skill de automação. Firefox e Safari não estão disponíveis |
 
 ### 3.1 O que é automático e o que é sob comando
@@ -141,7 +141,7 @@ Regras: não registrar sincronização que não foi lida de volta; corrigir no m
 
 | Gate | Exige |
 | --- | --- |
-| **Merge de qualquer PR** | Autorização explícita, referente a um HEAD específico |
+| **Merge de qualquer PR** | Autorização explícita, referente a um HEAD específico (regra operacional proposta por este plano, mais estrita que o texto literal de `AGENTS.md`) |
 | **Início e encerramento de sprint** | Autorização explícita (o encerramento é irreversível) |
 | **Escopo, arquitetura material, custos, segurança, credenciais, publicação** | Decisão do Owner (`AGENTS.md`, Fonte da Verdade §16.4) |
 | **Identidade visual, validação do website, lançamento** | Gates canônicos da Fonte da Verdade §15 (Owner Visual Approval, Owner Website Validation, Owner Launch Approval) |
@@ -187,7 +187,7 @@ Sprint 179, de 02/11 a 13/11/2026 (duração escolhida pelo Owner), `active`. **
 | --- | --- | --- | --- | --- |
 | — | RIV-11, RIV-12, RIV-15 | — | Feito | — |
 | 1 | **RIV-13** Tailwind | RIV-12 ✔ | Fazendo; PR #6 revisado, aguardando o Owner | até 05/11 |
-| 2 | **RIV-14** Estrutura de componentes e conteúdo | RIV-12 ✔ | Pronta; plano preparatório; começa **depois** do merge do PR #6 (toca os mesmos arquivos) | 05–06/11 |
+| 2 | **RIV-14** Estrutura de componentes e conteúdo | RIV-12 ✔ | Pronta; plano preparatório registrado como comentário no Jira em 04/11; começa **depois** do merge do PR #6 (toca os mesmos arquivos) | 05–06/11 |
 | 3 | **RIV-17** Qualidade (lint, formatação, typecheck) | RIV-12 ✔ | Pronta; depois da RIV-14 (para configurar sobre o código final) | 06–09/11 |
 | 4 | **RIV-18** Testes básicos | RIV-17 | Aguarda a RIV-17 | 09–10/11 |
 | 5 | **RIV-19** CI inicial | RIV-17, RIV-18 | Aguarda; **risco de permissão** (escopo `workflow`, seção 3) | 10–11/11 |
