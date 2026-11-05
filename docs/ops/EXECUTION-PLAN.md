@@ -72,7 +72,9 @@ Uma tarefa só recebe o rótulo `ready` quando **todos** valem:
 2. **Todas as dependências** (links "Blocks") estão em Feito.
 3. **Nenhuma decisão pendente do Owner** bloqueia o escopo (decisões pendentes que afetam só etapas futuras não bloqueiam).
 4. Não conflita com a Fonte da Verdade nem com as decisões registradas em `docs/DECISIONS.md`.
-5. Está na sprint ativa, ou o Owner autorizou trazê-la.
+5. *(Sem exigência de sprint.)* Uma tarefa pode permanecer `ready` no backlog, fora da sprint ativa.
+
+**Para iniciar a implementação**, a tarefa deve estar na sprint ativa **ou** ter autorização explícita do Owner para execução fora dela (decisão do Owner de 04/11/2026).
 
 O workflow do Jira tem só **A fazer / Fazendo / Feito**: "READY", "REVIEW" e "Remote DONE" são representados por **rótulo e comentário** (`docs/GOVERNANCE.md`). Rótulos em uso: `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`.
 
@@ -141,7 +143,7 @@ Regras: não registrar sincronização que não foi lida de volta; corrigir no m
 
 | Gate | Exige |
 | --- | --- |
-| **Merge de qualquer PR** | Autorização explícita, referente a um HEAD específico (regra operacional proposta por este plano, mais estrita que o texto literal de `AGENTS.md`) |
+| **Merge de qualquer PR** | Autorização explícita, vinculada a um **HEAD específico**. **Qualquer alteração posterior ao HEAD autorizado exige nova validação e nova autorização** (decisão do Owner de 04/11/2026; mais estrita que o texto literal de `AGENTS.md`) |
 | **Início e encerramento de sprint** | Autorização explícita (o encerramento é irreversível) |
 | **Escopo, arquitetura material, custos, segurança, credenciais, publicação** | Decisão do Owner (`AGENTS.md`, Fonte da Verdade §16.4) |
 | **Identidade visual, validação do website, lançamento** | Gates canônicos da Fonte da Verdade §15 (Owner Visual Approval, Owner Website Validation, Owner Launch Approval) |
@@ -187,7 +189,7 @@ Sprint 179, de 02/11 a 13/11/2026 (duração escolhida pelo Owner), `active`. **
 | --- | --- | --- | --- | --- |
 | — | RIV-11, RIV-12, RIV-15 | — | Feito | — |
 | 1 | **RIV-13** Tailwind | RIV-12 ✔ | Fazendo; PR #6 revisado, aguardando o Owner | até 05/11 |
-| 2 | **RIV-14** Estrutura de componentes e conteúdo | RIV-12 ✔ | Pronta; plano preparatório registrado como comentário no Jira em 04/11; começa **depois** do merge do PR #6 (toca os mesmos arquivos) | 05–06/11 |
+| 2 | **RIV-14** Estrutura de componentes e conteúdo | RIV-12 ✔ | Pronta; plano preparatório no Jira (04/11) e decisões do Owner de 04/11 registradas; começa **depois** do merge do PR #6 (toca os mesmos arquivos) | 05–06/11 |
 | 3 | **RIV-17** Qualidade (lint, formatação, typecheck) | RIV-12 ✔ | Pronta; depois da RIV-14 (para configurar sobre o código final) | 06–09/11 |
 | 4 | **RIV-18** Testes básicos | RIV-17 | Aguarda a RIV-17 | 09–10/11 |
 | 5 | **RIV-19** CI inicial | RIV-17, RIV-18 | Aguarda; **risco de permissão** (escopo `workflow`, seção 3) | 10–11/11 |
