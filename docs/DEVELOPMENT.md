@@ -25,8 +25,8 @@ Verificação de tipos (a configuração de qualidade entra na RIV-17): `npx tsc
 
 - **Versão:** Tailwind CSS **v4**, decisão do Owner. `tailwindcss` e `@tailwindcss/postcss` em **4.3.3** e `postcss` em **8.5.31**, todos com **versão exata** (sem `^`) no `package.json` e no `package-lock.json`. Ao atualizar, mantenha `tailwindcss` e `@tailwindcss/postcss` **na mesma versão exata** (o segundo fixa o primeiro como dependência).
 - **Integração:** a integração oficial via PostCSS, a documentada pelo Next.js: `postcss.config.mjs` com o plugin `@tailwindcss/postcss` e `@import "tailwindcss";` em `app/globals.css`. **Não** use o loader `@tailwindcss/turbopack` que o scaffold do Next.js gera: ele fica preso ao Turbopack e não consta na documentação do Next 16.4.4. No teste do scaffold feito na RIV-13 (`create-next-app` 16.4.4 com Tailwind), o `next.config.ts` gerado trazia esse loader junto com Cache Components e Partial Prefetching ligados; aqui continuam desativados, por decisão do Owner.
-- **Sem identidade visual:** não há `@theme`, cores, fontes ou tokens de marca. Paleta, tipografia e design system pertencem à Sprint 2 (DEC-RIV-007 pendente) e à RIV-14. O Tailwind aplica apenas os valores padrão dele (fonte do sistema, escala de espaçamento).
-- **Detecção de classes:** o Tailwind lê automaticamente todos os arquivos do projeto, inclusive `.md`. Em `app/globals.css`, `@source not "../docs"` e `@source not "../*.md"` impedem que palavras da documentação gerem CSS. Comprovado com arquivos de teste: sem a exclusão, uma palavra em `docs/*.md` ou num `.md` da raiz virou regra CSS; com ela, não. Pastas de código novas (por exemplo `components/`) são detectadas sem configuração. Hoje só `docs/` e os `.md` da raiz são excluídos: quando a RIV-14 definir a pasta de conteúdo do site (Fonte da Verdade §11.5; por exemplo `content/`), decidir explicitamente se o Tailwind a lê.
+- **Sem identidade visual:** não há `@theme`, cores, fontes ou tokens de marca. Paleta, tipografia e design system pertencem à Sprint 2 (DEC-RIV-007 pendente). O Tailwind aplica apenas os valores padrão dele (fonte do sistema, escala de espaçamento).
+- **Detecção de classes:** o Tailwind lê automaticamente todos os arquivos do projeto, inclusive `.md`. Em `app/globals.css`, `@source not "../docs"` e `@source not "../*.md"` impedem que palavras da documentação gerem CSS. Comprovado com arquivos de teste: sem a exclusão, uma palavra em `docs/*.md` ou num `.md` da raiz virou regra CSS; com ela, não. Pastas de código novas (por exemplo `components/`) são detectadas sem configuração. Hoje só `docs/` e os `.md` da raiz são excluídos. Por decisão do Owner (04/11/2026), a pasta `content/` (ver a seção seguinte) **não** é adicionada à detecção do Tailwind por ora: conteúdo não deve conter classes de estilo.
 - **Reset base:** o Tailwind inclui um reset (Preflight). Títulos e parágrafos ficam sem estilo até receberem classes; é esperado.
 
 ### Navegadores mínimos
@@ -41,10 +41,30 @@ O Tailwind CSS v4 exige navegadores modernos. Os alvos que o `@tailwindcss/node`
 
 Navegadores anteriores a essas versões podem não exibir os estilos corretamente. A Fonte da Verdade não define uma matriz de navegadores; a validação cross-browser está na Sprint 4 e deve confirmar ou ajustar esta tabela. Se um requisito de navegadores mais antigos surgir, a alternativa é o Tailwind v3 (decisão do Owner).
 
+## Estrutura de componentes e conteúdo (RIV-14)
+
+Decisão do Owner de 04/11/2026. Sem `src/`; tudo na raiz, com o alias `@/*` (raiz do projeto) já configurado no `tsconfig.json`.
+
+| Pasta | Uso | Estado |
+| --- | --- | --- |
+| `app/` | Rotas, layouts e páginas do App Router. Compõe componentes; não guarda texto comercial | Existente |
+| `components/layout/` | Componentes **estruturais** (contêineres, grades, seções-base), sem conteúdo | Contém `Container` |
+| `components/ui/` | Componentes **reutilizáveis** de interface (botões, links, etc.) | Reservada; criada quando houver o primeiro componente |
+| `content/` | Conteúdo textual do site, mantido no repositório, sem CMS (Fonte da Verdade §11.5). Separado dos componentes e preparado para EN/PT | Reservada; **não criada** até haver conteúdo |
+
+Convenções:
+
+- **Nomes:** arquivos em `kebab-case` (`container.tsx`); componentes em `PascalCase` com exportação nomeada (`export function Container`).
+- **Server Components por padrão.** Use `"use client"` só quando houver necessidade comprovada.
+- **Sem identidade visual definitiva:** componentes usam apenas a escala padrão do Tailwind, sem cores, fontes ou tokens de marca (DEC-RIV-007 pendente). Componentes comerciais pertencem à Sprint 3.
+- **Sem bibliotecas de componentes** sem necessidade comprovada e aprovação do Owner.
+- **Conteúdo fora dos componentes:** textos comerciais vão para `content/`; o formato por idioma será definido na RIV-16, conforme o ADR-0001. Hoje a página inicial é um placeholder técnico.
+- **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-5xl px-4 sm:px-6`; aceita `className` e as demais propriedades de `div`. Valida a convenção; não é um componente final.
+
 ## Telemetria
 
 O Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fica **desativada no ambiente de desenvolvimento** com `npx next telemetry disable`, que é configuração local de cada máquina e não vai para o repositório. Para desativar apenas em uma execução: `NEXT_TELEMETRY_DISABLED=1`.
 
 ## Fora do escopo desta base
 
-Estrutura de componentes e design system (RIV-14), lint e formatação, inclusive de classes do Tailwind (RIV-17), testes (RIV-18), CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
+Design system e identidade visual (Sprint 2), lint e formatação, inclusive de classes do Tailwind (RIV-17), testes (RIV-18), CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
