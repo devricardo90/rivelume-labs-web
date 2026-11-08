@@ -13,7 +13,7 @@ npm run build     # build de produção
 npm start         # serve o build de produção (rode `npm run build` antes)
 ```
 
-Verificações de qualidade (RIV-17): `npm run check` executa, em sequência, `lint`, `format:check` e `typecheck` e falha se qualquer uma falhar. Antes de abrir um PR, rode também `npm run build`.
+Verificações de qualidade (RIV-17): `npm run check` executa, em sequência, `lint`, `format:check` e `typecheck` e falha se qualquer uma falhar. Antes de abrir um PR, rode também `npm test` e `npm run build`.
 
 ## Configurações que não devem ser revertidas sem decisão do Owner
 
@@ -76,10 +76,25 @@ Convenções:
 - **O que o Prettier não formata:** `docs/` e todos os `*.md` (inclusive `AGENTS.md`, que é do Owner), `tsconfig.json` e `package-lock.json` (o Next.js e o npm os reescrevem), e os arquivos gerados (`.next/`, `next-env.d.ts`, `tsconfig.tsbuildinfo`). O ESLint ignora `.next/`, `out/`, `build/`, `coverage/` e `next-env.d.ts`. Fins de linha: `endOfLine: "auto"`, para não conflitar com a conversão do Git no Windows.
 - **`npm audit`:** em produção (`npm audit --omit=dev`) não há vulnerabilidades. A árvore de desenvolvimento do `eslint-config-next` 16.4.4 traz 8 avisos de severidade moderada, todos da mesma causa: negação de serviço potencial por amplificação de *globparts* no `minimatch` (GHSA-g3hv-75wg-m249; corrigido no `minimatch` 11.0.1), usado pelo `typescript-estree`, que fixa a faixa 10.x. É código que só roda na máquina de desenvolvimento e no CI, sobre os arquivos do próprio repositório. O `npm audit fix --force` sugere rebaixar o `eslint-config-next` para a 15, o que contraria a decisão do Owner; **risco aceito até uma atualização do `eslint-config-next` ou do `typescript-eslint` que o resolva** (um `override` do npm também resolveria, mas está fora do escopo e não foi decidido). Em CI, use `npm audit --omit=dev`.
 
+## Testes (RIV-18)
+
+| Script | O que faz |
+| --- | --- |
+| `npm test` | `vitest run`: executa a suíte uma vez e falha se algum teste falhar |
+| `npm run test:watch` | `vitest`: modo interativo, para desenvolvimento |
+
+- **Ferramentas (recomendação do Owner):** Vitest, React Testing Library e jsdom, a combinação documentada pelo Next.js para testes unitários e de componentes. Configuração em `vitest.config.mts` (ambiente `jsdom`, alias `@` para a raiz, ignora `.next/`) e `vitest.setup.ts` (limpeza do DOM depois de cada teste).
+- **Versões exatas:** `vitest` 5.1.0, `vite` 6.4.5, `jsdom` 26.1.0, `@testing-library/react` 16.3.3 e `@testing-library/dom` 10.4.2. Não há plugin do React: o JSX segue o `jsx: react-jsx` do `tsconfig.json`. Não há `@testing-library/jest-dom`; as asserções usam as consultas do Testing Library e comparações simples.
+- **Onde ficam os testes:** ao lado do código, como `*.test.ts` ou `*.test.tsx` (por exemplo `components/layout/container.test.tsx`). Eles não viram rotas do Next.js.
+- **O que cobrem hoje:** o `Container` (filhos, classes padrão, `className` acrescentado sem perder as padrão, propriedades repassadas), a página inicial (título, landmark `main`, aviso de construção, uso do `Container`) e os metadados do site. Não há utilitários no código para testar. Testes funcionais completos e E2E ficam para a Sprint 4 (RIV-6).
+- **Limite conhecido:** o Vitest não renderiza Server Components assíncronos; se aparecerem, o Next.js recomenda testes E2E.
+- **Node das ferramentas de teste: 22.12 ou superior.** O `vitest` 5 exige Node `^22.12 || ^24 || >=26` e, por isso, o `@types/node` passou de `^20` para `^22` (o Vitest 5 declara essa faixa como peer opcional; sem a mudança o npm recusa a instalação). O campo `engines` do projeto continua `>=20.9.0`, que é o piso do Next.js e da aplicação em produção: quem usa Node 20 consegue instalar e compilar, mas não rodar `npm test`. O CI (RIV-19) deve usar Node 22.12 ou superior.
+- **Por que o Vitest 5:** as linhas anteriores não eram uma opção segura ou instalável. O `vitest` 3.2.7, que cobre Node 20, traz 2 avisos críticos (`tinypool`, GHSA-5gmw-xhrv-c9v3 e GHSA-85c8-ppgw-ccpr) e 2 moderados (`@vitest/mocker`, GHSA-82fw-gwwq-j7x9 e GHSA-qxg6-89mg-rqv8) no `npm audit` completo; o `vitest` 4.1.12 derruba o npm 10.9.9 (`Cannot read properties of null (reading 'edgesOut')`), mesmo em diretório vazio. Com o `vitest` 5.1.0 o `npm audit` completo fica só com os 8 avisos moderados do `minimatch` já aceitos na seção anterior; `npm audit --omit=dev` continua em 0.
+
 ## Telemetria
 
 O Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fica **desativada no ambiente de desenvolvimento** com `npx next telemetry disable`, que é configuração local de cada máquina e não vai para o repositório. Para desativar apenas em uma execução: `NEXT_TELEMETRY_DISABLED=1`.
 
 ## Fora do escopo desta base
 
-Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, testes (RIV-18), CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
+Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
