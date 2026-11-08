@@ -4,7 +4,7 @@ Aplicação base da RIV-12: Next.js 16.4.4, TypeScript (`strict`), App Router, s
 
 ## Como executar
 
-Pré-requisitos: Node.js 20.9 ou superior e npm.
+Pré-requisitos: **Node.js 22.12 ou superior** (versão mínima suportada; o CI usa Node 22) e npm.
 
 ```bash
 npm ci            # instala as dependências do package-lock.json
@@ -88,8 +88,23 @@ Convenções:
 - **Onde ficam os testes:** ao lado do código, como `*.test.ts` ou `*.test.tsx` (por exemplo `components/layout/container.test.tsx`). Eles não viram rotas do Next.js.
 - **O que cobrem hoje:** o `Container` (filhos, classes padrão, `className` acrescentado sem perder as padrão, propriedades repassadas), a página inicial (título, landmark `main`, aviso de construção, uso do `Container`) e os metadados do site. Não há utilitários no código para testar. Testes funcionais completos e E2E ficam para a Sprint 4 (RIV-6).
 - **Limite conhecido:** o Vitest não renderiza Server Components assíncronos; se aparecerem, o Next.js recomenda testes E2E.
-- **Node das ferramentas de teste: 22.12 ou superior.** O `vitest` 5 exige Node `^22.12 || ^24 || >=26` e, por isso, o `@types/node` passou de `^20` para `^22` (o Vitest 5 declara essa faixa como peer opcional; sem a mudança o npm recusa a instalação). O campo `engines` do projeto continua `>=20.9.0`, que é o piso do Next.js e da aplicação em produção: quem usa Node 20 consegue instalar e compilar, mas não rodar `npm test`. O CI (RIV-19) deve usar Node 22.12 ou superior.
+- **Versão mínima de Node: 22.12.** O `vitest` 5 exige Node `^22.12 || ^24 || >=26`; por isso o `@types/node` passou de `^20` para `^22` (peer opcional do Vitest 5, sem o qual o npm recusa a instalação) e, na RIV-19, o `engines` do projeto passou de `>=20.9.0` para `>=22.12.0`, para não declarar compatível uma versão que não consegue rodar os testes (decisão do Owner de 08/11/2026). O Next.js 16.4.4 sozinho aceitaria Node 20.9 e o ESLint 9, Node 20.9; a versão mínima do projeto é a das ferramentas de teste. Não testei Node 20.
 - **Por que o Vitest 5:** as linhas anteriores não eram uma opção segura ou instalável. O `vitest` 3.2.7, que cobre Node 20, traz 2 avisos críticos (`tinypool`, GHSA-5gmw-xhrv-c9v3 e GHSA-85c8-ppgw-ccpr) e 2 moderados (`@vitest/mocker`, GHSA-82fw-gwwq-j7x9 e GHSA-qxg6-89mg-rqv8) no `npm audit` completo; o `vitest` 4.1.12 derruba o npm 10.9.9 (`Cannot read properties of null (reading 'edgesOut')`), mesmo em diretório vazio. Com o `vitest` 5.1.0 o `npm audit` completo fica só com os 8 avisos moderados do `minimatch` já aceitos na seção anterior; `npm audit --omit=dev` continua em 0.
+
+## Integração contínua (RIV-19)
+
+O workflow `.github/workflows/ci.yml` (GitHub Actions) roda **a cada Pull Request para `main`**, ao abrir, atualizar ou reabrir, e uma nova atualização cancela a execução anterior. Passos, em ordem: `npm ci`, `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm test`, `npm run build` e `npm audit --omit=dev`. Para reproduzir localmente:
+
+```bash
+npm ci && npm run check && npm test && npm run build && npm audit --omit=dev
+```
+
+- **Ambiente:** `ubuntu-latest` e Node 22 (a versão mínima do projeto é 22.12). Telemetria do Next.js desligada.
+- **Sem segredos, sem deploy e sem serviços pagos.** Permissão mínima (`contents: read`) e `persist-credentials: false` no checkout.
+- **Actions fixadas por SHA do commit** (`actions/checkout` v7.0.1 e `actions/setup-node` v7.1.0, com a versão no comentário). Para atualizar, troque o SHA e o comentário no mesmo PR.
+- **Auditoria só de produção:** o `npm audit` completo mostra 8 avisos moderados do `minimatch`, só de desenvolvimento, aceitos na seção "Qualidade de código".
+- **Não é check obrigatório na proteção da `main`.** Exigi-lo é decisão do Owner, depois de a execução se mostrar estável; hoje o ruleset exige só Pull Request.
+- **Não cobre:** deploy na Vercel, testes E2E (Sprint 4) e execução em outros sistemas operacionais ou versões de Node.
 
 ## Telemetria
 
@@ -97,4 +112,4 @@ O Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fic
 
 ## Fora do escopo desta base
 
-Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
+Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, deploy e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
