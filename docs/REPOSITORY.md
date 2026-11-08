@@ -46,4 +46,4 @@ Convenções observadas no histórico e adotadas daqui em diante:
 ## Pontos em aberto (decisão do Owner, sem bloqueio)
 
 - Habilitar a exclusão automática de branches após o merge reduziria as branches antigas (`origin/governance/sprint-0-foundation` e `origin/docs/jira-bootstrap-sprint-1` já mescladas). É configuração administrativa; não foi alterada.
-- Exigir o check de CI na proteção de `main` só faz sentido depois que o workflow da RIV-19 existir e tiver uma execução válida.
+- O workflow da RIV-19 existe (`.github/workflows/ci.yml`) e teve execuções válidas (uma verde e uma falha proposital); exigir o check de CI na proteção de `main` é decisão do Owner e não foi alterado. Há várias branches de tarefa já mescladas (a exclusão automática continua sendo decisão do Owner).

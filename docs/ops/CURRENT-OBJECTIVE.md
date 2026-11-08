@@ -4,14 +4,14 @@ Sprint 1 — Technical Foundation em andamento (RIV Sprint 1, id 179, 02/11/2026
 
 ## Estado
 
-- Fundação de governança concluída; **PRs #1 a #4 mesclados** (`main` = `ce1ef45`), `main` protegida. RIV-8 a RIV-12 e RIV-15 em **Feito**.
-- **Aplicação Next.js 16.4.4 integrada** (RIV-12; placeholder técnico, sem conteúdo comercial) e **ADR-0001 vigente** (RIV-15; i18n nativa, `/en` e `/pt`, `/` → `/en` com 307).
-- Fonte da Verdade V1.0 aprovada; DEC-RIV-005/007/008/009 e propostas de conteúdo continuam pendentes e não bloqueiam a Sprint 1.
-- **Sem dependência aberta (`ready`):** RIV-13 (Tailwind CSS), RIV-14 (estrutura de componentes) e RIV-17 (qualidade). RIV-18 aguarda a RIV-17; RIV-19 aguarda RIV-17 e RIV-18; RIV-20 é o gate do Owner.
-- Nenhuma implementação da RIV-16 (Sprint 3) e nenhuma publicação em produção. CI não configurado (RIV-19).
+- **PRs #1 a #11 mesclados** (`main` = `8fc9106`, 08/11/2026), `main` protegida. RIV-8 a RIV-15 e RIV-17 a RIV-19 em **Feito** (8 de 9 tarefas da Sprint 1).
+- **Fundação técnica integrada:** Next.js 16.4.4 (RIV-12), Tailwind 4.3.3 (RIV-13), `Container` e convenção de componentes (RIV-14), ADR-0001 de i18n vigente (RIV-15), ESLint, Prettier e `npm run check` (RIV-17), Vitest com 10 testes (RIV-18) e CI no GitHub Actions em PRs para `main` (RIV-19). Node mínimo: 22.12.
+- Fonte da Verdade V1.0 aprovada; DEC-RIV-005/007/008/009 e propostas de conteúdo continuam pendentes e não bloqueiam a Sprint 1. As sugestões da V1.1 estão no Google Docs, em modo SUGGEST, aguardando o aceite do Owner.
+- **RIV-20 (gate Technical Foundation Validation):** sem dependência aberta; aguarda o relatório de evidências e a validação explícita do Owner.
+- Nenhuma implementação da RIV-16 (Sprint 3) e nenhuma publicação em produção.
 
 ## Próxima ação elegível
 
-1. O Owner valida o plano da RIV-13 (apresentado no Jira) antes de qualquer implementação.
-2. Ordem recomendada, em PRs independentes e sequenciais (todos tocam `package.json`/`globals.css`): RIV-13 → RIV-14 → RIV-17 → RIV-18 → RIV-19 → RIV-20.
+1. **RIV-20:** o agente prepara o relatório de evidências (tarefas, PRs, execuções de CI, decisões, pendências para a Sprint 2); o Owner revisa e valida explicitamente. Sem essa validação, a RIV-20 não é concluída e a sprint não é encerrada.
+2. Decisões do Owner em aberto: aceitar ou rejeitar as sugestões da V1.1 da Fonte da Verdade (conferir a numeração DEC-RIV-011); tornar o check de CI obrigatório na proteção da `main`; instalar o GitHub for Atlassian (não autorizado até agora); encerrar a Sprint 1.
 3. Pendências que não bloqueiam: URL-base/domínio (DEC-RIV-008), página única (DEC-RIV-005) e o comportamento do fragmento `#secao` no redirecionamento (validar na RIV-16).

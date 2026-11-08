@@ -4,7 +4,7 @@
 
 - Produto: website institucional e comercial B2B da Rivelume Labs.
 - Repositório: `devricardo90/rivelume-labs-web`.
-- Estado (03/11/2026): governança inicial concluída e Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). PRs #1 a #4 mesclados. A `main` tem a aplicação base Next.js (RIV-12, placeholder técnico, sem conteúdo comercial), o ADR-0001 de i18n vigente (RIV-15) e a baseline do repositório (RIV-11), todos em Feito. Disponíveis: RIV-13, RIV-14 e RIV-17; a RIV-16 (Sprint 3) não foi iniciada.
+- Estado (08/11/2026): Sprint 1 em andamento por autorização do Owner (RIV Sprint 1, id 179, até 13/11/2026). PRs #1 a #11 mesclados. A `main` tem a fundação técnica completa: Next.js, Tailwind, estrutura de componentes, ADR-0001 de i18n, ESLint e Prettier, testes com Vitest e CI no GitHub Actions; RIV-11 a RIV-15 e RIV-17 a RIV-19 em Feito. Resta a RIV-20 (gate do Owner). A RIV-16 (Sprint 3) não foi iniciada.
 - Fonte canônica: [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), V1.0 aprovada em 11/10/2026. Releia antes de atuar.
 
 ## Escopo e stack aprovados
@@ -16,7 +16,9 @@
 ## Fontes externas
 
 - Jira: projeto RIV (`https://ricardodesouzafrancisco.atlassian.net/browse/RIV`). Épicos RIV-1 a RIV-7. Sprint 1 em RIV-11 a RIV-15 e RIV-17 a RIV-20. RIV-8, RIV-9 e RIV-10 em Feito. Prontidão por rótulos (`ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-3-backlog`). Não use AXY nem outros projetos do site.
-- GitHub: `main` em `ce1ef45ec16fae16d2c64deec10e5da3f6d5f343` em 03/11/2026 (merge do PR #3); protegida pelo ruleset "Protect Main" (id 24971542, 0 aprovações, sem bypass), verificado por leitura da API. Mudanças entram por branch → PR (ver `docs/REPOSITORY.md`); sem merge automático.
+- GitHub: `main` em `8fc9106f570f34e5fd28c55712fefcffd924a111` em 08/11/2026 (merge do PR #11); protegida pelo ruleset "Protect Main" (id 24971542, 0 aprovações, sem bypass, sem checks exigidos), verificado por leitura da API. Mudanças entram por branch → PR (ver `docs/REPOSITORY.md`); sem merge automático. CI em `.github/workflows/ci.yml` (PRs para `main`), não obrigatório.
+- Ambiente e verificações: Node 22.12 ou superior; `npm run check`, `npm test`, `npm run build` e `npm audit --omit=dev` (ver `docs/DEVELOPMENT.md`). Plano de execução e regras de revisão e de merge: `docs/ops/EXECUTION-PLAN.md`. Todo merge exige autorização do Owner vinculada a um HEAD específico.
+- Fonte da Verdade: sugestões da V1.1 registradas em modo SUGGEST e **não aceitas**; só o Owner as aceita.
 
 ## Governança local vigente
 
@@ -26,4 +28,4 @@ Google Docs governa produto, Jira organiza execução, GitHub comprova desenvolv
 
 ## Retomada
 
-Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Pegue apenas tarefas da Sprint 1 (RIV-11 a RIV-15 e RIV-17 a RIV-20) respeitando os links "Blocks"; não inicie RIV-16. Atualize o Jira conforme o progresso real e não faça merge sem o Owner.
+Leia `AGENTS.md`, `docs/GOVERNANCE.md`, `docs/ops/STATUS.md` e `docs/ops/CURRENT-OBJECTIVE.md`. Releia a Fonte da Verdade e confirme o Jira. Pegue apenas tarefas da Sprint 1 (hoje, a RIV-20) respeitando os links "Blocks"; não inicie RIV-16 nem a Sprint 2. Atualize o Jira conforme o progresso real e não faça merge sem o Owner.
