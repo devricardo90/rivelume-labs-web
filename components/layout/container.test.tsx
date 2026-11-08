@@ -11,7 +11,7 @@ describe("Container", () => {
     );
 
     const container = screen.getByTestId("container");
-    expect(container.tagName).toBe("DIV");
+    expect(container.tagName).toBe("SPAN");
     expect(container.contains(screen.getByText("conteúdo"))).toBe(true);
   });
 
