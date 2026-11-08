@@ -1,1 +1,1 @@
-export const ciProof   =   1
+export const ciProof = 1;
