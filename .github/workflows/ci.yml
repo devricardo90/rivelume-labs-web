@@ -1,0 +1,66 @@
+# CI inicial (RIV-19): valida cada Pull Request. Sem deploy, sem segredos, sem serviços pagos.
+# Não é check obrigatório na proteção da `main`: essa decisão é do Owner.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+# Permissão mínima: o workflow só lê o código.
+permissions:
+  contents: read
+
+# Uma execução por PR; uma nova atualização cancela a anterior.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  verify:
+    name: Lint, typecheck, test and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      # Actions fixadas por SHA do commit (a versão está no comentário).
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Vitest 5 exige Node 22.12 ou superior; o mesmo valor está em `engines`.
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # Só dependências de produção: os avisos de desenvolvimento estão documentados
+      # em docs/DEVELOPMENT.md (risco aceito pelo Owner).
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
