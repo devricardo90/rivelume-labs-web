@@ -1,0 +1,16 @@
+# Gerados e dependências
+.next/
+out/
+build/
+coverage/
+node_modules/
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# O Next.js reescreve estes arquivos; não formatar (docs/DEVELOPMENT.md)
+tsconfig.json
+package-lock.json
+
+# Documentação e governança: não reformatar (AGENTS.md é do Owner)
+docs/
+*.md

@@ -13,7 +13,7 @@ npm run build     # build de produção
 npm start         # serve o build de produção (rode `npm run build` antes)
 ```
 
-Verificação de tipos (a configuração de qualidade entra na RIV-17): `npx tsc --noEmit`.
+Verificações de qualidade (RIV-17): `npm run check` executa, em sequência, `lint`, `format:check` e `typecheck` e falha se qualquer uma falhar. Antes de abrir um PR, rode também `npm run build`.
 
 ## Configurações que não devem ser revertidas sem decisão do Owner
 
@@ -61,10 +61,25 @@ Convenções:
 - **Conteúdo fora dos componentes:** textos comerciais vão para `content/`; o formato por idioma será definido na RIV-16, conforme o ADR-0001. Hoje a página inicial é um placeholder técnico.
 - **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-5xl px-4 sm:px-6`; aceita `className` e as demais propriedades de `div`. Valida a convenção; não é um componente final.
 
+## Qualidade de código (RIV-17)
+
+| Script | O que faz |
+| --- | --- |
+| `npm run lint` | `eslint .` com a configuração oficial do Next.js (`core-web-vitals` e `typescript`), em `eslint.config.mjs` |
+| `npm run format:check` | `prettier --check .`: verifica a formatação sem alterar arquivos |
+| `npm run format` | `prettier --write .`: formata o código e a configuração |
+| `npm run typecheck` | `tsc --noEmit` (TypeScript em modo `strict`) |
+| `npm run check` | `lint`, `format:check` e `typecheck` em sequência |
+
+- **Versões exatas (decisão do Owner):** `eslint` 9.39.5, `eslint-config-next` 16.4.4 (mesma versão do `next`) e `prettier` 3.9.10, sem `^`. O `next lint` foi removido no Next.js 16, por isso o lint usa o CLI do ESLint. O ESLint 9 já não recebe suporte oficial (o `npm install` avisa que a versão está descontinuada); a migração para a 10.x é uma decisão futura do Owner, a validar com `eslint-config-next`.
+- **Sem `prettier-plugin-tailwindcss`** nesta sprint (decisão do Owner): a ordenação de classes do Tailwind fica para quando os componentes visuais crescerem.
+- **O que o Prettier não formata:** `docs/` e todos os `*.md` (inclusive `AGENTS.md`, que é do Owner), `tsconfig.json` e `package-lock.json` (o Next.js e o npm os reescrevem), e os arquivos gerados (`.next/`, `next-env.d.ts`, `tsconfig.tsbuildinfo`). O ESLint ignora `.next/`, `out/`, `build/`, `coverage/` e `next-env.d.ts`. Fins de linha: `endOfLine: "auto"`, para não conflitar com a conversão do Git no Windows.
+- **`npm audit`:** em produção (`npm audit --omit=dev`) não há vulnerabilidades. A árvore de desenvolvimento do `eslint-config-next` 16.4.4 traz 8 avisos de severidade moderada, todos da mesma causa: negação de serviço potencial por amplificação de *globparts* no `minimatch` (GHSA-g3hv-75wg-m249; corrigido no `minimatch` 11.0.1), usado pelo `typescript-estree`, que fixa a faixa 10.x. É código que só roda na máquina de desenvolvimento e no CI, sobre os arquivos do próprio repositório. O `npm audit fix --force` sugere rebaixar o `eslint-config-next` para a 15, o que contraria a decisão do Owner; **risco aceito até uma atualização do `eslint-config-next` ou do `typescript-eslint` que o resolva** (um `override` do npm também resolveria, mas está fora do escopo e não foi decidido). Em CI, use `npm audit --omit=dev`.
+
 ## Telemetria
 
 O Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fica **desativada no ambiente de desenvolvimento** com `npx next telemetry disable`, que é configuração local de cada máquina e não vai para o repositório. Para desativar apenas em uma execução: `NEXT_TELEMETRY_DISABLED=1`.
 
 ## Fora do escopo desta base
 
-Design system e identidade visual (Sprint 2), lint e formatação, inclusive de classes do Tailwind (RIV-17), testes (RIV-18), CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
+Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, testes (RIV-18), CI (RIV-19) e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
