@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Container } from "@/components/layout/container";
+import { expectNoA11yViolations } from "@/test/a11y";
 
 describe("Container", () => {
   it("renderiza os filhos dentro de um div", () => {
@@ -53,5 +54,16 @@ describe("Container", () => {
     const container = screen.getByTestId("container");
     expect(container.id).toBe("topo");
     expect(container.getAttribute("aria-label")).toBe("Área principal");
+  });
+
+  it("não tem violações de acessibilidade detectáveis pelo axe", async () => {
+    const { container } = render(
+      <Container>
+        <h2>Título</h2>
+        <p>conteúdo</p>
+      </Container>,
+    );
+
+    await expectNoA11yViolations(container);
   });
 });

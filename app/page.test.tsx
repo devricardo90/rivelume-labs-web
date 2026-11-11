@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
+import { expectNoA11yViolations } from "@/test/a11y";
 
 describe("Página inicial", () => {
   it("mostra o título principal da marca", () => {
@@ -29,5 +30,11 @@ describe("Página inicial", () => {
 
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading.parentElement?.classList.contains("max-w-5xl")).toBe(true);
+  });
+
+  it("não tem violações de acessibilidade detectáveis pelo axe", async () => {
+    const { container } = render(<Home />);
+
+    await expectNoA11yViolations(container);
   });
 });

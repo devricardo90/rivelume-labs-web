@@ -86,10 +86,29 @@ Convenções:
 - **Ferramentas (recomendação do Owner):** Vitest, React Testing Library e jsdom, a combinação documentada pelo Next.js para testes unitários e de componentes. Configuração em `vitest.config.mts` (ambiente `jsdom`, alias `@` para a raiz, ignora `.next/`) e `vitest.setup.ts` (limpeza do DOM depois de cada teste).
 - **Versões exatas:** `vitest` 5.1.0, `vite` 6.4.5, `jsdom` 26.1.0, `@testing-library/react` 16.3.3 e `@testing-library/dom` 10.4.2. Não há plugin do React: o JSX segue o `jsx: react-jsx` do `tsconfig.json`. Não há `@testing-library/jest-dom`; as asserções usam as consultas do Testing Library e comparações simples.
 - **Onde ficam os testes:** ao lado do código, como `*.test.ts` ou `*.test.tsx` (por exemplo `components/layout/container.test.tsx`). Eles não viram rotas do Next.js.
-- **O que cobrem hoje:** o `Container` (filhos, classes padrão, `className` acrescentado sem perder as padrão, propriedades repassadas), a página inicial (título, landmark `main`, aviso de construção, uso do `Container`) e os metadados do site. Não há utilitários no código para testar. Testes funcionais completos e E2E ficam para a Sprint 4 (RIV-6).
+- **O que cobrem hoje:** o helper de acessibilidade (RIV-29), o `Container` (filhos, classes padrão, `className` acrescentado sem perder as padrão, propriedades repassadas), a página inicial (título, landmark `main`, aviso de construção, uso do `Container`) e os metadados do site. Não há utilitários no código para testar. Testes funcionais completos e E2E ficam para a Sprint 4 (RIV-6).
 - **Limite conhecido:** o Vitest não renderiza Server Components assíncronos; se aparecerem, o Next.js recomenda testes E2E.
 - **Versão mínima de Node: 22.12.** O `vitest` 5 exige Node `^22.12 || ^24 || >=26`; por isso o `@types/node` passou de `^20` para `^22` (peer opcional do Vitest 5, sem o qual o npm recusa a instalação) e, na RIV-19, o `engines` do projeto passou de `>=20.9.0` para `>=22.12.0`, para não declarar compatível uma versão que não consegue rodar os testes (decisão do Owner de 08/11/2026). O Next.js 16.4.4 sozinho aceitaria Node 20.9 e o ESLint 9, Node 20.9; a versão mínima do projeto é a das ferramentas de teste. Não testei Node 20.
 - **Por que o Vitest 5:** as linhas anteriores não eram uma opção segura ou instalável. O `vitest` 3.2.7, que cobre Node 20, traz 2 avisos críticos (`tinypool`, GHSA-5gmw-xhrv-c9v3 e GHSA-85c8-ppgw-ccpr) e 2 moderados (`@vitest/mocker`, GHSA-82fw-gwwq-j7x9 e GHSA-qxg6-89mg-rqv8) no `npm audit` completo; o `vitest` 4.1.12 derruba o npm 10.9.9 (`Cannot read properties of null (reading 'edgesOut')`), mesmo em diretório vazio. Com o `vitest` 5.1.0 o `npm audit` completo fica só com os 8 avisos moderados do `minimatch` já aceitos na seção anterior; `npm audit --omit=dev` continua em 0.
+
+## Testes de acessibilidade automatizados (RIV-29)
+
+O Owner aprovou o `axe-core` integrado ao Vitest. Nada de Jest: o helper roda no Vitest, Testing Library e jsdom já existentes.
+
+```tsx
+import { render } from "@testing-library/react";
+import { expectNoA11yViolations } from "@/test/a11y";
+
+it("não tem violações de acessibilidade detectáveis pelo axe", async () => {
+  const { container } = render(<MeuComponente />);
+  await expectNoA11yViolations(container);
+});
+```
+
+- **Helper:** `test/a11y.ts` (`runAxe` e `expectNoA11yViolations`). Roda as regras do axe das tags `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa` e `best-practice`. A falha lista cada violação com o id da regra, o impacto e o elemento. `test/a11y.test.tsx` prova que o helper detecta imagem sem `alt`, botão sem nome e campo sem rótulo.
+- **Dependência:** `axe-core` **4.14.0**, versão exata, só de desenvolvimento, licença MPL-2.0 (ferramenta de teste, não vai para o bundle do site). Ele **já estava instalado** como dependência indireta do `eslint-plugin-jsx-a11y` (via `eslint-config-next`), na mesma versão e com o mesmo hash de integridade; a mudança só o declara como dependência direta e fixa a versão. Nenhum pacote novo entrou na árvore. Publicada em 05/10/2026, sem dependências próprias.
+- **O que NÃO é medido aqui (limite do jsdom, que não faz layout nem pintura):** contraste de cores (`color-contrast` fica desligado), foco visível, tamanho de alvos de toque, rolagem horizontal e regras de página inteira (`region`, `landmark-one-main`, `page-has-heading-one`, desligadas porque os testes renderizam trechos). Esses itens continuam na auditoria no Chrome (1440 e 390 px), registrada no Jira por tarefa. Um teste do helper documenta o limite do contraste.
+- **Uso esperado:** todo componente novo ganha um teste com `expectNoA11yViolations`. Passar no axe é necessário, mas não prova acessibilidade completa.
 
 ## Integração contínua (RIV-19)
 
