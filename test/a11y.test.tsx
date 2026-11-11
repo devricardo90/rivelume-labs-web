@@ -57,4 +57,40 @@ describe("helper de acessibilidade (axe-core)", () => {
     const { violations } = await runAxe(container);
     expect(violations.map((v) => v.id)).not.toContain("color-contrast");
   });
+
+  it("falha quando o axe não avalia nada (container vazio)", async () => {
+    const { container } = render(<div />);
+
+    await expect(expectNoA11yViolations(container)).rejects.toThrow(
+      "nenhuma regra",
+    );
+  });
+
+  it("falha de forma explícita para um nó fora do document", async () => {
+    const detached = document.createElement("button");
+
+    await expect(expectNoA11yViolations(detached)).rejects.toThrow();
+  });
+
+  it("detecta link sem nome, role inválido e ARIA inválido", async () => {
+    const { container } = render(
+      <div>
+        <a href="/x" />
+        <div role="foo" />
+        {/* valor inválido de propósito; o cast evita o erro de tipos do React */}
+        <button type="button" {...({ "aria-pressed": "maybe" } as object)}>
+          Ok
+        </button>
+      </div>,
+    );
+
+    const ids = (await runAxe(container)).violations.map((v) => v.id);
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        "link-name",
+        "aria-roles",
+        "aria-valid-attr-value",
+      ]),
+    );
+  });
 });

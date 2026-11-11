@@ -24,7 +24,9 @@ function options(): RunOptions {
     rules: {
       "color-contrast": { enabled: false },
       // Regras de página inteira (landmarks, h1) não se aplicam a um trecho de
-      // componente; a estrutura da página é coberta nos testes da própria página.
+      // componente. A estrutura da página (main, um único h1) tem asserções
+      // próprias em app/page.test.tsx; o axe não a verifica como página inteira,
+      // porque os testes renderizam dentro de um <div>, sem <html>.
       region: { enabled: false },
       "landmark-one-main": { enabled: false },
       "page-has-heading-one": { enabled: false },
@@ -44,10 +46,21 @@ function describeViolation(v: Result): string {
 }
 
 // Falha o teste listando cada violação, com a regra e o elemento afetado.
+//
+// Dois cuidados contra falsos resultados de aprovação:
+// - Se o axe não avaliou NADA (container vazio ou sem elementos avaliáveis), o
+//   teste falha: "zero violações" sem nenhuma regra executada não prova nada.
+// - Resultados `incomplete` (o axe não conseguiu decidir sozinho, "revisão
+//   manual") NÃO fazem o teste falhar; use `runAxe` para inspecioná-los quando
+//   o caso importar.
 export async function expectNoA11yViolations(
   container: Element,
 ): Promise<void> {
-  const { violations } = await runAxe(container);
+  const { violations, passes, incomplete } = await runAxe(container);
+  expect(
+    passes.length + violations.length + incomplete.length,
+    "O axe não avaliou nenhuma regra: container vazio ou sem conteúdo avaliável",
+  ).toBeGreaterThan(0);
   expect(
     violations.map(describeViolation).join("\n"),
     `Violações de acessibilidade encontradas (axe-core ${axe.version})`,
