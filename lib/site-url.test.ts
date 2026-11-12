@@ -1,8 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { absoluteUrl, getSiteUrl } from "@/lib/site-url";
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
 
 describe("URL-base do site (SITE_URL)", () => {
   it("devolve null quando não está definida ou está vazia", () => {
+    // Sem argumento, a função lê process.env.SITE_URL: apaga a variável para o
+    // teste não depender do ambiente de quem o executa.
+    vi.stubEnv("SITE_URL", undefined);
+    expect(getSiteUrl()).toBeNull();
     expect(getSiteUrl(undefined)).toBeNull();
     expect(getSiteUrl("")).toBeNull();
     expect(getSiteUrl("   ")).toBeNull();

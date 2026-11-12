@@ -12,7 +12,7 @@ describe("Sitemap", () => {
     expect(sitemap()).toEqual([]);
   });
 
-  it("lista as duas versões com os alternates quando há SITE_URL", () => {
+  it("lista as duas versões com os alternates (e x-default) quando há SITE_URL", () => {
     vi.stubEnv("SITE_URL", "https://example.com");
 
     const entries = sitemap();
@@ -24,6 +24,7 @@ describe("Sitemap", () => {
       expect(entry.alternates?.languages).toEqual({
         en: "https://example.com/en",
         "pt-BR": "https://example.com/pt",
+        "x-default": "https://example.com/en",
       });
     }
   });
