@@ -5,8 +5,9 @@ import { expectNoA11yViolations, runAxe } from "@/test/a11y";
 
 // Testes do próprio helper: provam que ele detecta problemas reais e que não
 // depende de regras que o jsdom não consegue avaliar.
-// `img` via createElement: o fixture precisa de <img> sem alt de propósito, e o
-// lint (next/no-img-element, jsx-a11y/alt-text) trataria isso como erro de código.
+// `img` e `a` via createElement: os fixtures precisam de <img> sem alt e de <a> sem
+// texto de propósito, e o lint (next/no-img-element, no-html-link-for-pages,
+// jsx-a11y) trataria isso como erro de código.
 const img = (props: { alt?: string }) =>
   createElement("img", { src: "/exemplo.png", ...props });
 
@@ -75,7 +76,7 @@ describe("helper de acessibilidade (axe-core)", () => {
   it("detecta link sem nome, role inválido e ARIA inválido", async () => {
     const { container } = render(
       <div>
-        <a href="/x" />
+        {createElement("a", { href: "/x" })}
         <div role="foo" />
         {/* valor inválido de propósito; o cast evita o erro de tipos do React */}
         <button type="button" {...({ "aria-pressed": "maybe" } as object)}>

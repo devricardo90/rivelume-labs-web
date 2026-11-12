@@ -47,7 +47,7 @@ Decisão do Owner de 04/11/2026. Sem `src/`; tudo na raiz, com o alias `@/*` (ra
 
 | Pasta | Uso | Estado |
 | --- | --- | --- |
-| `app/` | Rotas, layouts e páginas do App Router. Compõe componentes; não guarda texto comercial | Existente |
+| `app/` | Rotas, layouts e páginas do App Router. Todas as rotas ficam sob `app/[lang]/` (RIV-16). Compõe componentes; não guarda texto comercial | Existente |
 | `components/layout/` | Componentes **estruturais** (contêineres, grades, seções-base), sem conteúdo | Contém `Container` |
 | `components/ui/` | Componentes **reutilizáveis** de interface (botões, links, etc.) | Reservada; criada quando houver o primeiro componente |
 | `content/` | Conteúdo textual do site, mantido no repositório, sem CMS (Fonte da Verdade §11.5). Separado dos componentes e preparado para EN/PT | Reservada; **não criada** até haver conteúdo |
@@ -58,7 +58,7 @@ Convenções:
 - **Server Components por padrão.** Use `"use client"` só quando houver necessidade comprovada.
 - **Sem identidade visual definitiva:** componentes usam apenas a escala padrão do Tailwind, sem cores, fontes ou tokens de marca (DEC-RIV-007 pendente). Componentes comerciais pertencem à Sprint 3.
 - **Sem bibliotecas de componentes** sem necessidade comprovada e aprovação do Owner.
-- **Conteúdo fora dos componentes:** textos comerciais vão para `content/`; o formato por idioma será definido na RIV-16, conforme o ADR-0001. Hoje a página inicial é um placeholder técnico.
+- **Conteúdo fora dos componentes:** o texto vem dos dicionários por idioma em `i18n/dictionaries/` (RIV-16, ver "Internacionalização"), nunca escrito dentro do componente. A pasta `content/` continua reservada e só será criada se algum conteúdo não couber no dicionário (decisão de organização da RIV-16, a confirmar pelo Owner). Hoje a página inicial é um placeholder técnico.
 - **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-5xl px-4 sm:px-6`; aceita `className` e as demais propriedades de `div`. Valida a convenção; não é um componente final.
 
 ## Qualidade de código (RIV-17)
@@ -110,6 +110,29 @@ it("não tem violações de acessibilidade detectáveis pelo axe", async () => {
 - **O que NÃO é medido aqui (limite do jsdom, que não faz layout nem pintura):** contraste de cores (`color-contrast` fica desligado), foco visível, tamanho de alvos de toque, rolagem horizontal e regras de página inteira (`region`, `landmark-one-main`, `page-has-heading-one`, desligadas porque os testes renderizam trechos dentro de um `<div>`; a estrutura da página, como `main` e um único `h1`, tem asserções próprias nos testes da página) e `duplicate-id`, que o axe 4.14.0 marcou como obsoleta e fica fora das tags escolhidas. Esses itens continuam na auditoria no Chrome (1440 e 390 px), registrada no Jira por tarefa. Um teste do helper documenta o limite do contraste.
 - **Uso esperado:** todo componente novo ganha um teste com `expectNoA11yViolations`. Passar no axe é necessário, mas não prova acessibilidade completa.
 
+## Internacionalização (RIV-16)
+
+Implementa o ADR-0001 (DEC-RIV-011): solução nativa do Next.js, **sem biblioteca de i18n**. O idioma vem **só da URL**; não há detecção do navegador, `proxy` nem cookie.
+
+| Peça | Onde |
+| --- | --- |
+| Idiomas, tag de cada um e `localePath` | `i18n/config.ts` (`en` -> `en`, `pt` -> `pt-BR`, em um único lugar) |
+| Forma única dos dicionários (obriga as mesmas chaves) | `i18n/dictionary.ts` (`Dictionary`) |
+| Dicionários | `i18n/dictionaries/en.ts` e `pt.ts` (PT é o português do Brasil; texto provisório) |
+| Carregamento por idioma | `i18n/get-dictionary.ts` (`import()` dinâmico) |
+| Rotas | `app/[lang]/layout.tsx` e `page.tsx`; `generateStaticParams` gera `/en` e `/pt`; `dynamicParams = false` |
+| `<html lang>` | `en` em `/en` e `pt-BR` em `/pt` |
+| Seletor de idioma | `components/layout/language-switcher.tsx`: links comuns (`lang`, `hreflang`, `aria-current`) |
+| Redirecionamento | `next.config.ts`: `/` -> `/en` com **307** (`permanent: false`) |
+| `canonical`, `hreflang` e `x-default` | `i18n/seo.ts`; `x-default` aponta para `/en` |
+| Sitemap | `app/sitemap.ts`, com as duas versões e seus alternates |
+
+- **URL-base:** o domínio é a DEC-RIV-008 (pendente). `SITE_URL` (variável de ambiente só do servidor, não é segredo; ex.: `https://example.com`) define a base de `canonical`, `hreflang` e sitemap. **Sem `SITE_URL`, nada disso é emitido** (o sitemap fica vazio): URLs inventadas ou de localhost seriam piores que nenhuma. Como as páginas são estáticas, `SITE_URL` precisa estar definida **no momento do `next build`**. Valor inválido ou que não seja http/https derruba o build com mensagem clara.
+- **404:** qualquer idioma que não seja `en` ou `pt` (por exemplo `/fr`, `/PT`, `/pt-br`) e qualquer caminho abaixo de `/en` ou `/pt` que não exista respondem 404.
+- **Novo texto:** acrescente a chave em `i18n/dictionary.ts`; o TypeScript obriga o PT a ter a mesma chave, e o teste de paridade confere. O componente recebe o texto por props; **nenhum componente é duplicado por idioma**.
+- **Verificação em servidor real** (`next build` e `next start`, 12/11/2026): `GET /` responde `307` com `location: /en`, **mesmo com `Accept-Language: pt-BR`**; nenhuma resposta define cookie; `/en` e `/pt` trazem `<html lang>` e `hreflang` corretos; `/fr`, `/PT`, `/pt-br`, `/en/x` respondem 404; com `SITE_URL` definida, `canonical`, os três `alternate` e o sitemap saem corretos. **Fragmento (ADR-0001, P7):** no Chromium, abrir `/#services` termina em `/en#services` (o fragmento é preservado pelo redirecionamento).
+- **Não cobre ainda:** conteúdo comercial e sua tradução, cabeçalho com o seletor (tarefa da navegação), mapeamento de seções por idioma e a troca de idioma preservando a seção (`/pt#services`); hoje o seletor leva à página inicial do outro idioma.
+
 ## Integração contínua (RIV-19)
 
 O workflow `.github/workflows/ci.yml` (GitHub Actions) roda **a cada Pull Request para `main`**, ao abrir, atualizar ou reabrir, e uma nova atualização cancela a execução anterior. Passos, em ordem: `npm ci`, `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm test`, `npm run build` e `npm audit --omit=dev`. Para reproduzir localmente:
@@ -131,4 +154,4 @@ O Next.js coleta telemetria anônima por padrão. Por decisão do Owner, ela fic
 
 ## Fora do escopo desta base
 
-Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind, deploy e internacionalização (RIV-16, após a decisão do ADR da RIV-15).
+Design system e identidade visual (Sprint 2), ordenação de classes do Tailwind e deploy.
