@@ -1,6 +1,6 @@
 # ADR 0001 — Estratégia de internacionalização (EN / PT-BR)
 
-- **Status:** **ACCEPTED — decisões P1 a P4 e solução nativa aprovadas pelo Owner em 03/11/2026** (vigente desde o merge do PR #3 em `ce1ef45`, 03/11/2026, autorizado pelo Owner). **Sem implementação:** a RIV-16 (Sprint 3) não foi iniciada.
+- **Status:** **ACCEPTED — decisões P1 a P4 e solução nativa aprovadas pelo Owner em 03/11/2026** (vigente desde o merge do PR #3 em `ce1ef45`, 03/11/2026, autorizado pelo Owner). **Implementação:** RIV-16 (Sprint 3), em revisão; ver `docs/DEVELOPMENT.md`, seção "Internacionalização (RIV-16)".
 - **Tarefa Jira:** RIV-15 (S1-05). A implementação é a RIV-16 (Sprint 3, bloqueada por este ADR).
 - **Data:** proposta em 02/11/2026; decisão do Owner em 03/11/2026
 - **Decisor:** Owner (arquitetura material, Fonte da Verdade §16.4).
@@ -93,7 +93,7 @@ Descartada por ora: depende do domínio (DEC-RIV-008, pendente), aumenta infraes
 
 **P4 — Redirecionar `/` para `/en` com HTTP 307; `x-default` = `/en`.**
 - *Justificativa:* 307 é temporário e não fica em cache indefinidamente em navegadores e buscadores, o que preserva a liberdade de mudar a estrutura enquanto DEC-RIV-005 e DEC-RIV-008 estão pendentes. `x-default` em `/en` é coerente com EN como idioma principal.
-- *Consequências técnicas:* **verificado em 03/11/2026 na documentação do Next.js 16.4.4** (`.../05-config/01-next-config-js/redirects.md`): `redirects()` em `next.config` usa **307 com `permanent: false`** e 308 com `permanent: true`. Logo, uma regra estática `{ source: '/', destination: '/en', permanent: false }` basta, sem `proxy`. Parâmetros de consulta são repassados (documentação). `/` não é página indexável (é só redirecionamento); `canonical` e `hreflang` ficam apenas em `/en` e `/pt`. Se um dia existir um seletor de idioma em `/`, o redirecionamento sai e o `x-default` muda. O comportamento do fragmento (`#secao`) através do redirecionamento não foi testado: **validar na RIV-16**.
+- *Consequências técnicas:* **verificado em 03/11/2026 na documentação do Next.js 16.4.4** (`.../05-config/01-next-config-js/redirects.md`): `redirects()` em `next.config` usa **307 com `permanent: false`** e 308 com `permanent: true`. Logo, uma regra estática `{ source: '/', destination: '/en', permanent: false }` basta, sem `proxy`. Parâmetros de consulta são repassados (documentação). `/` não é página indexável (é só redirecionamento); `canonical` e `hreflang` ficam apenas em `/en` e `/pt`. Se um dia existir um seletor de idioma em `/`, o redirecionamento sai e o `x-default` muda. O comportamento do fragmento (`#secao`) através do redirecionamento **foi verificado na RIV-16 em 12/11/2026**: no Chromium, `/#services` termina em `/en#services`.
 
 ### 6.2 Parâmetros técnicos resultantes (para a RIV-16, sem implementar agora)
 
@@ -130,7 +130,7 @@ Verificação de 03/11/2026 contra o texto da Fonte da Verdade V1.0:
 | §6, §7 | Página principal com seções e âncoras; versão portuguesa com rótulos traduzidos | Compatível (P2) |
 | §11.2, §11.5 | Arquitetura simples, baixa dependência, conteúdo no repositório, sem CMS | Atendido (nativa, 0 dependências) |
 | §11.6 | Estratégia de roteamento e tradução definida na fundação técnica | Cumprido por este ADR |
-| §12 RF-03 | Conteúdo disponível em EN/PT | Preparado; implementação na RIV-16 |
+| §12 RF-03 | Conteúdo disponível em EN/PT | Mecanismo implementado na RIV-16 (em revisão); conteúdo comercial nas tarefas seguintes |
 | §13.3 | Metadados, configuração de idioma, sitemap, indexação | Atendido (6.2 itens 3 e 4) |
 | §13.5 | Coleta mínima, transparência | Atendido (P1: sem cookie nem detecção) |
 | §14 | Fora de escopo V1 | Nada adicionado |

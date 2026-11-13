@@ -1,0 +1,47 @@
+import { describe, expect, it } from "vitest";
+import { LOCALES } from "@/i18n/config";
+import { en } from "@/i18n/dictionaries/en";
+import { pt } from "@/i18n/dictionaries/pt";
+import { getDictionary } from "@/i18n/get-dictionary";
+
+// Caminhos de todas as chaves de texto de um dicionário, ex.: "home.heading".
+function keyPaths(value: unknown, prefix = ""): string[] {
+  if (typeof value === "string") return [prefix];
+  return Object.entries(value as Record<string, unknown>).flatMap(([k, v]) =>
+    keyPaths(v, prefix ? `${prefix}.${k}` : k),
+  );
+}
+
+function strings(value: unknown): string[] {
+  if (typeof value === "string") return [value];
+  return Object.values(value as Record<string, unknown>).flatMap(strings);
+}
+
+describe("Dicionários EN e PT", () => {
+  it("têm exatamente as mesmas chaves (paridade)", () => {
+    expect(keyPaths(pt).sort()).toEqual(keyPaths(en).sort());
+  });
+
+  it("não têm textos vazios", () => {
+    for (const dictionary of [en, pt]) {
+      for (const text of strings(dictionary)) {
+        expect(text.trim().length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("nomeiam cada idioma no próprio idioma, igual nos dois dicionários", () => {
+    expect(en.language.names).toEqual(pt.language.names);
+    expect(Object.keys(en.language.names).sort()).toEqual([...LOCALES].sort());
+  });
+
+  it("diferem onde há tradução (não é cópia do inglês)", () => {
+    expect(pt.home.underConstruction).not.toBe(en.home.underConstruction);
+    expect(pt.language.label).not.toBe(en.language.label);
+  });
+
+  it("são carregados por idioma com getDictionary", async () => {
+    expect(await getDictionary("en")).toBe(en);
+    expect(await getDictionary("pt")).toBe(pt);
+  });
+});

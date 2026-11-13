@@ -29,6 +29,6 @@ Referência canônica de produto: [Fonte da Verdade — Rivelume Labs](https://d
 
 | ID | Data | Decisão | Autoridade | Status | Referência |
 | --- | --- | --- | --- | --- | --- |
-| ADR-0001 | 03/11/2026 | Internacionalização EN/PT-BR com a solução nativa do Next.js, sem biblioteca inicial. **P1:** idioma só pela URL, sem detecção automática e sem cookie de preferência. **P2:** arquitetura compatível com página única ou múltiplas páginas, sem criar páginas adicionais. **P3:** rotas `/en` (hreflang `en`) e `/pt` (hreflang `pt-BR`). **P4:** `/` redireciona para `/en` com HTTP 307; `x-default` = `/en`. Implementação na RIV-16 (Sprint 3), não iniciada. | Owner | Aprovado e vigente (PR #3 mesclado em `ce1ef45`, 03/11/2026) | [`docs/adr/0001-estrategia-i18n.md`](adr/0001-estrategia-i18n.md) |
+| ADR-0001 | 03/11/2026 | Internacionalização EN/PT-BR com a solução nativa do Next.js, sem biblioteca inicial. **P1:** idioma só pela URL, sem detecção automática e sem cookie de preferência. **P2:** arquitetura compatível com página única ou múltiplas páginas, sem criar páginas adicionais. **P3:** rotas `/en` (hreflang `en`) e `/pt` (hreflang `pt-BR`). **P4:** `/` redireciona para `/en` com HTTP 307; `x-default` = `/en`. Implementação na RIV-16 (Sprint 3), em revisão. | Owner | Aprovado e vigente (PR #3 mesclado em `ce1ef45`, 03/11/2026) | [`docs/adr/0001-estrategia-i18n.md`](adr/0001-estrategia-i18n.md) |
 
 Esta decisão não aprova DEC-RIV-005 (página única) nem DEC-RIV-008 (domínio), que continuam pendentes na Fonte da Verdade.
