@@ -23,7 +23,12 @@ export const pt: Dictionary = {
     sheet: {
       title: "segunda_de_manhã — rascunho 3",
       example: "Exemplo",
-      stamp: "FINAL",
+      stampDraft: "RASCUNHO",
+      stampFinal: "FINAL",
+      apply: "Aplicar as edições",
+      undo: "Desfazer as edições",
+      statusDraft: "Rascunho: as edições não foram aplicadas.",
+      statusFinal: "Final: as edições foram aplicadas.",
       items: [
         {
           before: "Juntar seis planilhas antes de toda reunião.",
@@ -105,6 +110,22 @@ export const pt: Dictionary = {
     applicationLabel: "Aplicação prática",
     benefitLabel: "Benefício para o negócio",
     benefit: "Mais tempo para o trabalho de maior valor.",
+  },
+  band: {
+    label: "O rascunho e o final",
+    files: [
+      "planilha_FINAL_v3.xlsx",
+      "copia_de_dados.csv",
+      "Enc: Fwd: novo lead?",
+      "anotacoes.txt",
+      "exportacao (2).csv",
+      "relatorio_segunda_v9.docx",
+      "quem é dono desta planilha?",
+    ],
+    phraseLead: "Esse é o rascunho. Nós construímos",
+    phraseEmphasis: "o final.",
+    pause: "Pausar movimento",
+    play: "Retomar movimento",
   },
   work: {
     eyebrow: "Trabalhos selecionados",

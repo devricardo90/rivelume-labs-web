@@ -1,24 +1,89 @@
+"use client";
+
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { HandNote } from "@/components/ui/hand-note";
 import type { Dictionary } from "@/i18n/dictionary";
 
 type DraftSheetProps = {
   sheet: Dictionary["hero"]["sheet"];
-  // Estado "editado": risco completo, respostas manuscritas e resultado visíveis.
-  // Estático nesta tarefa (RIV-31, padrão `true`); a RIV-34 alterna o valor. O
-  // atributo `data-edited` na raiz comanda o CSS (`.strike` em globals.css e as
-  // variantes `group-data-[edited=true]:`).
-  edited?: boolean;
+  // Estado inicial. Padrão `false` (Draft), igual à V4 e igual no servidor e na
+  // hidratação. Existe para os testes e para quem quiser fixar um estado.
+  initialEdited?: boolean;
 };
 
-// Folha de rascunho do Hero (V4 Red Pen): papel claro, borda e sombra dura Ink,
-// girada -1,4°, selo e linhas riscadas com a resposta à mão. É um EXEMPLO
-// ilustrativo (selo "Example"), nunca um caso real. Texto riscado usa <del>
-// (semântica de remoção); números e selo são decorativos (aria-hidden). O
-// `role="list"` mantém a semântica de lista com `list-style: none` (Safari).
-// Com `edited={false}` as respostas ficam transparentes mas continuam na árvore
-// de acessibilidade: a RIV-34 decide entre aria-hidden e visibility nesse estado.
-export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+  if (typeof window.matchMedia !== "function") return () => {};
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+function getReducedMotion() {
+  return (
+    typeof window.matchMedia === "function" &&
+    window.matchMedia(REDUCED_MOTION).matches
+  );
+}
+const getServerReducedMotion = () => false;
+
+// Atraso da aplicação automática das edições (V4: 1,8 s).
+const AUTO_APPLY_MS = 1800;
+
+// Atrasos (`--d`) das três linhas, como na V4 (d1 a d3); o resultado usa 1,5 s (d4).
+const ROW_DELAYS = ["[--d:0s]", "[--d:0.5s]", "[--d:1s]"] as const;
+
+// Folha de rascunho do Hero com a interação Draft → Final da V4 Red Pen (RIV-34).
+//
+// Comportamento (da V4 aprovada):
+// - Começa em DRAFT: problemas sem risco, selo DRAFT, respostas ocultas.
+// - Se a pessoa não interagiu, 1,8 s depois as edições se aplicam sozinhas
+//   ("momento da transformação"): riscos Red Pen em sequência (0, 0,5 s, 1 s), as
+//   respostas manuscritas surgem, o resultado entra a 1,5 s e o selo troca para FINAL.
+// - O botão alterna "Apply the edits" / "Undo the edits" (`aria-pressed`). Clicar
+//   nele cancela a aplicação automática; desfazer volta ao estado DRAFT e NÃO
+//   reaplica sozinho.
+//
+// Acessibilidade e controle (acréscimos sobre a V4): o foco no botão também cancela a
+// aplicação automática (o estado não muda embaixo de quem navega por teclado); a
+// mudança é anunciada por TEXTO (`role="status"`), não só por cor; com
+// `prefers-reduced-motion` as edições se aplicam de imediato e sem animação
+// (as transições são desligadas globalmente em globals.css). O texto riscado usa
+// <del>. O estado é `data-edited`, usado pelo CSS (`.strike` e as variantes
+// `group-data-[edited=true]:`). É um EXEMPLO ilustrativo (selo "Example").
+export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
+  // `manual` é a escolha explícita (botão); `auto` é a aplicação automática de 1,8 s.
+  // O estado exibido é a escolha manual, se houver, senão o automático (ou o final
+  // imediato com movimento reduzido). O servidor e a hidratação sempre começam em
+  // DRAFT (`reduced` é falso no servidor), então não há descompasso.
+  const [manual, setManual] = useState<boolean | null>(
+    initialEdited ? true : null,
+  );
+  const [auto, setAuto] = useState(false);
+  const reduced = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion,
+  );
+  // Se a pessoa já interagiu (clique ou foco no botão), não há aplicação automática.
+  const touched = useRef(false);
+  const edited = manual ?? (reduced || auto);
+
+  useEffect(() => {
+    if (initialEdited || reduced) return;
+    const timer = window.setTimeout(() => {
+      if (!touched.current) setAuto(true);
+    }, AUTO_APPLY_MS);
+    return () => window.clearTimeout(timer);
+  }, [initialEdited, reduced]);
+
+  function toggle() {
+    touched.current = true;
+    setManual(!edited);
+  }
+
   return (
     <div
       data-edited={edited}
@@ -26,9 +91,15 @@ export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
     >
       <div
         aria-hidden="true"
-        className="absolute -top-6 -right-[18px] rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen"
+        className="absolute -top-6 -right-[18px] rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen transition-opacity duration-[400ms] group-data-[edited=true]:opacity-0"
       >
-        {sheet.stamp}
+        {sheet.stampDraft}
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute -top-6 -right-[18px] rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen opacity-0 transition-opacity duration-[400ms] group-data-[edited=true]:opacity-100"
+      >
+        {sheet.stampFinal}
       </div>
 
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-5 py-3">
@@ -49,7 +120,7 @@ export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
           {sheet.items.map((item, index) => (
             <li
               key={item.before}
-              className="relative border-b border-dashed border-dash py-[22px] last:border-b-0"
+              className={`relative border-b border-dashed border-dash py-[22px] last:border-b-0 ${ROW_DELAYS[index]}`}
             >
               <Eyebrow
                 size="sm"
@@ -61,7 +132,7 @@ export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
               <p className="m-0 text-2xl leading-[1.35] font-medium">
                 <del className="strike no-underline">{item.before}</del>
               </p>
-              <HandNote className="mt-2 -rotate-[1.2deg] opacity-0 group-data-[edited=true]:opacity-100">
+              <HandNote className="mt-2 translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100">
                 {item.after}
               </HandNote>
             </li>
@@ -70,13 +141,28 @@ export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t-2 border-ink px-7 pt-5 pb-6">
+        <Button
+          type="button"
+          variant="ink"
+          aria-pressed={edited}
+          onClick={toggle}
+          onFocus={() => {
+            touched.current = true;
+          }}
+        >
+          {edited ? sheet.undo : sheet.apply}
+        </Button>
         <HandNote
           size="sm"
-          className="-rotate-[1.2deg] opacity-0 group-data-[edited=true]:opacity-100"
+          className="translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
         >
           {sheet.result}
         </HandNote>
       </div>
+
+      <p role="status" className="sr-only">
+        {edited ? sheet.statusFinal : sheet.statusDraft}
+      </p>
     </div>
   );
 }

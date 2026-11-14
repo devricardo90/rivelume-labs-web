@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AboutSection } from "@/components/home/about-section";
+import { DraftFinalBand } from "@/components/home/draft-final-band";
 import { ContactSection } from "@/components/home/contact-section";
 import { Hero } from "@/components/home/hero";
 import { ProcessSection } from "@/components/home/process-section";
@@ -23,6 +24,7 @@ export default async function Home({
   return (
     <main id="main">
       <Hero hero={dictionary.hero} />
+      <DraftFinalBand band={dictionary.band} />
       <ServicesSection services={dictionary.services} />
       <WorkSection work={dictionary.work} />
       <ProcessSection process={dictionary.process} />
