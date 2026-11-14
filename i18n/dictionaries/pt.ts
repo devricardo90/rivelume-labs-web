@@ -6,6 +6,9 @@ export const pt: Dictionary = {
     title: "Rivelume Labs",
     description: "Site da Rivelume Labs (em construção).",
   },
+  a11y: {
+    skipToContent: "Ir para o conteúdo",
+  },
   home: {
     heading: "Rivelume Labs",
     underConstruction: "Site em construção.",

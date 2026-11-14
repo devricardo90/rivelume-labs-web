@@ -1,12 +1,12 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-// Primitivo estrutural neutro (RIV-14): limita a largura e define o espaçamento
-// horizontal. Sem cores, tipografia ou qualquer valor de identidade visual
-// (DEC-RIV-007 pendente). Serve para validar a convenção de `components/`.
+// Primitivo estrutural (RIV-14, atualizado na RIV-27 para a V4): limita a
+// largura do conteúdo a 1280px (max-w-7xl) e centraliza. O respiro horizontal
+// da página NÃO fica aqui: vem do `Section` (clamp(20px, 5vw, 80px)), como na V4.
 type ContainerProps = ComponentPropsWithoutRef<"div">;
 
 export function Container({ className, ...props }: ContainerProps) {
-  const classes = ["mx-auto w-full max-w-5xl px-4 sm:px-6", className]
+  const classes = ["mx-auto w-full max-w-7xl", className]
     .filter(Boolean)
     .join(" ");
 

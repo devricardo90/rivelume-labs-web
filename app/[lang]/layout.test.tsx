@@ -1,5 +1,12 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
+// O next/font só funciona dentro do compilador do Next.js; no Vitest o módulo de
+// fontes é substituído por um valor fixo. As fontes reais são verificadas no
+// build e no Chrome.
+vi.mock("@/app/[lang]/fonts", () => ({
+  fontVariables: "font-mock-fraunces font-mock-sans",
+}));
+
 import LocaleLayout, {
   dynamicParams,
   generateMetadata,
@@ -29,8 +36,28 @@ describe("Layout por idioma", () => {
       await LocaleLayout({ children: <p>x</p>, params: params("pt") }),
     );
 
-    expect(en).toContain('<html lang="en">');
-    expect(pt).toContain('<html lang="pt-BR">');
+    expect(en).toContain('<html lang="en"');
+    expect(pt).toContain('<html lang="pt-BR"');
+  });
+
+  it("aplica as variáveis das fontes da V4 no <html>", async () => {
+    const html = renderToStaticMarkup(
+      await LocaleLayout({ children: <p>x</p>, params: params("en") }),
+    );
+
+    expect(html).toContain('class="font-mock-fraunces font-mock-sans"');
+  });
+
+  it("começa o <body> pelo link de pular para o conteúdo, no idioma atual", async () => {
+    const en = renderToStaticMarkup(
+      await LocaleLayout({ children: <p>x</p>, params: params("en") }),
+    );
+    const pt = renderToStaticMarkup(
+      await LocaleLayout({ children: <p>x</p>, params: params("pt") }),
+    );
+
+    expect(en).toMatch(/<body><a href="#main"[^>]*>Skip to content<\/a>/);
+    expect(pt).toMatch(/<body><a href="#main"[^>]*>Ir para o conteúdo<\/a>/);
   });
 
   it("responde 404 para idioma desconhecido (layout e metadados)", async () => {

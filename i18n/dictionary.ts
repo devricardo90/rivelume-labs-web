@@ -11,6 +11,10 @@ export type Dictionary = {
     title: string;
     description: string;
   };
+  a11y: {
+    // Link "pular para o conteúdo" (RIV-27).
+    skipToContent: string;
+  };
   home: {
     heading: string;
     underConstruction: string;
