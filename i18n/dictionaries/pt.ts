@@ -111,7 +111,7 @@ export const pt: Dictionary = {
     headingLead: "Um portfólio",
     headingEmphasis: "em construção.",
     intro:
-      "Estes conceitos mostram como apresentaremos os trabalhos selecionados. Projetos finais e estudos de caso dependem de aprovação.",
+      "Estes conceitos mostram como apresentaremos os trabalhos selecionados. Explorando ideias práticas com software, automação e inteligência artificial.",
     problemLabel: "Problema do negócio",
     items: [
       {

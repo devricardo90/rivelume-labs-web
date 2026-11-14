@@ -111,7 +111,7 @@ export const en: Dictionary = {
     headingLead: "A portfolio",
     headingEmphasis: "in progress.",
     intro:
-      "These concepts show how we will present selected work. Final projects and case studies are subject to approval.",
+      "These concepts show how we will present selected work. Exploring practical ideas through software, automation and AI.",
     problemLabel: "Business problem",
     items: [
       {

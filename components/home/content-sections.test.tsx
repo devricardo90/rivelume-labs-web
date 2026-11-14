@@ -103,13 +103,18 @@ describe("Selected Work", () => {
     }
   });
 
-  it("deixa explícito que são conceitos e que os projetos dependem de aprovação", () => {
+  it("deixa explícito que são conceitos e apresenta a frase de apoio aprovada", () => {
     render(<WorkSection work={en.work} />);
 
     expect(
       screen.getByText(/These concepts show how we will present selected work/),
     ).toBeTruthy();
-    expect(screen.getByText(/subject to approval/)).toBeTruthy();
+    expect(
+      screen.getByText(
+        /Exploring practical ideas through software, automation and AI\./,
+      ),
+    ).toBeTruthy();
+    expect(screen.queryByText(/subject to approval/)).toBeNull();
   });
 
   it("não traz cliente, depoimento, resultado, métrica nem link de case", () => {
