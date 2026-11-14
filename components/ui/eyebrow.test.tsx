@@ -30,6 +30,7 @@ describe("Eyebrow (V4 Red Pen)", () => {
 
     const classes = screen.getByText("x").classList;
     expect(classes.contains("text-xs")).toBe(true);
+    expect(classes.contains("leading-normal")).toBe(true);
     expect(classes.contains("text-[13px]")).toBe(false);
   });
 

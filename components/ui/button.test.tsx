@@ -66,6 +66,7 @@ describe("Button (V4 Red Pen)", () => {
 
     const classes = screen.getByRole("button").classList;
     expect(classes.contains("min-h-[52px]")).toBe(true);
+    expect(classes.contains("box-content")).toBe(true);
     expect(classes.contains("text-[17px]")).toBe(true);
     expect(classes.contains("font-semibold")).toBe(true);
   });

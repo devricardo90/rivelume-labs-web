@@ -8,9 +8,37 @@ export const en: Dictionary = {
   a11y: {
     skipToContent: "Skip to content",
   },
-  home: {
-    heading: "Rivelume Labs",
-    underConstruction: "Website under construction.",
+  hero: {
+    verticalLabel: "RIVELUME LABS / TECHNOLOGY STUDIO",
+    eyebrow: "Technology studio",
+    headingLine1: "Software that",
+    headingLine2: "makes business",
+    headingEmphasis: "simpler.",
+    note: "this is the job.",
+    body: "We help businesses move past repetitive manual work, disconnected tools, and inefficient workflows with custom software, automation, and practical AI.",
+    cta: "Let’s Talk About Your Project",
+    linkProcess: "See how we build",
+    linkServices: "Explore Our Services",
+    sheet: {
+      title: "monday_morning — draft 3",
+      example: "Example",
+      stamp: "FINAL",
+      items: [
+        {
+          before: "Merge six spreadsheets before every meeting.",
+          after: "One dashboard for the whole team.",
+        },
+        {
+          before: "Chase new leads across five inboxes.",
+          after: "Routed to the right team.",
+        },
+        {
+          before: "Rebuild the weekly report by hand. Again.",
+          after: "A report that sends itself.",
+        },
+      ],
+      result: "Result: more time for higher-value work.",
+    },
   },
   language: {
     label: "Language",

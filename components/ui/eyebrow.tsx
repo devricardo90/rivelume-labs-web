@@ -42,7 +42,7 @@ export function Eyebrow({
     <p
       className={cx(
         "font-mono uppercase tracking-[0.16em]",
-        size === "sm" ? "text-xs" : "text-[13px]",
+        size === "sm" ? "text-xs leading-normal" : "text-[13px]",
         TONE_CLASSES[tone],
         className,
       )}

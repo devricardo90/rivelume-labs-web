@@ -58,7 +58,7 @@ Convenções:
 - **Server Components por padrão.** Use `"use client"` só quando houver necessidade comprovada.
 - **Tokens, nunca valores soltos:** componentes usam os tokens do `@theme` (`bg-paper`, `text-red-pen`, `font-serif`...), sem hex solto. Componentes comerciais pertencem à Sprint 3.
 - **Sem bibliotecas de componentes** sem necessidade comprovada e aprovação do Owner.
-- **Conteúdo fora dos componentes:** o texto vem dos dicionários por idioma em `i18n/dictionaries/` (RIV-16, ver "Internacionalização"), nunca escrito dentro do componente. A pasta `content/` continua reservada e só será criada se algum conteúdo não couber no dicionário (decisão de organização da RIV-16, a confirmar pelo Owner). Hoje a página inicial é um placeholder técnico.
+- **Conteúdo fora dos componentes:** o texto vem dos dicionários por idioma em `i18n/dictionaries/` (RIV-16, ver "Internacionalização"), nunca escrito dentro do componente. A pasta `content/` continua reservada e só será criada se algum conteúdo não couber no dicionário (decisão de organização da RIV-16, a confirmar pelo Owner). Hoje a página inicial tem só o Hero (RIV-31).
 - **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-7xl` (1280px); aceita `className` e as demais propriedades de `div`. **Sem padding próprio**: o respiro horizontal vem do `Section` (`clamp(20px, 5vw, 80px)`), como na V4.
 
 ## Qualidade de código (RIV-17)
@@ -165,6 +165,17 @@ Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[la
 - **Rodapé** (`site-footer.tsx`): fundo Ink com `data-tone=ink` (foco Highlight). "Privacy Policy (coming soon)" é **texto simples**: não há página nem texto legal (pendência do Owner).
 - **Limite:** as seções de destino das âncoras ainda não existem (RIV-31 em diante); hoje clicar em `#services` não rola para lugar algum. O 404 sem `lang` segue na RIV-37.
 - **Verificação manual no Chrome** (feita pelo implementador, registrada no PR #19 e no Jira RIV-30; não é teste automatizado; build de produção): estilos computados do cabeçalho e do rodapé iguais aos da V4 (1440 e 390px), exceto `rotate` (Tailwind usa a propriedade `rotate`, com o mesmo efeito do `transform` da V4) e o seletor, que substitui o "EN | PT soon".
+
+## Hero (RIV-31)
+
+`components/home/hero.tsx` e `draft-sheet.tsx`, renderizados por `app/[lang]/page.tsx` dentro de `<main id="main">`. O `HomePlaceholder` e as chaves `home.*` dos dicionários foram removidos; as chaves novas ficam em `hero.*` (EN e PT; o PT é provisório).
+
+- **Composição da V4:** rótulo vertical e anotação "this is the job." com seta (decorativos, `aria-hidden`, visíveis só a partir de 1101px, como a V4 que os oculta até 1100px); eyebrow; H1 (`Heading size="display"`) com "simpler." em itálico sobre o marcador com varredura; parágrafo; CTA `#contact`; links `#process` e `#services`.
+- **Folha de rascunho** (`DraftSheet`): estática, no estado "editado" (linhas riscadas em `<del>`, respostas manuscritas, selo FINAL, resultado). Traz o selo **Example**: é ilustrativa, nunca um caso real. O estado vem do atributo `data-edited` (`edited`, padrão `true`): o CSS `.strike` (`globals.css`) e as variantes `group-data-[edited=true]:` já respondem a ele, então a RIV-34 só precisa alternar o valor e acrescentar a animação, o botão Apply/Undo e a frase "That's the draft…" (fora desta tarefa). O selo "DRAFT" da V4 não foi incluído porque a folha está no estado final.
+- **Ajustes de fidelidade feitos junto:** o `Button` passou a `box-content` (56px de altura total, como na V4, que usa content-box) e o `Eyebrow` `sm` ganhou `leading-normal` (18px, como a V4).
+- **Verificação manual no Chrome** (build de produção, 1440 e 390px): estilos computados do Hero e da folha iguais aos da V4 em 17 de 20 pares comparados; diferenças restantes: (a) a altura da folha é 68px menor porque o botão Apply/Undo é da RIV-34; (b) o CTA tem 3px a mais por causa da seta (a fonte reserva do glifo "→" difere); (c) `rotate` do Tailwind no lugar de `transform`, e `box-shadow` com camadas vazias do Tailwind. Sem rolagem horizontal em 320, 360, 390, 768, 1100, 1101, 1440 e 1920px (EN e PT); com reduced-motion a varredura do marcador não anima e o marcador aparece completo.
+- **Contraste medido (WCAG 2.1):** Red Pen sobre a folha 5,56:1 (anotações e selo); texto riscado `#6F685C` sobre a folha 5,41:1; Ink sobre a folha 17,0:1; texto `#3B362F` sobre Paper 10,5:1; Ink sobre Highlight 13,1:1. Sem declaração de conformidade WCAG AA.
+- **Limites:** o CTA e os links levam a seções que ainda não existem (RIV-32 em diante); **divergência de critério a decidir pelo Owner:** o critério "primeiro viewport responde como contatar" não é atendido a 1440 × 900, onde o CTA fica logo abaixo da dobra (y≈925 de 900); a V4 de referência é igual (y≈959) e a implementação a segue, sem alterar o design. A 390px o CTA aparece na primeira tela.
 
 ## Integração contínua (RIV-19)
 

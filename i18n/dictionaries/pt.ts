@@ -9,9 +9,37 @@ export const pt: Dictionary = {
   a11y: {
     skipToContent: "Ir para o conteúdo",
   },
-  home: {
-    heading: "Rivelume Labs",
-    underConstruction: "Site em construção.",
+  hero: {
+    verticalLabel: "RIVELUME LABS / ESTÚDIO DE TECNOLOGIA",
+    eyebrow: "Estúdio de tecnologia",
+    headingLine1: "Software que",
+    headingLine2: "torna o negócio",
+    headingEmphasis: "mais simples.",
+    note: "este é o trabalho.",
+    body: "Ajudamos empresas a superar o trabalho manual repetitivo, as ferramentas desconectadas e os fluxos ineficientes com software sob medida, automação e IA prática.",
+    cta: "Vamos conversar sobre o seu projeto",
+    linkProcess: "Veja como construímos",
+    linkServices: "Conheça nossos serviços",
+    sheet: {
+      title: "segunda_de_manhã — rascunho 3",
+      example: "Exemplo",
+      stamp: "FINAL",
+      items: [
+        {
+          before: "Juntar seis planilhas antes de toda reunião.",
+          after: "Um painel para o time inteiro.",
+        },
+        {
+          before: "Correr atrás de novos contatos em cinco caixas de entrada.",
+          after: "Direcionados para a equipe certa.",
+        },
+        {
+          before: "Refazer o relatório semanal à mão. De novo.",
+          after: "Um relatório que se envia sozinho.",
+        },
+      ],
+      result: "Resultado: mais tempo para trabalho de maior valor.",
+    },
   },
   language: {
     label: "Idioma",
