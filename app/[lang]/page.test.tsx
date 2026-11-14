@@ -14,13 +14,20 @@ describe("Página inicial por idioma", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   });
 
-  it("renderiza as seções na ordem Hero, Services, Work, Process e About, com as âncoras da navegação", async () => {
+  it("renderiza as seções na ordem Hero, Services, Work, Process, About e Contact, com as âncoras da navegação", async () => {
     const { container } = render(await Home({ params: params("en") }));
 
     const ids = Array.from(container.querySelectorAll("main > section")).map(
       (section) => section.id,
     );
-    expect(ids).toEqual(["", "services", "work", "process", "about"]);
+    expect(ids).toEqual([
+      "",
+      "services",
+      "work",
+      "process",
+      "about",
+      "contact",
+    ]);
     expect(
       screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent),
     ).toEqual([
@@ -28,6 +35,7 @@ describe("Página inicial por idioma", () => {
       "A portfolio in progress.",
       "A simple process, built to be understood.",
       "Small studio. Serious about the details.",
+      "Have a business problem worth exploring?",
     ]);
   });
 

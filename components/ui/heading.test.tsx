@@ -50,6 +50,7 @@ describe("Heading (V4 Red Pen)", () => {
       service: "text-[clamp(30px,3.6vw,50px)]",
       card: "text-[34px]",
       step: "text-[56px]",
+      panel: "text-[44px]",
     };
     for (const size of HEADING_SIZES) {
       const { unmount } = render(

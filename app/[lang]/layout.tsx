@@ -54,7 +54,11 @@ export default async function LocaleLayout({
           language={dictionary.language}
         />
         {children}
-        <SiteFooter footer={dictionary.footer} nav={dictionary.nav} />
+        <SiteFooter
+          locale={lang}
+          footer={dictionary.footer}
+          nav={dictionary.nav}
+        />
       </body>
     </html>
   );

@@ -20,6 +20,17 @@ describe("canonical e hreflang", () => {
     });
   });
 
+  it("em uma página interna: canonical e alternates apontam para ela", () => {
+    expect(buildAlternates("pt", base, "/privacy")).toEqual({
+      canonical: "https://example.com/pt/privacy",
+      languages: {
+        en: "https://example.com/en/privacy",
+        "pt-BR": "https://example.com/pt/privacy",
+        "x-default": "https://example.com/en/privacy",
+      },
+    });
+  });
+
   it("em /pt: canonical em /pt, mesmos alternates, x-default continua /en", () => {
     const alternates = buildAlternates("pt", base);
 

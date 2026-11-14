@@ -62,7 +62,7 @@ export const pt: Dictionary = {
     description: "Software sob medida, automação e IA prática para empresas.",
     navigateHeading: "Navegar",
     legalHeading: "Legal",
-    privacy: "Política de Privacidade (em breve)",
+    privacy: "Política de Privacidade (rascunho)",
     tagline: "Desenhado à mão. Construído em código.",
     copyright: "© Rivelume Labs",
   },
@@ -176,5 +176,57 @@ export const pt: Dictionary = {
       "Comunicação clara",
       "Código fácil de manter",
     ],
+  },
+  contact: {
+    eyebrow: "Contato",
+    headingLead: "Tem um problema de negócio",
+    headingEmphasis: "que vale explorar?",
+    intro:
+      "Conte o que você quer melhorar. Começamos com uma conversa, não com um discurso de vendas.",
+    note: "Bagunçado não tem problema. Comece por aí.",
+    emailPending: "E-mail comercial: a ser divulgado.",
+    demoNotice: "Formulário de demonstração: nada é enviado nem armazenado.",
+    form: {
+      nameLabel: "Nome",
+      namePlaceholder: "Seu nome",
+      emailLabel: "E-mail",
+      emailPlaceholder: "voce@empresa.com",
+      topicsLabel: "O que você gostaria de melhorar?",
+      topics: ["Software", "Automação", "IA", "Ainda não sei"],
+      messageLabel: "Mensagem (opcional)",
+      messagePlaceholder: "Algumas palavras sobre a situação",
+      error: "Informe seu nome e um e-mail válido para que possamos responder.",
+      submit: "Vamos conversar sobre o seu projeto",
+    },
+    preview: {
+      status: "Status: prévia",
+      title: "Apenas uma prévia. Nenhuma mensagem foi enviada.",
+      body: "O formulário ainda não está conectado a um servidor, então nada foi enviado nem armazenado.",
+      back: "Voltar ao formulário",
+    },
+  },
+  privacy: {
+    metaTitle: "Política de Privacidade (rascunho) — Rivelume Labs",
+    metaDescription:
+      "Página de rascunho da política de privacidade, a ser revisada antes da publicação.",
+    draftNotice: "Rascunho: a ser revisado antes da publicação",
+    title: "Política de Privacidade",
+    intro:
+      "Esta página é um rascunho provisório. Não é uma política final e não descreve práticas definitivas.",
+    sections: [
+      {
+        heading: "O que esta política vai abordar",
+        body: "A definir e revisar antes da publicação: quais dados pessoais podem ser coletados, por quê, por quanto tempo são mantidos, quem pode acessá-los e como as pessoas podem exercer seus direitos.",
+      },
+      {
+        heading: "Situação atual deste site",
+        body: "Este site é uma prévia. O formulário de contato é uma demonstração: não está conectado a um servidor, então nada do que você digitar é enviado nem armazenado.",
+      },
+      {
+        heading: "Contato",
+        body: "Um e-mail comercial para dúvidas de privacidade será divulgado antes da publicação.",
+      },
+    ],
+    back: "Voltar ao início",
   },
 };

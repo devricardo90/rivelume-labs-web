@@ -1,16 +1,19 @@
 import { Container } from "@/components/layout/container";
 import { NAV_ITEMS } from "@/components/layout/nav-items";
+import { localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
 
 type SiteFooterProps = {
+  locale: Locale;
   footer: Dictionary["footer"];
   nav: Dictionary["nav"];
 };
 
 // Rodapé da V4 Red Pen (RIV-30): fundo Ink. `data-tone="ink"` troca o foco para
-// Highlight (regra em globals.css). A política de privacidade é texto simples:
-// não há página nem texto legal publicado (pendência do Owner).
-export function SiteFooter({ footer, nav }: SiteFooterProps) {
+// Highlight (regra em globals.css). Os links de âncora levam à página inicial
+// do idioma (`/en#services`), então também funcionam nas páginas internas. A
+// política de privacidade é um RASCUNHO (RIV-33), identificado como tal no link.
+export function SiteFooter({ locale, footer, nav }: SiteFooterProps) {
   return (
     <footer
       data-tone="ink"
@@ -37,7 +40,10 @@ export function SiteFooter({ footer, nav }: SiteFooterProps) {
             <ul className="m-0 flex list-none flex-col p-0 text-lg font-medium">
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <a href={`#${item.id}`} className="block py-2">
+                  <a
+                    href={`${localePath(locale)}#${item.id}`}
+                    className="block py-2"
+                  >
                     {nav[item.label]}
                   </a>
                 </li>
@@ -49,9 +55,12 @@ export function SiteFooter({ footer, nav }: SiteFooterProps) {
             <p className="m-0 mb-3 font-mono text-xs leading-normal tracking-[0.16em] text-rule uppercase">
               {footer.legalHeading}
             </p>
-            <p className="m-0 py-2 text-lg font-medium text-rule">
+            <a
+              href={localePath(locale, "/privacy")}
+              className="block py-2 text-lg font-medium text-rule"
+            >
               {footer.privacy}
-            </p>
+            </a>
           </div>
         </div>
 

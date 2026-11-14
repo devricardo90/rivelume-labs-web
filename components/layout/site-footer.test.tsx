@@ -7,7 +7,13 @@ import { expectNoA11yViolations } from "@/test/a11y";
 
 function renderFooter(locale: "en" | "pt" = "en") {
   const dictionary = locale === "en" ? en : pt;
-  return render(<SiteFooter footer={dictionary.footer} nav={dictionary.nav} />);
+  return render(
+    <SiteFooter
+      locale={locale}
+      footer={dictionary.footer}
+      nav={dictionary.nav}
+    />,
+  );
 }
 
 describe("Rodapé", () => {
@@ -37,27 +43,32 @@ describe("Rodapé", () => {
     const nav = screen.getByRole("navigation", { name: "Footer" });
     const links = Array.from(nav.querySelectorAll("a"));
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
-      "#services",
-      "#work",
-      "#process",
-      "#about",
-      "#contact",
+      "/en#services",
+      "/en#work",
+      "/en#process",
+      "/en#about",
+      "/en#contact",
     ]);
     expect(screen.queryByText("Home")).toBeNull();
   });
 
-  it("mostra a política de privacidade como texto, não como link", () => {
+  it("liga a política de privacidade à página de RASCUNHO, identificada como tal", () => {
     renderFooter();
 
-    expect(screen.getByText("Privacy Policy (coming soon)")).toBeTruthy();
-    expect(screen.queryByRole("link", { name: /privacy/i })).toBeNull();
+    const link = screen.getByRole("link", { name: "Privacy Policy (draft)" });
+    expect(link.getAttribute("href")).toBe("/en/privacy");
+    expect(screen.queryByText(/coming soon/i)).toBeNull();
   });
 
   it("está em português do Brasil no idioma PT", () => {
     renderFooter("pt");
 
     expect(screen.getByRole("navigation", { name: "Rodapé" })).toBeTruthy();
-    expect(screen.getByText("Política de Privacidade (em breve)")).toBeTruthy();
+    expect(
+      screen
+        .getByRole("link", { name: "Política de Privacidade (rascunho)" })
+        .getAttribute("href"),
+    ).toBe("/pt/privacy");
     expect(
       screen.getByText("Desenhado à mão. Construído em código."),
     ).toBeTruthy();

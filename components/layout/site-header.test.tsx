@@ -49,11 +49,11 @@ describe("Cabeçalho", () => {
       "Contact",
     ]);
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
-      "#services",
-      "#work",
-      "#process",
-      "#about",
-      "#contact",
+      "/en#services",
+      "/en#work",
+      "/en#process",
+      "/en#about",
+      "/en#contact",
     ]);
     expect(screen.queryByText("Home")).toBeNull();
   });
@@ -65,7 +65,7 @@ describe("Cabeçalho", () => {
     expect(
       Array.from(nav.querySelectorAll("a")).map((link) => link.textContent),
     ).toEqual(["Serviços", "Trabalhos", "Processo", "Sobre", "Contato"]);
-    expect(nav.querySelector("a")?.getAttribute("href")).toBe("#services");
+    expect(nav.querySelector("a")?.getAttribute("href")).toBe("/pt#services");
   });
 
   it("inclui o seletor de idioma funcional", () => {
@@ -120,7 +120,10 @@ describe("Cabeçalho", () => {
       renderHeader();
       fireEvent.click(screen.getByRole("button", { name: "Menu" }));
 
-      fireEvent.click(screen.getByRole("link", { name: "Work" }));
+      const link = screen.getByRole("link", { name: "Work" });
+      // jsdom não navega entre páginas: só interessa o fechamento do painel.
+      link.addEventListener("click", (event) => event.preventDefault());
+      fireEvent.click(link);
 
       expect(expanded("Menu")).toBe("false");
     });

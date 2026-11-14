@@ -62,7 +62,7 @@ export const en: Dictionary = {
       "Custom software, automation, and practical AI for businesses.",
     navigateHeading: "Navigate",
     legalHeading: "Legal",
-    privacy: "Privacy Policy (coming soon)",
+    privacy: "Privacy Policy (draft)",
     tagline: "Drawn by hand. Built in code.",
     copyright: "© Rivelume Labs",
   },
@@ -176,5 +176,57 @@ export const en: Dictionary = {
       "Clear communication",
       "Easy-to-maintain code",
     ],
+  },
+  contact: {
+    eyebrow: "Contact",
+    headingLead: "Have a business problem",
+    headingEmphasis: "worth exploring?",
+    intro:
+      "Tell us what you are trying to improve. We’ll start with a conversation, not a sales pitch.",
+    note: "Messy is fine. Start there.",
+    emailPending: "Business email: to be announced.",
+    demoNotice: "Preview form: nothing is sent or stored.",
+    form: {
+      nameLabel: "Name",
+      namePlaceholder: "Your name",
+      emailLabel: "Email",
+      emailPlaceholder: "you@company.com",
+      topicsLabel: "What would you like to improve?",
+      topics: ["Software", "Automation", "AI", "Not sure yet"],
+      messageLabel: "Message (optional)",
+      messagePlaceholder: "A few words about the situation",
+      error: "Please add your name and a valid email so we can reply.",
+      submit: "Let’s Talk About Your Project",
+    },
+    preview: {
+      status: "Status: preview",
+      title: "Preview only. No message was sent.",
+      body: "The form is not connected to a server yet, so nothing was sent and nothing was stored.",
+      back: "Back to the form",
+    },
+  },
+  privacy: {
+    metaTitle: "Privacy Policy (draft) — Rivelume Labs",
+    metaDescription:
+      "Draft privacy policy page, to be reviewed before publication.",
+    draftNotice: "Draft: to be reviewed before publication",
+    title: "Privacy Policy",
+    intro:
+      "This page is a draft placeholder. It is not a final policy and does not describe final practices.",
+    sections: [
+      {
+        heading: "What this policy will cover",
+        body: "To be defined and reviewed before publication: what personal data may be collected, why, how long it is kept, who can access it, and how people can exercise their rights.",
+      },
+      {
+        heading: "Current state of this website",
+        body: "This website is a preview. The contact form is a demonstration: it is not connected to a server, so nothing you type is sent or stored.",
+      },
+      {
+        heading: "Contact",
+        body: "A business email for privacy questions will be announced before publication.",
+      },
+    ],
+    back: "Back to home",
   },
 };
