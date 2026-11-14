@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 import { TextLink } from "@/components/ui/text-link";
 import { LOCALES, LOCALE_TAGS, localePath, type Locale } from "@/i18n/config";
@@ -31,7 +32,7 @@ const getServerHash = () => "";
 
 // Seletor de idioma (ADR-0001, 6.2 item 6): links comuns para a mesma página no
 // outro idioma, acessíveis por teclado e sem cookie; o idioma só muda pela URL.
-// Preserva a seção atual (`/pt#services`). O idioma atual fica com o sublinhado
+// Preserva a página e a seção atuais (`/pt/privacy`, `/pt#services`). O idioma atual fica com o sublinhado
 // Red Pen fixo (`aria-current`).
 export function LanguageSwitcher({
   current,
@@ -40,6 +41,10 @@ export function LanguageSwitcher({
   codes,
 }: LanguageSwitcherProps) {
   const hash = useSyncExternalStore(subscribe, getHash, getServerHash);
+  // Página atual sem o idioma ("" na inicial, "/privacy" na política): o link
+  // leva à MESMA página no outro idioma. Sem rota (testes), cai na inicial.
+  const pathname = usePathname() ?? "";
+  const path = pathname.replace(/^\/[^/]+/, "");
 
   return (
     <nav aria-label={label}>
@@ -47,7 +52,7 @@ export function LanguageSwitcher({
         {LOCALES.map((locale) => (
           <li key={locale}>
             <TextLink
-              href={`${localePath(locale)}${hash}`}
+              href={`${localePath(locale, path)}${hash}`}
               lang={LOCALE_TAGS[locale]}
               hrefLang={LOCALE_TAGS[locale]}
               aria-label={`${codes[locale]}, ${names[locale]}`}

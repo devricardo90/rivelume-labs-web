@@ -66,7 +66,8 @@ describe("Button (V4 Red Pen)", () => {
 
     const classes = screen.getByRole("button").classList;
     expect(classes.contains("min-h-[52px]")).toBe(true);
-    expect(classes.contains("box-content")).toBe(true);
+    // <button> é border-box (52px), como na V4.
+    expect(classes.contains("box-content")).toBe(false);
     expect(classes.contains("text-[17px]")).toBe(true);
     expect(classes.contains("font-semibold")).toBe(true);
   });
@@ -144,6 +145,8 @@ describe("ButtonLink (V4 Red Pen)", () => {
     expect(link.getAttribute("href")).toBe("#contact");
     expect(link.classList.contains("bg-highlight")).toBe(true);
     expect(link.classList.contains("min-h-[52px]")).toBe(true);
+    // <a> é content-box (56px com as bordas), como na V4.
+    expect(link.classList.contains("box-content")).toBe(true);
   });
 
   it("não tem violações de acessibilidade detectáveis pelo axe", async () => {

@@ -11,6 +11,7 @@ export const HEADING_SIZES = [
   "service", // H3 das linhas de serviço
   "card", // H3 dos cartões
   "step", // H3 dos passos (itálico)
+  "panel", // H3 do painel de prévia do Contato
 ] as const;
 export type HeadingSize = (typeof HEADING_SIZES)[number];
 
@@ -22,6 +23,7 @@ const SIZE_CLASSES: Record<HeadingSize, string> = {
   service: "text-[clamp(30px,3.6vw,50px)] leading-[1.05] tracking-[-0.02em]",
   card: "text-[34px] leading-[1.05] tracking-[-0.02em]",
   step: "text-[56px] italic leading-none tracking-[-0.02em]",
+  panel: "text-[44px] leading-[1.05] tracking-[-0.02em]",
 };
 
 type HeadingProps = ComponentPropsWithoutRef<"h2"> & {

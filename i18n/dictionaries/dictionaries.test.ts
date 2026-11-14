@@ -87,3 +87,29 @@ describe("Conteúdo comercial provisório (RIV-32)", () => {
     expect(titles.join("|")).not.toMatch(/Maintain|Manter|Listen|Map\b/);
   });
 });
+
+describe("Contato e privacidade (RIV-33)", () => {
+  it("a prévia nunca soa como envio (EN e PT)", () => {
+    for (const dictionary of [en, pt]) {
+      const text = JSON.stringify(dictionary.contact.preview);
+      expect(text).not.toMatch(
+        /thanks|thank you|obrigad|recebemos|we received|we will reply|responderemos/i,
+      );
+    }
+    expect(en.contact.preview.title).toBe("Preview only. No message was sent.");
+  });
+
+  it("identifica a política como rascunho em EN e PT e sem afirmações jurídicas", () => {
+    expect(en.privacy.draftNotice).toMatch(/^Draft:/);
+    expect(pt.privacy.draftNotice).toMatch(/^Rascunho:/);
+    expect(en.footer.privacy).toMatch(/draft/i);
+    expect(pt.footer.privacy).toMatch(/rascunho/i);
+    const text = JSON.stringify([en.privacy, pt.privacy]);
+    expect(text).not.toMatch(/GDPR|LGPD|CCPA|compliant|em conformidade/i);
+  });
+
+  it("tem os quatro temas de contato nos dois idiomas", () => {
+    expect(en.contact.form.topics).toHaveLength(4);
+    expect(pt.contact.form.topics).toHaveLength(4);
+  });
+});

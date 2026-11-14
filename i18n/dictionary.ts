@@ -70,7 +70,7 @@ export type Dictionary = {
     description: string;
     navigateHeading: string;
     legalHeading: string;
-    // Texto simples: a política só será publicada após aprovação do Owner.
+    // Link para a página de RASCUNHO da política (RIV-33).
     privacy: string;
     tagline: string;
     copyright: string;
@@ -127,5 +127,45 @@ export type Dictionary = {
     lead: string;
     body: string;
     values: ReadonlyArray<string>;
+  };
+  // Contato e Política de Privacidade (RIV-33). O formulário é uma DEMONSTRAÇÃO
+  // sem backend: nada é enviado nem armazenado. Textos provisórios, pendentes de
+  // validação do Owner; a política é um RASCUNHO, sem afirmações jurídicas.
+  contact: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    intro: string;
+    note: string;
+    // E-mail comercial ainda não definido (decisão do Owner, Fonte §6.2).
+    emailPending: string;
+    demoNotice: string;
+    form: {
+      nameLabel: string;
+      namePlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      topicsLabel: string;
+      topics: ReadonlyArray<string>;
+      messageLabel: string;
+      messagePlaceholder: string;
+      error: string;
+      submit: string;
+    };
+    preview: {
+      status: string;
+      title: string;
+      body: string;
+      back: string;
+    };
+  };
+  privacy: {
+    metaTitle: string;
+    metaDescription: string;
+    draftNotice: string;
+    title: string;
+    intro: string;
+    sections: ReadonlyArray<{ heading: string; body: string }>;
+    back: string;
   };
 };

@@ -1,6 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+const navigation = vi.hoisted(() => ({ pathname: null as string | null }));
+vi.mock("next/navigation", () => ({
+  usePathname: () => navigation.pathname,
+}));
+
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { en } from "@/i18n/dictionaries/en";
 import { pt } from "@/i18n/dictionaries/pt";
@@ -19,6 +25,7 @@ function renderSwitcher(locale: "en" | "pt") {
 }
 
 afterEach(() => {
+  navigation.pathname = null;
   window.location.hash = "";
 });
 
@@ -89,6 +96,29 @@ describe("Seletor de idioma", () => {
     expect(
       screen.getByRole("link", { name: "EN, English" }).getAttribute("href"),
     ).toBe("/en#services");
+  });
+
+  it("leva à MESMA página no outro idioma (ex.: /en/privacy -> /pt/privacy)", () => {
+    navigation.pathname = "/en/privacy";
+    renderSwitcher("en");
+
+    expect(
+      screen
+        .getByRole("link", { name: "PT, Português (Brasil)" })
+        .getAttribute("href"),
+    ).toBe("/pt/privacy");
+    expect(
+      screen.getByRole("link", { name: "EN, English" }).getAttribute("href"),
+    ).toBe("/en/privacy");
+  });
+
+  it("na página inicial (/pt) os links levam à inicial do outro idioma", () => {
+    navigation.pathname = "/pt";
+    renderSwitcher("pt");
+
+    expect(
+      screen.getByRole("link", { name: "EN, English" }).getAttribute("href"),
+    ).toBe("/en");
   });
 
   it("renderiza no servidor sem hash, mesmo com hash no navegador (hidratação segura)", () => {

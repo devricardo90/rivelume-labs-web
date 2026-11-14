@@ -77,7 +77,10 @@ export function SiteHeader({ locale, nav, language }: SiteHeaderProps) {
           <ul className="m-0 flex list-none flex-col p-0 text-base font-semibold md:flex-row md:flex-wrap md:gap-x-8">
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className={TEXT_LINK_CLASSES}>
+                <a
+                  href={`${localePath(locale)}#${item.id}`}
+                  className={TEXT_LINK_CLASSES}
+                >
                   {nav[item.label]}
                 </a>
               </li>

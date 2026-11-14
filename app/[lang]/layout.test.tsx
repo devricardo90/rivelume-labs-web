@@ -79,7 +79,8 @@ describe("Layout por idioma", () => {
     expect(pt).toContain('href="/pt"');
     expect(pt).toContain('aria-label="Rivelume Labs, voltar ao início"');
     expect(pt).toContain('aria-label="Principal"');
-    expect(pt).toContain("Política de Privacidade (em breve)");
+    expect(pt).toContain("Política de Privacidade (rascunho)");
+    expect(pt).toContain('href="/pt/privacy"');
   });
 
   it("responde 404 para idioma desconhecido (layout e metadados)", async () => {

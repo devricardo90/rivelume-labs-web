@@ -4,12 +4,13 @@ import { cx } from "@/lib/cx";
 
 // Botões da V4 Red Pen (RIV-28): borda de 2px Ink, sombra dura de 6px que cresce
 // para 9px no hover (deslocando -2px) e some no clique (deslocando +3px). Altura
-// mínima de 52px de conteúdo (56px com as bordas, como na V4, que usa content-box) e Instrument Sans 600 a 17px.
+// mínima de 52px e Instrument Sans 600 a 17px. Na V4 o <a> é content-box (56px com
+// as bordas) e o <button> é border-box (52px): `ButtonLink` acrescenta `box-content`.
 export const BUTTON_VARIANTS = ["ink", "highlight"] as const;
 export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];
 
 const BASE =
-  "box-content inline-flex min-h-[52px] items-center gap-2.5 border-2 border-ink px-[26px] font-sans text-[17px] font-semibold no-underline cursor-pointer transition-[translate,box-shadow] duration-100 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[3px] active:translate-y-[3px] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0";
+  "inline-flex min-h-[52px] items-center gap-2.5 border-2 border-ink px-[26px] font-sans text-[17px] font-semibold no-underline cursor-pointer transition-[translate,box-shadow] duration-100 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[3px] active:translate-y-[3px] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   ink: "bg-ink text-paper shadow-hard-burgundy hover:shadow-hard-burgundy-lg active:shadow-none",
@@ -50,5 +51,10 @@ export function ButtonLink({
   className,
   ...props
 }: ButtonLinkProps) {
-  return <Link className={buttonClasses(variant, className)} {...props} />;
+  return (
+    <Link
+      className={buttonClasses(variant, cx("box-content", className))}
+      {...props}
+    />
+  );
 }
