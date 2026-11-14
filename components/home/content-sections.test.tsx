@@ -34,6 +34,7 @@ describe("Services", () => {
       ),
     ).toEqual(["01", "02", "03"]);
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(container.querySelector("ul")?.getAttribute("role")).toBe("list");
   });
 
   it("não usa o nome 'Business Process Automation' da V4", () => {
@@ -167,6 +168,7 @@ describe("How We Work", () => {
     expect(container.querySelector("section")?.id).toBe("process");
     const list = screen.getByRole("list");
     expect(list.tagName).toBe("OL");
+    expect(list.getAttribute("role")).toBe("list");
     expect(
       within(list)
         .getAllByRole("heading", { level: 3 })
@@ -245,6 +247,7 @@ describe("About", () => {
     expect(container.textContent).not.toMatch(
       /founded|since \d{4}|years of experience|certified|certification|our team|award/i,
     );
+    expect(container.querySelector("ul")?.getAttribute("role")).toBe("list");
     expect(
       screen.getAllByRole("listitem").map((item) => item.textContent),
     ).toEqual([
@@ -269,6 +272,26 @@ describe("About", () => {
 });
 
 describe("Conteúdo PT-BR", () => {
+  it("não traz cliente, métrica, histórico, equipe nem compromisso de manutenção (guardrails em PT)", () => {
+    const sections = [pt.services, pt.work, pt.process, pt.about];
+    const text = JSON.stringify(sections);
+
+    expect(text).not.toMatch(
+      /depoimento|\d+\s?%|\d+x|fundad|desde \d{4}|anos de experi|certificad|nossa equipe|premiad/i,
+    );
+    expect(text).not.toMatch(
+      /suporte cont[ií]nuo|manuten[cç][aã]o recorrente|acompanhamento cont[ií]nuo|Manter|Mapear/i,
+    );
+  });
+
+  it("mantém os mesmos guardrails em EN nas descrições do processo e dos serviços", () => {
+    const text = JSON.stringify([en.services, en.work, en.process, en.about]);
+
+    expect(text).not.toMatch(
+      /testimonial|\d+\s?%|\d+x|founded|since \d{4}|years of experience|certified|our team|award|ongoing|continuous support|support plan|Maintain/i,
+    );
+  });
+
   it("traduz os serviços, os conceitos, o processo e o About", () => {
     render(
       <main>

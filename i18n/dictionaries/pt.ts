@@ -151,7 +151,7 @@ export const pt: Dictionary = {
       {
         title: "Planejar",
         description:
-          "Mapeamos como o trabalho flui hoje e onde o tempo se perde.",
+          "Traçamos como o trabalho flui hoje e onde o tempo se perde.",
       },
       {
         title: "Construir",
@@ -170,11 +170,11 @@ export const pt: Dictionary = {
     headingLead: "Estúdio pequeno. Sério nos",
     headingEmphasis: "detalhes.",
     lead: "A Rivelume Labs é um pequeno estúdio de tecnologia focado em resolver problemas de negócio com software prático, automação cuidadosa e IA útil.",
-    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, desenvolvimento de qualidade, transparência e soluções que continuam sustentáveis muito depois do lançamento.",
+    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, desenvolvimento de qualidade, transparência e soluções fáceis de manter muito depois do lançamento.",
     values: [
       "Tecnologia prática",
       "Comunicação clara",
-      "Manutenibilidade de longo prazo",
+      "Fácil de manter a longo prazo",
     ],
   },
 };
