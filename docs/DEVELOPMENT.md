@@ -164,7 +164,7 @@ Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[la
 - **Seletor** (`language-switcher.tsx`, cliente): `EN | PT` com o nome completo como nome acessível; a seção atual é o `hash` da URL (`useSyncExternalStore`, `hashchange`/`popstate`), então `/en#services` leva a `/pt#services`. O HTML inicial não tem hash (igual no servidor); o hash entra após a hidratação. Os links de âncora do cabeçalho são `<a>` nativos (o roteador do Next.js não dispara `hashchange`). A seção só é a de destino se o hash vier de clique ou URL; a rolagem não atualiza o hash.
 - **Rodapé** (`site-footer.tsx`): fundo Ink com `data-tone=ink` (foco Highlight). "Privacy Policy (coming soon)" é **texto simples**: não há página nem texto legal (pendência do Owner).
 - **Limite:** as seções de destino das âncoras ainda não existem (RIV-31 em diante); hoje clicar em `#services` não rola para lugar algum. O 404 sem `lang` segue na RIV-37.
-- **Verificação no Chrome** (build de produção): estilos computados do cabeçalho e do rodapé iguais aos da V4 (1440 e 390px), exceto `rotate` (Tailwind usa a propriedade `rotate`, com o mesmo efeito do `transform` da V4) e o seletor, que substitui o "EN | PT soon".
+- **Verificação manual no Chrome** (feita pelo implementador, registrada no PR #19 e no Jira RIV-30; não é teste automatizado; build de produção): estilos computados do cabeçalho e do rodapé iguais aos da V4 (1440 e 390px), exceto `rotate` (Tailwind usa a propriedade `rotate`, com o mesmo efeito do `transform` da V4) e o seletor, que substitui o "EN | PT soon".
 
 ## Integração contínua (RIV-19)
 

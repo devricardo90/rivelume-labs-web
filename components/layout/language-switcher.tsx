@@ -8,7 +8,8 @@ type LanguageSwitcherProps = {
   current: Locale;
   // Nome acessível do seletor, no idioma atual (vem do dicionário).
   label: string;
-  // Cada idioma escrito no próprio idioma: nome acessível de cada link.
+  // Cada idioma escrito no próprio idioma. O nome acessível de cada link é
+  // "EN, English": começa pelo texto visível (WCAG 2.5.3, rótulo no nome).
   names: Record<Locale, string>;
   // Código visível de cada idioma (EN | PT).
   codes: Record<Locale, string>;
@@ -49,7 +50,7 @@ export function LanguageSwitcher({
               href={`${localePath(locale)}${hash}`}
               lang={LOCALE_TAGS[locale]}
               hrefLang={LOCALE_TAGS[locale]}
-              aria-label={names[locale]}
+              aria-label={`${codes[locale]}, ${names[locale]}`}
               aria-current={locale === current ? "true" : undefined}
               className="mx-1 min-h-11 min-w-11 px-2 text-center aria-[current=true]:border-red-pen aria-[current=true]:text-ink"
             >

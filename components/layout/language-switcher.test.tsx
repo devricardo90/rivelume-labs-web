@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it } from "vitest";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { en } from "@/i18n/dictionaries/en";
@@ -31,8 +32,10 @@ describe("Seletor de idioma", () => {
   it("mostra EN e PT e dá a cada link o nome do idioma por extenso", () => {
     renderSwitcher("en");
 
-    const english = screen.getByRole("link", { name: "English" });
-    const portuguese = screen.getByRole("link", { name: "Português (Brasil)" });
+    const english = screen.getByRole("link", { name: "EN, English" });
+    const portuguese = screen.getByRole("link", {
+      name: "PT, Português (Brasil)",
+    });
     expect(english.textContent).toBe("EN");
     expect(portuguese.textContent).toBe("PT");
   });
@@ -40,8 +43,10 @@ describe("Seletor de idioma", () => {
   it("usa links comuns para /en e /pt com lang e hreflang corretos", () => {
     renderSwitcher("en");
 
-    const english = screen.getByRole("link", { name: "English" });
-    const portuguese = screen.getByRole("link", { name: "Português (Brasil)" });
+    const english = screen.getByRole("link", { name: "EN, English" });
+    const portuguese = screen.getByRole("link", {
+      name: "PT, Português (Brasil)",
+    });
     expect(english.getAttribute("href")).toBe("/en");
     expect(english.getAttribute("hreflang")).toBe("en");
     expect(english.getAttribute("lang")).toBe("en");
@@ -55,12 +60,12 @@ describe("Seletor de idioma", () => {
 
     expect(
       screen
-        .getByRole("link", { name: "Português (Brasil)" })
+        .getByRole("link", { name: "PT, Português (Brasil)" })
         .getAttribute("aria-current"),
     ).toBe("true");
     expect(
       screen
-        .getByRole("link", { name: "English" })
+        .getByRole("link", { name: "EN, English" })
         .getAttribute("aria-current"),
     ).toBeNull();
   });
@@ -78,17 +83,34 @@ describe("Seletor de idioma", () => {
 
     expect(
       screen
-        .getByRole("link", { name: "Português (Brasil)" })
+        .getByRole("link", { name: "PT, Português (Brasil)" })
         .getAttribute("href"),
     ).toBe("/pt#services");
     expect(
-      screen.getByRole("link", { name: "English" }).getAttribute("href"),
+      screen.getByRole("link", { name: "EN, English" }).getAttribute("href"),
     ).toBe("/en#services");
+  });
+
+  it("renderiza no servidor sem hash, mesmo com hash no navegador (hidratação segura)", () => {
+    window.location.hash = "#services";
+    const html = renderToStaticMarkup(
+      <LanguageSwitcher
+        current="en"
+        label={en.language.label}
+        names={en.language.names}
+        codes={en.language.codes}
+      />,
+    );
+
+    expect(html).toContain('href="/pt"');
+    expect(html).not.toContain("#services");
   });
 
   it("acompanha a mudança de seção depois de montado (hashchange)", async () => {
     renderSwitcher("en");
-    const portuguese = screen.getByRole("link", { name: "Português (Brasil)" });
+    const portuguese = screen.getByRole("link", {
+      name: "PT, Português (Brasil)",
+    });
     expect(portuguese.getAttribute("href")).toBe("/pt");
 
     window.location.hash = "#contact";
