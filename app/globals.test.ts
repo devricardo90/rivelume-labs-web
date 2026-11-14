@@ -27,6 +27,7 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     ["color-sheet", "#fffdf6"],
     ["color-rule", "#d6cdb5"],
     ["color-dash", "#cfc6ae"],
+    ["color-struck", "#6f685c"],
   ])("define %s = %s", (name, value) => {
     expect(token(name)).toBe(value);
   });
@@ -84,6 +85,16 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     );
     expect(css).toMatch(
       /@keyframes marker-sweep\s*{[\s\S]*?background-size:\s*100% 100%/,
+    );
+  });
+
+  it("define o risco da folha: 0% sem data-edited e 100%/94% com ele", () => {
+    expect(css).toMatch(/\.strike\s*{[^}]*background-size:\s*0% 3px,\s*0% 2px/);
+    expect(css).toMatch(
+      /\[data-edited="true"\]\s*\.strike\s*{[^}]*100% 3px,\s*94% 2px/,
+    );
+    expect(css).toMatch(
+      /\[data-edited="true"\]\s*\.strike\s*{[^}]*color:\s*var\(--color-struck\)/,
     );
   });
 

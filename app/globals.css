@@ -27,6 +27,7 @@
   --color-sheet: #fffdf6; /* folha de rascunho */
   --color-rule: #d6cdb5; /* texto discreto sobre Ink e hachuras */
   --color-dash: #cfc6ae; /* linhas tracejadas */
+  --color-struck: #6f685c; /* texto riscado na folha de rascunho */
 
   /* Sombras duras dos botões (6px em repouso, 9px no hover) */
   --shadow-hard-burgundy: 6px 6px 0 var(--color-burgundy);
@@ -85,6 +86,32 @@
     margin: 0 -0.08em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
+  }
+
+  /* Linha riscada da folha de rascunho (`.strike` da V4): duas linhas Red Pen
+     (3px e 2px) sobre o texto. Sem o atributo `data-edited="true"` na folha o
+     risco fica em 0% (estado "rascunho", usado pela RIV-34); com ele, 100% e 94%
+     e o texto esmaece. Sem transição: a RIV-34 acrescenta a animação. */
+  .strike {
+    background-image:
+      linear-gradient(var(--color-red-pen), var(--color-red-pen)),
+      linear-gradient(var(--color-red-pen), var(--color-red-pen));
+    background-repeat: no-repeat;
+    background-position:
+      0 52%,
+      0 66%;
+    background-size:
+      0% 3px,
+      0% 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  [data-edited="true"] .strike {
+    background-size:
+      100% 3px,
+      94% 2px;
+    color: var(--color-struck);
   }
 
   /* Varredura do marcador (1s, atraso de 0,4s). */

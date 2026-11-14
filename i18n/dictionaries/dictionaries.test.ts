@@ -4,7 +4,7 @@ import { en } from "@/i18n/dictionaries/en";
 import { pt } from "@/i18n/dictionaries/pt";
 import { getDictionary } from "@/i18n/get-dictionary";
 
-// Caminhos de todas as chaves de texto de um dicionário, ex.: "home.heading".
+// Caminhos de todas as chaves de texto de um dicionário, ex.: "hero.eyebrow".
 function keyPaths(value: unknown, prefix = ""): string[] {
   if (typeof value === "string") return [prefix];
   return Object.entries(value as Record<string, unknown>).flatMap(([k, v]) =>
@@ -36,7 +36,8 @@ describe("Dicionários EN e PT", () => {
   });
 
   it("diferem onde há tradução (não é cópia do inglês)", () => {
-    expect(pt.home.underConstruction).not.toBe(en.home.underConstruction);
+    expect(pt.hero.body).not.toBe(en.hero.body);
+    expect(pt.hero.cta).not.toBe(en.hero.cta);
     expect(pt.language.label).not.toBe(en.language.label);
   });
 

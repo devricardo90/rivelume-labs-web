@@ -15,9 +15,30 @@ export type Dictionary = {
     // Link "pular para o conteúdo" (RIV-27).
     skipToContent: string;
   };
-  home: {
-    heading: string;
-    underConstruction: string;
+  // Hero da V4 Red Pen (RIV-31). A folha de rascunho é um EXEMPLO ilustrativo
+  // (selo "Example"): não representa cliente nem resultado real.
+  hero: {
+    // Rótulo vertical decorativo (aria-hidden).
+    verticalLabel: string;
+    eyebrow: string;
+    // O título quebra em três linhas; a última (itálico sobre o marcador) é a ênfase.
+    headingLine1: string;
+    headingLine2: string;
+    headingEmphasis: string;
+    // Anotação manuscrita decorativa ao lado do título (aria-hidden).
+    note: string;
+    body: string;
+    cta: string;
+    linkProcess: string;
+    linkServices: string;
+    sheet: {
+      title: string;
+      example: string;
+      stamp: string;
+      // Três linhas: o problema (riscado) e a resposta manuscrita.
+      items: ReadonlyArray<{ before: string; after: string }>;
+      result: string;
+    };
   };
   language: {
     // Nome acessível do seletor de idioma.

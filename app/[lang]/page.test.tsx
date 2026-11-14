@@ -5,16 +5,20 @@ import Home from "@/app/[lang]/page";
 const params = (lang: string) => Promise.resolve({ lang });
 
 describe("Página inicial por idioma", () => {
-  it("renderiza o texto em inglês em /en", async () => {
+  it("renderiza o Hero em inglês em /en, dentro do main", async () => {
     render(await Home({ params: params("en") }));
 
-    expect(screen.getByText("Website under construction.")).toBeTruthy();
+    const main = screen.getByRole("main");
+    expect(main.id).toBe("main");
+    expect(screen.getByText("Technology studio")).toBeTruthy();
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   });
 
-  it("renderiza o texto em português do Brasil em /pt", async () => {
+  it("renderiza o Hero em português do Brasil em /pt", async () => {
     render(await Home({ params: params("pt") }));
 
-    expect(screen.getByText("Site em construção.")).toBeTruthy();
+    expect(screen.getByText("Estúdio de tecnologia")).toBeTruthy();
+    expect(screen.queryByText("Technology studio")).toBeNull();
   });
 
   it("responde 404 para idioma desconhecido", async () => {
