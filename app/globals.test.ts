@@ -55,7 +55,7 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     expect(css).not.toContain("#FAFAF7");
   });
 
-  it("define foco de 3px em Red Pen, com Highlight sobre fundos escuros", () => {
+  it("define foco de 3px em Red Pen, com Highlight em TODOS os tons escuros", () => {
     expect(css).toMatch(
       /:focus-visible\s*{[^}]*outline:\s*3px solid var\(--color-red-pen\)/,
     );
@@ -63,8 +63,27 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     for (const tone of ["burgundy", "burgundy-deep", "ink"]) {
       expect(css).toContain(`[data-tone="${tone}"] :focus-visible`);
     }
+    // O mesmo bloco troca a cor para Highlight (a regra com os três seletores).
     expect(css).toMatch(
-      /\[data-tone="ink"\] :focus-visible\s*{\s*outline-color:\s*var\(--color-highlight\)/,
+      /\[data-tone="burgundy"\] :focus-visible,\s*\[data-tone="burgundy-deep"\] :focus-visible,\s*\[data-tone="ink"\] :focus-visible\s*{\s*outline-color:\s*var\(--color-highlight\)/,
+    );
+  });
+
+  it("resolve as famílias de fonte no ponto de uso (@theme inline)", () => {
+    // Sem `inline`, o Tailwind congelaria var(--font-*) na raiz, antes de o
+    // next/font definir as variáveis no <html>, e as fontes não aplicariam.
+    expect(css).toMatch(/@theme inline\s*{[^}]*--font-serif:/);
+    expect(css).toMatch(/@theme inline\s*{[^}]*--font-hand:/);
+  });
+
+  it("define o marcador amarelo da V4 entre 58% e 94% da altura, com varredura", () => {
+    expect(css).toMatch(/\.marker\s*{[^}]*var\(--color-highlight\) 58%/);
+    expect(css).toMatch(/\.marker\s*{[^}]*transparent 94%/);
+    expect(css).toMatch(
+      /\.marker-sweep\s*{[^}]*animation:\s*marker-sweep 1s 0\.4s/,
+    );
+    expect(css).toMatch(
+      /@keyframes marker-sweep\s*{[\s\S]*?background-size:\s*100% 100%/,
     );
   });
 
