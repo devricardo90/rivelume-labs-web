@@ -16,5 +16,26 @@ export const pt: Dictionary = {
   language: {
     label: "Idioma",
     names: { en: "English", pt: "Português (Brasil)" },
+    codes: { en: "EN", pt: "PT" },
+  },
+  nav: {
+    label: "Principal",
+    logoLabel: "Rivelume Labs, voltar ao início",
+    services: "Serviços",
+    work: "Trabalhos",
+    process: "Processo",
+    about: "Sobre",
+    contact: "Contato",
+    menuOpen: "Menu",
+    menuClose: "Fechar",
+  },
+  footer: {
+    label: "Rodapé",
+    description: "Software sob medida, automação e IA prática para empresas.",
+    navigateHeading: "Navegar",
+    legalHeading: "Legal",
+    privacy: "Política de Privacidade (em breve)",
+    tagline: "Desenhado à mão. Construído em código.",
+    copyright: "© Rivelume Labs",
   },
 };

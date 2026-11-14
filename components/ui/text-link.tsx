@@ -7,17 +7,15 @@ import { cx } from "@/lib/cx";
 // de 12px dá o alvo de toque. A transição é só da cor da borda, como na V4: com
 // `transition-colors` o anel de foco (outline-color) também animaria de Ink para
 // Red Pen nos primeiros 200ms, o que o Chrome mostrou na medição.
+// Exportado para links de âncora (`<a href="#services">`) que precisam do mesmo
+// visual sem o roteador: a navegação nativa por hash dispara `hashchange`, o que
+// o seletor de idioma usa para preservar a seção atual.
+export const TEXT_LINK_CLASSES =
+  "inline-block border-b-[3px] border-transparent py-3 no-underline transition-[border-color] duration-200 hover:border-red-pen focus-visible:border-red-pen";
+
 export function TextLink({
   className,
   ...props
 }: ComponentPropsWithoutRef<typeof Link>) {
-  return (
-    <Link
-      className={cx(
-        "inline-block border-b-[3px] border-transparent py-3 no-underline transition-[border-color] duration-200 hover:border-red-pen focus-visible:border-red-pen",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <Link className={cx(TEXT_LINK_CLASSES, className)} {...props} />;
 }

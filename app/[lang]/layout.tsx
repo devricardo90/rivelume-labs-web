@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { fontVariables } from "@/app/[lang]/fonts";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
 import { LOCALES, LOCALE_TAGS, hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -46,7 +48,13 @@ export default async function LocaleLayout({
     <html lang={LOCALE_TAGS[lang]} className={fontVariables}>
       <body>
         <SkipLink label={dictionary.a11y.skipToContent} />
+        <SiteHeader
+          locale={lang}
+          nav={dictionary.nav}
+          language={dictionary.language}
+        />
         {children}
+        <SiteFooter footer={dictionary.footer} nav={dictionary.nav} />
       </body>
     </html>
   );
