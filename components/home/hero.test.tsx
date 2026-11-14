@@ -13,6 +13,7 @@ describe("Hero", () => {
     expect(headings).toHaveLength(1);
     expect(headings[0].textContent).toBe("Software thatmakes businesssimpler.");
     expect(headings[0].classList.contains("font-serif")).toBe(true);
+    expect(headings[0].querySelectorAll("br")).toHaveLength(2);
   });
 
   it("destaca a última palavra em itálico sobre o marcador amarelo com varredura", () => {

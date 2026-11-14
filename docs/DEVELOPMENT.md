@@ -175,7 +175,7 @@ Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[la
 - **Ajustes de fidelidade feitos junto:** o `Button` passou a `box-content` (56px de altura total, como na V4, que usa content-box) e o `Eyebrow` `sm` ganhou `leading-normal` (18px, como a V4).
 - **Verificação manual no Chrome** (build de produção, 1440 e 390px): estilos computados do Hero e da folha iguais aos da V4 em 17 de 20 pares comparados; diferenças restantes: (a) a altura da folha é 68px menor porque o botão Apply/Undo é da RIV-34; (b) o CTA tem 3px a mais por causa da seta (a fonte reserva do glifo "→" difere); (c) `rotate` do Tailwind no lugar de `transform`, e `box-shadow` com camadas vazias do Tailwind. Sem rolagem horizontal em 320, 360, 390, 768, 1100, 1101, 1440 e 1920px (EN e PT); com reduced-motion a varredura do marcador não anima e o marcador aparece completo.
 - **Contraste medido (WCAG 2.1):** Red Pen sobre a folha 5,56:1 (anotações e selo); texto riscado `#6F685C` sobre a folha 5,41:1; Ink sobre a folha 17,0:1; texto `#3B362F` sobre Paper 10,5:1; Ink sobre Highlight 13,1:1. Sem declaração de conformidade WCAG AA.
-- **Limites:** o CTA e os links levam a seções que ainda não existem (RIV-32 em diante); no 1440 × 900 o CTA fica logo abaixo da dobra, igual à V4.
+- **Limites:** o CTA e os links levam a seções que ainda não existem (RIV-32 em diante); **divergência de critério a decidir pelo Owner:** o critério "primeiro viewport responde como contatar" não é atendido a 1440 × 900, onde o CTA fica logo abaixo da dobra (y≈925 de 900); a V4 de referência é igual (y≈959) e a implementação a segue, sem alterar o design. A 390px o CTA aparece na primeira tela.
 
 ## Integração contínua (RIV-19)
 

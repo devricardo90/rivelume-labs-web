@@ -14,7 +14,10 @@ type DraftSheetProps = {
 // Folha de rascunho do Hero (V4 Red Pen): papel claro, borda e sombra dura Ink,
 // girada -1,4°, selo e linhas riscadas com a resposta à mão. É um EXEMPLO
 // ilustrativo (selo "Example"), nunca um caso real. Texto riscado usa <del>
-// (semântica de remoção); números e selo são decorativos (aria-hidden).
+// (semântica de remoção); números e selo são decorativos (aria-hidden). O
+// `role="list"` mantém a semântica de lista com `list-style: none` (Safari).
+// Com `edited={false}` as respostas ficam transparentes mas continuam na árvore
+// de acessibilidade: a RIV-34 decide entre aria-hidden e visibility nesse estado.
 export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
   return (
     <div
@@ -42,7 +45,7 @@ export function DraftSheet({ sheet, edited = true }: DraftSheetProps) {
           aria-hidden="true"
           className="absolute inset-y-0 left-[52px] w-0.5 bg-red-pen/35"
         />
-        <ol className="m-0 list-none py-1 pr-7 pl-[76px]">
+        <ol role="list" className="m-0 list-none py-1 pr-7 pl-[76px]">
           {sheet.items.map((item, index) => (
             <li
               key={item.before}

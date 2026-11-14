@@ -17,6 +17,12 @@ describe("Folha de rascunho", () => {
       "Chase new leads across five inboxes.",
       "Rebuild the weekly report by hand. Again.",
     ]);
+    expect(
+      Array.from(container.querySelectorAll("del")).every((del) =>
+        del.classList.contains("strike"),
+      ),
+    ).toBe(true);
+    expect(container.querySelector("ol")).toBeTruthy();
     expect(screen.getByText("One dashboard for the whole team.")).toBeTruthy();
     expect(screen.getByText("Routed to the right team.")).toBeTruthy();
     expect(screen.getByText("A report that sends itself.")).toBeTruthy();
@@ -61,6 +67,21 @@ describe("Folha de rascunho", () => {
       container.querySelectorAll('li [aria-hidden="true"]'),
     ).map((node) => node.textContent);
     expect(numbers).toEqual(["01", "02", "03"]);
+  });
+
+  it("mantém as respostas e o resultado ocultos até o estado editado (opacity-0 + variante)", () => {
+    render(<DraftSheet sheet={en.hero.sheet} />);
+
+    for (const text of [
+      "One dashboard for the whole team.",
+      "Result: more time for higher-value work.",
+    ]) {
+      const note = screen.getByText(text);
+      expect(note.classList.contains("opacity-0")).toBe(true);
+      expect(
+        note.classList.contains("group-data-[edited=true]:opacity-100"),
+      ).toBe(true);
+    }
   });
 
   it("traduz o exemplo para PT-BR", () => {
