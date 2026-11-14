@@ -6,8 +6,109 @@
 @source not "../docs";
 @source not "../*.md";
 
-/* Base mínima (RIV-13). Sem tokens de marca: paleta, tipografia e identidade
-   visual pertencem à Sprint 2 (DEC-RIV-007 pendente). */
-:root {
-  color-scheme: light dark;
+/* ==========================================================================
+   Tokens da V4 Red Pen (RIV-27). Referência: Home V4 Red Pen aprovada pelo
+   Owner em 14/11/2026 (V4-RedPen.dc.html). Os valores abaixo são os do mockup.
+   Componentes usam SEMPRE estes nomes (bg-paper, text-red-pen...), nunca hex.
+   ========================================================================== */
+@theme {
+  /* Principais (decisão do Owner) */
+  --color-paper: #f5f0e4;
+  --color-ink: #1d1a17;
+  --color-burgundy: #6b3343;
+  --color-burgundy-deep: #3f1624;
+  --color-red-pen: #c8231d;
+  --color-highlight: #f6e24b;
+
+  /* Apoio, tirados do mockup */
+  --color-rose: #e9c3cd; /* texto secundário sobre Burgundy e Deep Burgundy */
+  --color-muted: #5b544b; /* eyebrows e texto secundário sobre Paper */
+  --color-body: #3b362f; /* parágrafos sobre Paper */
+  --color-sheet: #fffdf6; /* folha de rascunho */
+  --color-rule: #d6cdb5; /* texto discreto sobre Ink e hachuras */
+  --color-dash: #cfc6ae; /* linhas tracejadas */
+
+  /* Sombras duras dos botões (6px em repouso, 9px no hover) */
+  --shadow-hard-burgundy: 6px 6px 0 var(--color-burgundy);
+  --shadow-hard-burgundy-lg: 9px 9px 0 var(--color-burgundy);
+  --shadow-hard-ink: 6px 6px 0 var(--color-ink);
+  --shadow-hard-ink-lg: 9px 9px 0 var(--color-ink);
+}
+
+/* Famílias: as variáveis vêm do next/font (app/[lang]/fonts.ts). `inline` faz
+   o Tailwind resolver a variável no ponto de uso. */
+@theme inline {
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), cursive;
+}
+
+@layer base {
+  :root {
+    /* A V4 é clara; sem esquema escuro automático. */
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  /* Foco visível (WCAG 2.4.7): 3px Red Pen com offset de 3px sobre Paper; sobre
+     fundos escuros (Burgundy, Deep Burgundy e Ink) o anel passa a Highlight. */
+  :focus-visible {
+    outline: 3px solid var(--color-red-pen);
+    outline-offset: 3px;
+  }
+  [data-tone="burgundy"] :focus-visible,
+  [data-tone="burgundy-deep"] :focus-visible,
+  [data-tone="ink"] :focus-visible {
+    outline-color: var(--color-highlight);
+  }
+}
+
+/* Marcador amarelo (`.hl` da V4): faixa entre 58% e 94% da altura da linha. */
+@layer components {
+  .marker {
+    background-image: linear-gradient(
+      transparent 58%,
+      var(--color-highlight) 58%,
+      var(--color-highlight) 94%,
+      transparent 94%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0 0.08em;
+    margin: 0 -0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* Varredura do marcador (1s, atraso de 0,4s). */
+  .marker-sweep {
+    animation: marker-sweep 1s 0.4s cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+}
+
+@keyframes marker-sweep {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* Reduced motion (WCAG 2.3.3): sem animações nem transições. Vale para todo o
+   site, inclusive para as interações das tarefas seguintes. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

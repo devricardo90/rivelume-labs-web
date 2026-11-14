@@ -25,7 +25,7 @@ Verificações de qualidade (RIV-17): `npm run check` executa, em sequência, `l
 
 - **Versão:** Tailwind CSS **v4**, decisão do Owner. `tailwindcss` e `@tailwindcss/postcss` em **4.3.3** e `postcss` em **8.5.31**, todos com **versão exata** (sem `^`) no `package.json` e no `package-lock.json`. Ao atualizar, mantenha `tailwindcss` e `@tailwindcss/postcss` **na mesma versão exata** (o segundo fixa o primeiro como dependência).
 - **Integração:** a integração oficial via PostCSS, a documentada pelo Next.js: `postcss.config.mjs` com o plugin `@tailwindcss/postcss` e `@import "tailwindcss";` em `app/globals.css`. **Não** use o loader `@tailwindcss/turbopack` que o scaffold do Next.js gera: ele fica preso ao Turbopack e não consta na documentação do Next 16.4.4. No teste do scaffold feito na RIV-13 (`create-next-app` 16.4.4 com Tailwind), o `next.config.ts` gerado trazia esse loader junto com Cache Components e Partial Prefetching ligados; aqui continuam desativados, por decisão do Owner.
-- **Sem identidade visual:** não há `@theme`, cores, fontes ou tokens de marca. Paleta, tipografia e design system pertencem à Sprint 2 (DEC-RIV-007 pendente). O Tailwind aplica apenas os valores padrão dele (fonte do sistema, escala de espaçamento).
+- **Identidade visual (RIV-27 e RIV-28):** os tokens, as fontes e os componentes base da **V4 Red Pen** (DEC-RIV-012, proposta aguardando aceite do Owner) estão em `app/globals.css` e `components/`; ver "Fundação visual V4 Red Pen". Esta linha descrevia a base da RIV-13, sem identidade.
 - **Detecção de classes:** o Tailwind lê automaticamente todos os arquivos do projeto, inclusive `.md`. Em `app/globals.css`, `@source not "../docs"` e `@source not "../*.md"` impedem que palavras da documentação gerem CSS. Comprovado com arquivos de teste: sem a exclusão, uma palavra em `docs/*.md` ou num `.md` da raiz virou regra CSS; com ela, não. Pastas de código novas (por exemplo `components/`) são detectadas sem configuração. Hoje só `docs/` e os `.md` da raiz são excluídos. Por decisão do Owner (04/11/2026), a pasta `content/` (ver a seção seguinte) **não** é adicionada à detecção do Tailwind por ora: conteúdo não deve conter classes de estilo.
 - **Reset base:** o Tailwind inclui um reset (Preflight). Títulos e parágrafos ficam sem estilo até receberem classes; é esperado.
 
@@ -49,17 +49,17 @@ Decisão do Owner de 04/11/2026. Sem `src/`; tudo na raiz, com o alias `@/*` (ra
 | --- | --- | --- |
 | `app/` | Rotas, layouts e páginas do App Router. Todas as rotas ficam sob `app/[lang]/` (RIV-16). Compõe componentes; não guarda texto comercial | Existente |
 | `components/layout/` | Componentes **estruturais** (contêineres, grades, seções-base), sem conteúdo | Contém `Container` |
-| `components/ui/` | Componentes **reutilizáveis** de interface (botões, links, etc.) | Reservada; criada quando houver o primeiro componente |
+| `components/ui/` | Componentes **reutilizáveis** de interface (botões, links, etc.) | `Button`, `ButtonLink`, `TextLink`, `Eyebrow`, `Heading`, `Highlight`, `HandNote` (RIV-28) |
 | `content/` | Conteúdo textual do site, mantido no repositório, sem CMS (Fonte da Verdade §11.5). Separado dos componentes e preparado para EN/PT | Reservada; **não criada** até haver conteúdo |
 
 Convenções:
 
 - **Nomes:** arquivos em `kebab-case` (`container.tsx`); componentes em `PascalCase` com exportação nomeada (`export function Container`).
 - **Server Components por padrão.** Use `"use client"` só quando houver necessidade comprovada.
-- **Sem identidade visual definitiva:** componentes usam apenas a escala padrão do Tailwind, sem cores, fontes ou tokens de marca (DEC-RIV-007 pendente). Componentes comerciais pertencem à Sprint 3.
+- **Tokens, nunca valores soltos:** componentes usam os tokens do `@theme` (`bg-paper`, `text-red-pen`, `font-serif`...), sem hex solto. Componentes comerciais pertencem à Sprint 3.
 - **Sem bibliotecas de componentes** sem necessidade comprovada e aprovação do Owner.
 - **Conteúdo fora dos componentes:** o texto vem dos dicionários por idioma em `i18n/dictionaries/` (RIV-16, ver "Internacionalização"), nunca escrito dentro do componente. A pasta `content/` continua reservada e só será criada se algum conteúdo não couber no dicionário (decisão de organização da RIV-16, a confirmar pelo Owner). Hoje a página inicial é um placeholder técnico.
-- **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-5xl px-4 sm:px-6`; aceita `className` e as demais propriedades de `div`. Valida a convenção; não é um componente final.
+- **`Container`** (`components/layout/container.tsx`): `div` com `mx-auto w-full max-w-7xl` (1280px); aceita `className` e as demais propriedades de `div`. **Sem padding próprio**: o respiro horizontal vem do `Section` (`clamp(20px, 5vw, 80px)`), como na V4.
 
 ## Qualidade de código (RIV-17)
 
@@ -109,6 +109,25 @@ it("não tem violações de acessibilidade detectáveis pelo axe", async () => {
 - **Dependência:** `axe-core` **4.14.0**, versão exata, só de desenvolvimento, licença MPL-2.0 (ferramenta de teste, não vai para o bundle do site). Ele **já estava instalado** como dependência indireta do `eslint-plugin-jsx-a11y` (via `eslint-config-next`), na mesma versão e com o mesmo hash de integridade; a mudança só o declara como dependência direta e fixa a versão. Nenhum pacote novo entrou na árvore. Publicada em 05/10/2026, sem dependências próprias.
 - **O que NÃO é medido aqui (limite do jsdom, que não faz layout nem pintura):** contraste de cores (`color-contrast` fica desligado), foco visível, tamanho de alvos de toque, rolagem horizontal e regras de página inteira (`region`, `landmark-one-main`, `page-has-heading-one`, desligadas porque os testes renderizam trechos dentro de um `<div>`; a estrutura da página, como `main` e um único `h1`, tem asserções próprias nos testes da página) e `duplicate-id`, que o axe 4.14.0 marcou como obsoleta e fica fora das tags escolhidas. Esses itens continuam na auditoria no Chrome (1440 e 390 px), registrada no Jira por tarefa. Um teste do helper documenta o limite do contraste.
 - **Uso esperado:** todo componente novo ganha um teste com `expectNoA11yViolations`. Passar no axe é necessário, mas não prova acessibilidade completa.
+
+## Fundação visual V4 Red Pen (RIV-27 e RIV-28)
+
+Referência visual vigente (decisão do Owner de 14/11/2026): **Home V4 Red Pen**, arquivo `V4-RedPen.dc.html` (SHA-256 `faedd2d42baf9a60f82453743f877f5235b4d8989c091a3859026e575b13a367`); substitui a V3 Sketch to Final. É um **mockup exportado**: o código com `<x-dc>`, `DCLogic`, `support.js` e o React embarcado **não** é código de produção e **não** foi copiado. A DEC-RIV-012 que registra a decisão está como sugestão no Google Docs, **aguardando o aceite do Owner**.
+
+| Peça | Onde |
+| --- | --- |
+| Tokens de cor e sombras duras (`@theme`) | `app/globals.css`: Paper `#F5F0E4`, Ink `#1D1A17`, Burgundy `#6B3343`, Deep Burgundy `#3F1624`, Red Pen `#C8231D`, Highlight Yellow `#F6E24B` e os de apoio (Rose, muted, body, sheet, rule, dash) |
+| Fontes | `app/[lang]/fonts.ts` (`next/font/google`, autohospedadas no build): Fraunces (títulos), Instrument Sans (texto), Geist Mono (rótulos), Caveat (manuscrito). Courier Prime (V3) foi descontinuada |
+| Estilos globais | `app/globals.css`: fundo Paper, foco 3px Red Pen (Highlight sobre fundos escuros), marcador amarelo (`.marker`), reduced-motion global |
+| Layout | `Container` (1280px), `Section` (tons `paper`, `highlight`, `burgundy`, `burgundy-deep`, `ink`; `bordered` opcional), `SkipLink` (traduzido, alvo `#main`) |
+| Componentes base | `components/ui/`: `Button` e `ButtonLink` (`ink` e `highlight`), `TextLink`, `Eyebrow`, `Heading` e `Em`, `Highlight`, `HandNote` |
+
+- **Verificado contra a V4 no Chrome** (estilos calculados, 1440 e 390px): títulos (display, seção, About, Contato, serviço, passo), rótulo, anotação manuscrita, marcador, botões (borda, cores, sombra dura de 6px, altura), link de texto e as seções (fundos, bordas, respiros): **16 de 16 pares idênticos nos dois tamanhos**. Hover (-2px, sombra de 9px) e clique (+3px, sem sombra) dos botões coincidem com a V4. Nenhuma requisição a fontes externas.
+- **Diferenças intencionais em relação à V4:** o `TextLink` mostra o sublinhado Red Pen também no **foco do teclado** (a V4 só definiu o hover); as bordas das seções são opcionais (`bordered`), pois o Contato da V4 é Burgundy **sem** borda.
+- **Contraste medido** (WCAG 2.1, calculado e no Chrome): Ink sobre Paper 15,2:1; texto `#3B362F` 10,5:1; `#5B544B` 6,6:1; Red Pen sobre Paper 5,0:1 e sobre a folha 5,6:1; Paper sobre Burgundy 8,5:1; Rose sobre Burgundy 6,0:1; Highlight sobre Burgundy 7,3:1; Paper sobre Deep Burgundy 13,7:1; Ink sobre Highlight 13,1:1. O anel de foco Red Pen sobre Paper tem 5,0:1 e o amarelo sobre Burgundy 7,3:1. **Atenção para as tarefas seguintes:** o placeholder da V4 (Rose a 80% sobre Burgundy) dá **4,48:1**, abaixo de 4,5:1 (usar opacidade 1, 6,0:1); Red Pen sobre Burgundy dá 1,7:1 e **não pode** ser usado.
+- **O que NÃO é medido no jsdom:** contraste, foco visível, hover e layout. O `app/globals.test.ts` confere os VALORES dos tokens no arquivo; o resto foi medido no Chrome (resultado no Jira) e será reauditado na RIV-35.
+- **Build:** o `next/font/google` baixa as fontes **no `next build`** (o CI precisa de rede); em tempo de execução o navegador não fala com o Google.
+- **Fora desta etapa:** cabeçalho, rodapé, Hero, seções, contato e a interação Draft → Final (RIV-30 a RIV-34).
 
 ## Internacionalização (RIV-16)
 

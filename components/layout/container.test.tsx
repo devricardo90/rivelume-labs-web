@@ -16,13 +16,16 @@ describe("Container", () => {
     expect(container.contains(screen.getByText("conteúdo"))).toBe(true);
   });
 
-  it("aplica as classes estruturais padrão", () => {
+  it("limita a 1280px (max-w-7xl) e centraliza, sem padding próprio", () => {
     render(<Container data-testid="container" />);
 
     const classes = screen.getByTestId("container").classList;
-    for (const name of ["mx-auto", "w-full", "max-w-5xl", "px-4", "sm:px-6"]) {
+    for (const name of ["mx-auto", "w-full", "max-w-7xl"]) {
       expect(classes.contains(name)).toBe(true);
     }
+    // O respiro horizontal vem do Section, como na V4.
+    expect(classes.contains("px-4")).toBe(false);
+    expect(classes.contains("max-w-5xl")).toBe(false);
   });
 
   it("acrescenta className sem perder as classes padrão", () => {
@@ -31,7 +34,7 @@ describe("Container", () => {
     const classes = screen.getByTestId("container").classList;
     expect(classes.contains("py-8")).toBe(true);
     expect(classes.contains("custom")).toBe(true);
-    expect(classes.contains("max-w-5xl")).toBe(true);
+    expect(classes.contains("max-w-7xl")).toBe(true);
   });
 
   it("não deixa a string 'undefined' na classe quando não há className", () => {

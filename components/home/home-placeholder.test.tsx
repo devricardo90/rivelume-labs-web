@@ -31,11 +31,29 @@ describe("Placeholder da página inicial", () => {
     expect(main.contains(screen.getByRole("heading", { level: 1 }))).toBe(true);
   });
 
-  it("usa o Container para limitar a largura do conteúdo", () => {
+  it("usa o Container de 1280px para limitar a largura do conteúdo", () => {
     render(<HomePlaceholder locale="en" dictionary={en} />);
 
     const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading.parentElement?.classList.contains("max-w-5xl")).toBe(true);
+    expect(heading.parentElement?.classList.contains("max-w-7xl")).toBe(true);
+  });
+
+  it("é o destino do link de pular (main com id=main) sobre uma faixa Paper", () => {
+    render(<HomePlaceholder locale="en" dictionary={en} />);
+
+    const main = screen.getByRole("main");
+    expect(main.id).toBe("main");
+    expect(main.querySelector('[data-tone="paper"]')?.tagName).toBe("SECTION");
+  });
+
+  it("usa Fraunces (font-serif) no título principal", () => {
+    render(<HomePlaceholder locale="en" dictionary={en} />);
+
+    expect(
+      screen
+        .getByRole("heading", { level: 1 })
+        .classList.contains("font-serif"),
+    ).toBe(true);
   });
 
   it("inclui o seletor de idioma com os dois idiomas", () => {
