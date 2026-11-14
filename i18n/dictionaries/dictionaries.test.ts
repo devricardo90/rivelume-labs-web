@@ -46,3 +46,42 @@ describe("Dicionários EN e PT", () => {
     expect(await getDictionary("pt")).toBe(pt);
   });
 });
+
+describe("Conteúdo comercial provisório (RIV-32)", () => {
+  it("mantém os três serviços oficiais e o processo aprovado em EN", () => {
+    expect(en.services.items.map((item) => item.title)).toEqual([
+      "Custom Software Development",
+      "Business Automation",
+      "Practical AI Solutions",
+    ]);
+    expect(en.process.steps.map((step) => step.title)).toEqual([
+      "Understand",
+      "Plan",
+      "Build",
+      "Deliver",
+    ]);
+  });
+
+  it("tem o mesmo número de serviços, conceitos, passos e valores nos dois idiomas", () => {
+    expect(pt.services.items).toHaveLength(en.services.items.length);
+    expect(pt.work.items).toHaveLength(en.work.items.length);
+    expect(pt.process.steps).toHaveLength(4);
+    expect(pt.about.values).toHaveLength(en.about.values.length);
+  });
+
+  it("identifica todos os cartões de Selected Work como conceito, sem estudo de caso", () => {
+    for (const dictionary of [en, pt]) {
+      for (const item of dictionary.work.items) {
+        expect(item.label).toMatch(/Concept|Conceito/);
+        expect(item.placeholder).toMatch(/concept|conceito/);
+      }
+    }
+  });
+
+  it("não usa Maintain/Manter nem Listen/Map como etapas do processo", () => {
+    const titles = [...en.process.steps, ...pt.process.steps].map(
+      (step) => step.title,
+    );
+    expect(titles.join("|")).not.toMatch(/Maintain|Manter|Listen|Map\b/);
+  });
+});

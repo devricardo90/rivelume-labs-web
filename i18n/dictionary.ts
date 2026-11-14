@@ -75,4 +75,57 @@ export type Dictionary = {
     tagline: string;
     copyright: string;
   };
+  // Seções de conteúdo da V4 (RIV-32). TEXTOS COMERCIAIS PROVISÓRIOS: pendentes
+  // de validação do Owner (EN e PT). Não há clientes, projetos, resultados nem
+  // métricas reais: Selected Work são CONCEITOS (DEC-RIV-012, Fonte §8).
+  services: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    headingTail: string;
+    intro: string;
+    // Três serviços oficiais, na ordem 01 a 03.
+    items: ReadonlyArray<{
+      title: string;
+      description: string;
+      application: string;
+      // Exemplo em fonte mono: entrada -> saída.
+      from: string;
+      to: string;
+    }>;
+    applicationLabel: string;
+    benefitLabel: string;
+    benefit: string;
+  };
+  work: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    intro: string;
+    problemLabel: string;
+    // Cartões de CONCEITO: nunca projetos entregues.
+    items: ReadonlyArray<{
+      label: string;
+      badge: string;
+      placeholder: string;
+      title: string;
+      problem: string;
+    }>;
+  };
+  process: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    flow: string;
+    // Quatro passos aprovados: Understand, Plan, Build, Deliver.
+    steps: ReadonlyArray<{ title: string; description: string }>;
+  };
+  about: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    lead: string;
+    body: string;
+    values: ReadonlyArray<string>;
+  };
 };

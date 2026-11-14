@@ -98,6 +98,15 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     );
   });
 
+  it("define os efeitos de revelar (marcador e sublinhado) começando em 0%", () => {
+    expect(css).toMatch(
+      /\.marker-reveal\s*{[^}]*background-size:\s*0% 100%[^}]*transition:\s*background-size/,
+    );
+    expect(css).toMatch(
+      /\.underline-reveal\s*{[^}]*var\(--color-red-pen\)[^}]*background-size:\s*0% 3px/,
+    );
+  });
+
   it("desliga animações e transições com prefers-reduced-motion", () => {
     const block = css.match(
       /@media \(prefers-reduced-motion: reduce\)\s*{[\s\S]*?}\s*}/,
