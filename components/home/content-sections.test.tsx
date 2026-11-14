@@ -97,7 +97,8 @@ describe("Selected Work", () => {
     expect(cards).toHaveLength(3);
     for (const [index, card] of cards.entries()) {
       expect(card.textContent).toContain(`Concept 0${index + 1}`);
-      expect(card.textContent).toContain("Case study soon");
+      expect(card.textContent).toContain("Concept");
+      expect(card.textContent).not.toMatch(/Case study/i);
       expect(card.textContent).toContain("/ concept ]");
     }
   });
@@ -125,7 +126,11 @@ describe("Selected Work", () => {
 
     expect(
       screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
-    ).toEqual(["Own Project", "Technical Demonstration", "Client Project"]);
+    ).toEqual([
+      "Concept: Internal Dashboard",
+      "Concept: Technical Demonstration",
+      "Concept: Chat Assistant",
+    ]);
     expect(screen.getAllByText("Business problem")).toHaveLength(3);
     expect(
       container.querySelectorAll("article > [aria-hidden='true']"),
@@ -253,7 +258,7 @@ describe("About", () => {
     ).toEqual([
       "Practical technology",
       "Clear communication",
-      "Long-term maintainability",
+      "Easy-to-maintain code",
     ]);
   });
 
@@ -281,6 +286,16 @@ describe("Conteúdo PT-BR", () => {
     );
     expect(text).not.toMatch(
       /suporte cont[ií]nuo|manuten[cç][aã]o recorrente|acompanhamento cont[ií]nuo|Manter|Mapear/i,
+    );
+  });
+
+  it("não sugere projetos, clientes ou estudos de caso existentes nem promete manutenção de longo prazo (EN e PT)", () => {
+    const text = JSON.stringify(
+      [en, pt].map((d) => [d.work, d.about, d.process, d.services]),
+    );
+
+    expect(text).not.toMatch(
+      /Own Project|Client Project|Projeto Próprio|Projeto de Cliente|Case study|Estudo de caso|long after launch|muito depois do lançamento|long-term maint|longo prazo/i,
     );
   });
 

@@ -74,6 +74,8 @@ describe("Conteúdo comercial provisório (RIV-32)", () => {
       for (const item of dictionary.work.items) {
         expect(item.label).toMatch(/Concept|Conceito/);
         expect(item.placeholder).toMatch(/concept|conceito/);
+        expect(item.title).toMatch(/^(Concept|Conceito):/);
+        expect(item.badge).toMatch(/^(Concept|Conceito)$/);
       }
     }
   });

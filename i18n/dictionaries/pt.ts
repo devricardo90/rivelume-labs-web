@@ -116,23 +116,23 @@ export const pt: Dictionary = {
     items: [
       {
         label: "Conceito 01",
-        badge: "Estudo de caso em breve",
+        badge: "Conceito",
         placeholder: "[ painel / conceito ]",
-        title: "Projeto Próprio",
+        title: "Conceito: Painel Interno",
         problem: "Uma descrição clara do desafio ficará aqui.",
       },
       {
         label: "Conceito 02",
-        badge: "Estudo de caso em breve",
+        badge: "Conceito",
         placeholder: "[ fluxo / conceito ]",
-        title: "Demonstração Técnica",
+        title: "Conceito: Demonstração Técnica",
         problem: "Uma descrição clara do desafio ficará aqui.",
       },
       {
         label: "Conceito 03",
-        badge: "Estudo de caso em breve",
+        badge: "Conceito",
         placeholder: "[ chat / conceito ]",
-        title: "Projeto de Cliente",
+        title: "Conceito: Assistente de Chat",
         problem: "Uma descrição clara do desafio ficará aqui.",
       },
     ],
@@ -170,11 +170,11 @@ export const pt: Dictionary = {
     headingLead: "Estúdio pequeno. Sério nos",
     headingEmphasis: "detalhes.",
     lead: "A Rivelume Labs é um pequeno estúdio de tecnologia focado em resolver problemas de negócio com software prático, automação cuidadosa e IA útil.",
-    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, desenvolvimento de qualidade, transparência e soluções fáceis de manter muito depois do lançamento.",
+    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, desenvolvimento de qualidade, transparência e soluções construídas com qualidade e pensadas para serem fáceis de manter.",
     values: [
       "Tecnologia prática",
       "Comunicação clara",
-      "Fácil de manter a longo prazo",
+      "Código fácil de manter",
     ],
   },
 };
