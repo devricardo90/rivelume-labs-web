@@ -144,7 +144,7 @@ Implementa o ADR-0001 (DEC-RIV-011): solução nativa do Next.js, **sem bibliote
 | Carregamento por idioma | `i18n/get-dictionary.ts` (`import()` dinâmico) |
 | Rotas | `app/[lang]/layout.tsx` e `page.tsx`; `generateStaticParams` gera `/en` e `/pt`; `dynamicParams = false` |
 | `<html lang>` | `en` em `/en` e `pt-BR` em `/pt` |
-| Seletor de idioma | `components/layout/language-switcher.tsx`: links comuns (`lang`, `hreflang`, `aria-current`) |
+| Seletor de idioma | `components/layout/language-switcher.tsx`: links comuns (`lang`, `hreflang`, `aria-current`); preserva a seção (RIV-30) |
 | Redirecionamento | `next.config.ts`: `/` -> `/en` com **307** (`permanent: false`) |
 | `canonical`, `hreflang` e `x-default` | `i18n/seo.ts`; `x-default` aponta para `/en` |
 | Sitemap | `app/sitemap.ts`, com as duas versões e seus alternates |
@@ -153,7 +153,18 @@ Implementa o ADR-0001 (DEC-RIV-011): solução nativa do Next.js, **sem bibliote
 - **404:** qualquer idioma que não seja `en` ou `pt` (por exemplo `/fr`, `/PT`, `/pt-br`) e qualquer caminho abaixo de `/en` ou `/pt` que não exista respondem 404. **Limite conhecido:** como não existe layout raiz fora de `[lang]`, a página 404 padrão do Next.js sai com `<html>` **sem atributo `lang`** (critério WCAG 3.1.1). A correção é o `global-not-found.js`, que no Next.js 16.4.4 é **experimental** (`experimental.globalNotFound`); ativar recurso experimental exige aprovação do Owner (como no Cache Components), então **não foi ativado**. Fica registrado como pendência/decisão para a tarefa do 404 e da navegação (RIV-30), ou para uma decisão do Owner.
 - **Novo texto:** acrescente a chave em `i18n/dictionary.ts`; o TypeScript obriga o PT a ter a mesma chave, e o teste de paridade confere. O componente recebe o texto por props; **nenhum componente é duplicado por idioma**.
 - **Verificação em servidor real** (`next build` e `next start`, 12/11/2026): `GET /` responde `307` com `location: /en`, **mesmo com `Accept-Language: pt-BR`**; nenhuma resposta define cookie; `/en` e `/pt` trazem `<html lang>` e `hreflang` corretos; `/fr`, `/PT`, `/pt-br`, `/en/x` respondem 404; com `SITE_URL` definida, `canonical`, os três `alternate` e o sitemap saem corretos. **Fragmento (ADR-0001, P7):** no Chromium, abrir `/#services` termina em `/en#services` (o fragmento é preservado pelo redirecionamento).
-- **Não cobre ainda:** conteúdo comercial e sua tradução, cabeçalho com o seletor (tarefa da navegação), mapeamento de seções por idioma e a troca de idioma preservando a seção (`/pt#services`, prevista para a **RIV-30**, junto com o cabeçalho); hoje o seletor leva à página inicial do outro idioma. `x-default` e os alternates são os mesmos nas páginas e no sitemap (`i18n/seo.ts`).
+- **Não cobre ainda:** conteúdo comercial e sua tradução e as seções de destino das âncoras (RIV-31 em diante). `x-default` e os alternates são os mesmos nas páginas e no sitemap (`i18n/seo.ts`).
+
+## Cabeçalho, navegação, seletor de idioma e rodapé (RIV-30)
+
+Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[lang]/layout.tsx` (cabeçalho antes do `<main>`, rodapé depois), então valem para todas as páginas.
+
+- **Cabeçalho** (`components/layout/site-header.tsx`, cliente): logotipo (link para `/en` ou `/pt`, volta ao início no idioma atual), navegação por âncoras **sem Home** (`components/layout/nav-items.ts`: `#services`, `#work`, `#process`, `#about`, `#contact`; DEC-RIV-012) e seletor de idioma. Textos em `nav` e `language` dos dicionários.
+- **Menu móvel** (< 768px; a V4 não define o mobile): botão com `aria-expanded` e `aria-controls`, alvo de 44px; o painel traz a navegação e o seletor. Escape fecha e devolve o foco ao botão; escolher um link fecha. **Depende de JavaScript** (sem JS, no mobile o painel fica oculto).
+- **Seletor** (`language-switcher.tsx`, cliente): `EN | PT` com o nome completo como nome acessível; a seção atual é o `hash` da URL (`useSyncExternalStore`, `hashchange`/`popstate`), então `/en#services` leva a `/pt#services`. O HTML inicial não tem hash (igual no servidor); o hash entra após a hidratação. Os links de âncora do cabeçalho são `<a>` nativos (o roteador do Next.js não dispara `hashchange`). A seção só é a de destino se o hash vier de clique ou URL; a rolagem não atualiza o hash.
+- **Rodapé** (`site-footer.tsx`): fundo Ink com `data-tone=ink` (foco Highlight). "Privacy Policy (coming soon)" é **texto simples**: não há página nem texto legal (pendência do Owner).
+- **Limite:** as seções de destino das âncoras ainda não existem (RIV-31 em diante); hoje clicar em `#services` não rola para lugar algum. O 404 sem `lang` segue na RIV-37.
+- **Verificação manual no Chrome** (feita pelo implementador, registrada no PR #19 e no Jira RIV-30; não é teste automatizado; build de produção): estilos computados do cabeçalho e do rodapé iguais aos da V4 (1440 e 390px), exceto `rotate` (Tailwind usa a propriedade `rotate`, com o mesmo efeito do `transform` da V4) e o seletor, que substitui o "EN | PT soon".
 
 ## Integração contínua (RIV-19)
 

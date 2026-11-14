@@ -17,16 +17,6 @@ describe("Página inicial por idioma", () => {
     expect(screen.getByText("Site em construção.")).toBeTruthy();
   });
 
-  it("marca o idioma atual no seletor", async () => {
-    render(await Home({ params: params("pt") }));
-
-    const current = screen
-      .getAllByRole("link")
-      .filter((link) => link.getAttribute("aria-current") === "true");
-    expect(current).toHaveLength(1);
-    expect(current[0].getAttribute("href")).toBe("/pt");
-  });
-
   it("responde 404 para idioma desconhecido", async () => {
     await expect(Home({ params: params("fr") })).rejects.toMatchObject({
       digest: expect.stringContaining("404"),

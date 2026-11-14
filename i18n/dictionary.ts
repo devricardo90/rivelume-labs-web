@@ -24,5 +24,34 @@ export type Dictionary = {
     label: string;
     // Cada idioma escrito no PRÓPRIO idioma (não depende do idioma atual).
     names: Record<Locale, string>;
+    // Código visível no cabeçalho (EN | PT); o nome acessível é o de `names`.
+    codes: Record<Locale, string>;
+  };
+  // Navegação por âncoras (RIV-30). Sem "Home": o logotipo volta ao início
+  // (DEC-RIV-012). Os destinos são as seções da página inicial.
+  nav: {
+    // Nome acessível do <nav> do cabeçalho.
+    label: string;
+    // Nome acessível do logotipo (link para o início, no idioma atual).
+    logoLabel: string;
+    services: string;
+    work: string;
+    process: string;
+    about: string;
+    contact: string;
+    // Botão do menu móvel.
+    menuOpen: string;
+    menuClose: string;
+  };
+  footer: {
+    // Nome acessível do <nav> do rodapé.
+    label: string;
+    description: string;
+    navigateHeading: string;
+    legalHeading: string;
+    // Texto simples: a política só será publicada após aprovação do Owner.
+    privacy: string;
+    tagline: string;
+    copyright: string;
   };
 };

@@ -14,5 +14,5 @@ export default async function Home({
   if (!hasLocale(lang)) notFound();
 
   const dictionary = await getDictionary(lang);
-  return <HomePlaceholder locale={lang} dictionary={dictionary} />;
+  return <HomePlaceholder dictionary={dictionary} />;
 }

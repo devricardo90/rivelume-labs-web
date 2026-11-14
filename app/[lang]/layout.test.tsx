@@ -60,6 +60,28 @@ describe("Layout por idioma", () => {
     expect(pt).toMatch(/<body><a href="#main"[^>]*>Ir para o conteúdo<\/a>/);
   });
 
+  it("renderiza cabeçalho, conteúdo e rodapé nesta ordem, no idioma atual", async () => {
+    const en = renderToStaticMarkup(
+      await LocaleLayout({ children: <main>x</main>, params: params("en") }),
+    );
+    const pt = renderToStaticMarkup(
+      await LocaleLayout({ children: <main>x</main>, params: params("pt") }),
+    );
+
+    for (const html of [en, pt]) {
+      expect(html.indexOf("<header")).toBeGreaterThan(html.indexOf("<body"));
+      expect(html.indexOf("<main")).toBeGreaterThan(html.indexOf("<header"));
+      expect(html.indexOf("<footer")).toBeGreaterThan(html.indexOf("<main"));
+    }
+    expect(en).toContain('href="/en"');
+    expect(en).toContain('aria-label="Rivelume Labs, back to top"');
+    expect(en).toContain('aria-label="Primary"');
+    expect(pt).toContain('href="/pt"');
+    expect(pt).toContain('aria-label="Rivelume Labs, voltar ao início"');
+    expect(pt).toContain('aria-label="Principal"');
+    expect(pt).toContain("Política de Privacidade (em breve)");
+  });
+
   it("responde 404 para idioma desconhecido (layout e metadados)", async () => {
     await expect(
       LocaleLayout({ children: null, params: params("fr") }),
