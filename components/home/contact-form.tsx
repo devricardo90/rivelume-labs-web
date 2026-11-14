@@ -23,6 +23,9 @@ const FIELD =
 const TEXTAREA =
   "box-border w-full resize-y rounded-none border-2 border-paper bg-transparent p-3.5 font-sans text-[22px] font-medium text-paper placeholder:text-rose min-h-[120px] leading-[normal]";
 
+// Os campos NÃO têm atributo `name` de propósito: o HTML pré-renderizado não tem
+// `onSubmit` até a hidratação, e um envio nativo (Enter antes do JS carregar, ou
+// sem JS) faria um GET com os campos na URL. Sem `name`, nada é enviado.
 // Formulário de contato DEMONSTRATIVO da V4 (RIV-33). Não há backend: nada é
 // enviado, gravado nem registrado. Ao "enviar", os
 // dados digitados são APAGADOS e aparece a prévia ("Preview only. No message was
@@ -103,7 +106,6 @@ export function ContactForm({ contact }: ContactFormProps) {
         <input
           ref={nameField}
           id="contact-name"
-          name="name"
           type="text"
           autoComplete="name"
           value={name}
@@ -122,7 +124,6 @@ export function ContactForm({ contact }: ContactFormProps) {
         <input
           ref={emailField}
           id="contact-email"
-          name="email"
           type="email"
           autoComplete="email"
           value={email}
@@ -171,7 +172,6 @@ export function ContactForm({ contact }: ContactFormProps) {
         </label>
         <textarea
           id="contact-message"
-          name="message"
           rows={4}
           value={message}
           onChange={(event) => setMessage(event.target.value)}

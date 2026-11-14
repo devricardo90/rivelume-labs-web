@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ContactForm } from "@/components/home/contact-form";
 import { ContactSection } from "@/components/home/contact-section";
@@ -120,6 +121,28 @@ describe("Formulário de contato (demonstração)", () => {
     expect(screen.queryByRole("status")).toBeNull();
   });
 
+  it.each(["ana@", "a@b", "ana example.com", "@x.com", "a b@x.com"])(
+    "recusa o e-mail inválido %s",
+    (value) => {
+      render(<ContactForm contact={en.contact} />);
+
+      fill("Ana", value);
+      submit();
+
+      expect(screen.getByRole("alert")).toBeTruthy();
+      expect(screen.queryByRole("status")).toBeNull();
+    },
+  );
+
+  it("aceita um e-mail com subdomínio e com espaços nas pontas", () => {
+    render(<ContactForm contact={en.contact} />);
+
+    fill("Ana", "  ana@mail.example.com  ");
+    submit();
+
+    expect(screen.getByRole("status")).toBeTruthy();
+  });
+
   it("com e-mail inválido mostra o erro e foca o e-mail", () => {
     render(<ContactForm contact={en.contact} />);
 
@@ -128,6 +151,9 @@ describe("Formulário de contato (demonstração)", () => {
 
     expect(screen.getByRole("alert")).toBeTruthy();
     const email = screen.getByLabelText("Email");
+    expect(email.getAttribute("aria-describedby")).toBe(
+      screen.getByRole("alert").id,
+    );
     expect(email.getAttribute("aria-invalid")).toBe("true");
     expect(document.activeElement).toBe(email);
   });
@@ -149,6 +175,30 @@ describe("Formulário de contato (demonstração)", () => {
     );
     expect(screen.queryByRole("alert")).toBeNull();
     expect(screen.queryByLabelText("Name")).toBeNull();
+  });
+
+  it("leva o foco ao painel de prévia depois de enviar", async () => {
+    render(<ContactForm contact={en.contact} />);
+
+    fill("Ana", "ana@example.com");
+    submit();
+
+    await waitFor(() =>
+      expect(document.activeElement).toBe(screen.getByRole("status")),
+    );
+    expect(screen.getByRole("status").getAttribute("tabindex")).toBe("-1");
+  });
+
+  it("não vaza dados num envio nativo (antes da hidratação ou sem JS): nenhum campo tem name", () => {
+    const html = renderToString(<ContactForm contact={en.contact} />);
+
+    expect(html).toContain("<form");
+    expect(html).not.toMatch(/<(input|textarea|select)[^>]*\sname=/);
+    expect(html).not.toMatch(/<form[^>]*\saction=/);
+    const { container } = render(<ContactForm contact={en.contact} />);
+    for (const field of container.querySelectorAll("input, textarea")) {
+      expect(field.hasAttribute("name")).toBe(false);
+    }
   });
 
   it("não faz nenhuma requisição de rede nem grava no navegador ao enviar", () => {
