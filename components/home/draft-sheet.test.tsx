@@ -66,6 +66,16 @@ describe("Folha de rascunho: conteúdo", () => {
     expect(screen.getByText("FINAL").getAttribute("aria-hidden")).toBe("true");
   });
 
+  it("os selos DRAFT e FINAL ficam 12px acima da posição da V4 (-top-9) para não cobrir a etiqueta Example", () => {
+    render(<DraftSheet sheet={en.hero.sheet} />);
+
+    for (const text of ["DRAFT", "FINAL"]) {
+      const stamp = screen.getByText(text);
+      expect(stamp.classList.contains("-top-9")).toBe(true);
+      expect(stamp.classList.contains("-top-6")).toBe(false);
+    }
+  });
+
   it("usa a sombra dura, a rotação de -1,4° e o papel da V4", () => {
     const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
 
