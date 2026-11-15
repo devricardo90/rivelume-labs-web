@@ -28,8 +28,13 @@ describe("Resposta 404 (RIV-37)", () => {
     expect(pt).toContain("Esta página");
   });
 
+  it("normaliza a caixa do idioma: /PT/x e /EN/x saem em pt-BR e en", async () => {
+    expect(await (await call("PT")).text()).toContain('<html lang="pt-BR">');
+    expect(await (await call("EN")).text()).toContain('<html lang="en">');
+  });
+
   it("cai no inglês para idioma desconhecido, sem lançar erro", async () => {
-    for (const lang of ["fr", "PT", "zz"]) {
+    for (const lang of ["fr", "zz", "pt-br"]) {
       const response = await call(lang);
 
       expect(response.status).toBe(404);

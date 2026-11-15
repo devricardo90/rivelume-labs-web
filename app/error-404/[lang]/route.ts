@@ -11,7 +11,10 @@ export async function GET(
   { params }: { params: Promise<{ lang: string }> },
 ) {
   const { lang } = await params;
-  const locale = hasLocale(lang) ? lang : DEFAULT_LOCALE;
+  // O Next.js casa as reescritas sem diferenciar maiúsculas: `/PT/x` chega com
+  // `lang = "PT"`; normaliza para dar `pt-BR` em vez de cair no inglês.
+  const requested = lang.toLowerCase();
+  const locale = hasLocale(requested) ? requested : DEFAULT_LOCALE;
   const { notFound } = await getDictionary(locale);
 
   return new Response(renderNotFoundDocument(locale, notFound), {
