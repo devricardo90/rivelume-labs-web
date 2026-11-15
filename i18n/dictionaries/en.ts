@@ -127,6 +127,13 @@ export const en: Dictionary = {
     pause: "Pause motion",
     play: "Play motion",
   },
+  notFound: {
+    eyebrow: "Page not found",
+    headingLead: "This page",
+    headingEmphasis: "does not exist.",
+    body: "The address may be wrong, or the page may have moved. Head back to the home page and start from there.",
+    home: "Back to home",
+  },
   work: {
     eyebrow: "Selected work",
     headingLead: "A portfolio",

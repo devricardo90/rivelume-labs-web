@@ -9,7 +9,7 @@ Auditoria da implementação em `main` no commit `39fa745a44dce4cf833d399815cbd5
 ## Resultado por severidade
 
 ### Bloqueante
-- **RIV-37 (404 sem `lang`)** continua aberta: `/fr`, `/en/x` etc. respondem 404 com `<html>` **sem** `lang`. Corrige-se com `global-not-found` (experimental no Next.js 16.4.4, não autorizado) ou com decisão do Owner. **Bloqueia a conformidade WCAG AA e o gate final (RIV-36).**
+- **RIV-37 (404 sem `lang`)** estava aberta na data da auditoria (a RIV-37 foi tratada depois; ver `docs/DEVELOPMENT.md`, seção "Página 404 com `lang`"): `/fr`, `/en/x` etc. respondem 404 com `<html>` **sem** `lang`. Corrige-se com `global-not-found` (experimental no Next.js 16.4.4, não autorizado) ou com decisão do Owner. **Bloqueia a conformidade WCAG AA e o gate final (RIV-36).**
 
 ### Importante
 | # | Achado | Situação |
