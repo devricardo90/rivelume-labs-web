@@ -14,13 +14,15 @@ describe("Página inicial por idioma", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   });
 
-  it("renderiza as seções na ordem Hero, Services, Work, Process, About e Contact, com as âncoras da navegação", async () => {
+  it("renderiza as seções na ordem Hero, faixa, Services, Work, Process, About e Contact, com as âncoras da navegação", async () => {
     const { container } = render(await Home({ params: params("en") }));
 
     const ids = Array.from(container.querySelectorAll("main > section")).map(
       (section) => section.id,
     );
+    // Hero e faixa "The draft and the final" não têm id.
     expect(ids).toEqual([
+      "",
       "",
       "services",
       "work",

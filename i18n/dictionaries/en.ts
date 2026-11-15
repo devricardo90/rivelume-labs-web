@@ -22,7 +22,12 @@ export const en: Dictionary = {
     sheet: {
       title: "monday_morning — draft 3",
       example: "Example",
-      stamp: "FINAL",
+      stampDraft: "DRAFT",
+      stampFinal: "FINAL",
+      apply: "Apply the edits",
+      undo: "Undo the edits",
+      statusDraft: "Draft: the edits have not been applied.",
+      statusFinal: "Final: the edits were applied.",
       items: [
         {
           before: "Merge six spreadsheets before every meeting.",
@@ -105,6 +110,22 @@ export const en: Dictionary = {
     applicationLabel: "Practical application",
     benefitLabel: "Business benefit",
     benefit: "More time for higher-value work.",
+  },
+  band: {
+    label: "The draft and the final",
+    files: [
+      "sheet_FINAL_v3.xlsx",
+      "copy_of_data.csv",
+      "Re: Fwd: new lead?",
+      "notes.txt",
+      "export (2).csv",
+      "report_monday_v9.docx",
+      "who owns this sheet?",
+    ],
+    phraseLead: "That’s the draft. We build",
+    phraseEmphasis: "the final.",
+    pause: "Pause motion",
+    play: "Play motion",
   },
   work: {
     eyebrow: "Selected work",

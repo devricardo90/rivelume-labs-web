@@ -90,8 +90,8 @@
 
   /* Linha riscada da folha de rascunho (`.strike` da V4): duas linhas Red Pen
      (3px e 2px) sobre o texto. Sem o atributo `data-edited="true"` na folha o
-     risco fica em 0% (estado "rascunho", usado pela RIV-34); com ele, 100% e 94%
-     e o texto esmaece. Sem transição: a RIV-34 acrescenta a animação. */
+     risco fica em 0% (estado "rascunho"); com ele, 100% e 94% e o texto esmaece,
+     animados em 0,55s com o atraso `--d` de cada linha, como na V4 (RIV-34). */
   .strike {
     background-image:
       linear-gradient(var(--color-red-pen), var(--color-red-pen)),
@@ -103,6 +103,9 @@
     background-size:
       0% 3px,
       0% 2px;
+    transition:
+      background-size 0.55s ease var(--d, 0s),
+      color 0.4s ease var(--d, 0s);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
@@ -142,9 +145,29 @@
     transition: background-size 0.4s ease;
   }
 
+  /* Faixa em movimento "The draft and the final" (`.marq` da V4): 40s linear,
+     infinita; pausa no hover e quando a faixa recebe `data-paused="true"` (botão
+     de pausa, WCAG 2.2.2). Só `transform`: não provoca relayout. */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee:hover,
+  [data-paused="true"] .marquee {
+    animation-play-state: paused;
+  }
+
   /* Varredura do marcador (1s, atraso de 0,4s). */
   .marker-sweep {
     animation: marker-sweep 1s 0.4s cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 

@@ -34,7 +34,15 @@ export type Dictionary = {
     sheet: {
       title: string;
       example: string;
-      stamp: string;
+      // Selos que se alternam: DRAFT (rascunho) e FINAL.
+      stampDraft: string;
+      stampFinal: string;
+      // Botão da folha (V4): aplica ou desfaz as edições.
+      apply: string;
+      undo: string;
+      // Estado por TEXTO para leitores de tela (anunciado ao mudar).
+      statusDraft: string;
+      statusFinal: string;
       // Três linhas: o problema (riscado) e a resposta manuscrita.
       items: ReadonlyArray<{ before: string; after: string }>;
       result: string;
@@ -96,6 +104,16 @@ export type Dictionary = {
     applicationLabel: string;
     benefitLabel: string;
     benefit: string;
+  };
+  // Faixa "The draft and the final" (RIV-34): nomes de arquivo bagunçados em
+  // movimento, com controle de pausa (WCAG 2.2.2).
+  band: {
+    label: string;
+    files: ReadonlyArray<string>;
+    phraseLead: string;
+    phraseEmphasis: string;
+    pause: string;
+    play: string;
   };
   work: {
     eyebrow: string;

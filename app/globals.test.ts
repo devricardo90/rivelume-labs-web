@@ -98,6 +98,24 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     );
   });
 
+  it("anima o risco em 0,55s com o atraso --d de cada linha, como na V4", () => {
+    expect(css).toMatch(
+      /\.strike\s*{[^}]*transition:\s*background-size 0\.55s ease var\(--d, 0s\),\s*color 0\.4s ease var\(--d, 0s\)/,
+    );
+  });
+
+  it("define a faixa em movimento: 40s linear infinita, só transform, pausável por hover e data-paused", () => {
+    expect(css).toMatch(
+      /\.marquee\s*{[^}]*width:\s*max-content[^}]*animation:\s*marquee 40s linear infinite/,
+    );
+    expect(css).toMatch(
+      /@keyframes marquee\s*{\s*to\s*{\s*transform:\s*translateX\(-50%\)/,
+    );
+    expect(css).toMatch(
+      /\.marquee:hover,\s*\[data-paused="true"\]\s*\.marquee\s*{[^}]*animation-play-state:\s*paused/,
+    );
+  });
+
   it("define os efeitos de revelar (marcador e sublinhado) começando em 0%", () => {
     expect(css).toMatch(
       /\.marker-reveal\s*{[^}]*background-size:\s*0% 100%[^}]*transition:\s*background-size/,
