@@ -48,18 +48,19 @@ describe("Faixa 'The draft and the final'", () => {
     expect(container.querySelectorAll(".marquee")).toHaveLength(1);
   });
 
-  it("tem um botão de pausa por teclado e toque, com aria-pressed e rótulo que alterna", () => {
+  it("tem um botão de pausa por teclado e toque, sem aria-pressed e com rótulo que alterna", () => {
     const { container } = render(<DraftFinalBand band={en.band} />);
     const region = container.querySelector("section") as HTMLElement;
 
     const pause = screen.getByRole("button", { name: "Pause motion" });
-    expect(pause.getAttribute("aria-pressed")).toBe("false");
+    // O nome muda conforme a ação: não combina com aria-pressed (WAI-ARIA).
+    expect(pause.hasAttribute("aria-pressed")).toBe(false);
     expect(pause.classList.contains("min-h-11")).toBe(true);
     expect(region.getAttribute("data-paused")).toBe("false");
 
     fireEvent.click(pause);
     const play = screen.getByRole("button", { name: "Play motion" });
-    expect(play.getAttribute("aria-pressed")).toBe("true");
+    expect(play.hasAttribute("aria-pressed")).toBe(false);
     expect(region.getAttribute("data-paused")).toBe("true");
 
     fireEvent.click(play);
@@ -76,6 +77,14 @@ describe("Faixa 'The draft and the final'", () => {
     const [first, second] = Array.from(container.querySelectorAll("ul"));
     expect(second.className).toContain("motion-reduce:hidden");
     expect(first.className).toContain("motion-reduce:flex-wrap");
+    // Sem encolher, a lista estoura o contêiner e os nomes são cortados (verificado no Chrome).
+    expect(first.className).toContain("motion-reduce:shrink");
+    expect(first.className).toContain("motion-reduce:min-w-0");
+    // Cada nome pode quebrar e perde o separador (senão nomes longos estouram a 320px).
+    const item = first.querySelector("li") as HTMLElement;
+    expect(item.className).toContain("motion-reduce:whitespace-normal");
+    expect(item.className).toContain("motion-reduce:[overflow-wrap:anywhere]");
+    expect(item.className).toContain("motion-reduce:after:content-none");
     expect(
       (container.querySelector(".marquee") as HTMLElement).className,
     ).toContain("motion-reduce:flex-wrap");

@@ -80,9 +80,9 @@ describe("Folha de rascunho: conteúdo", () => {
     const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
 
     expect(
-      Array.from(container.querySelectorAll('li [aria-hidden="true"]')).map(
-        (node) => node.textContent,
-      ),
+      Array.from(
+        container.querySelectorAll('li > [aria-hidden="true"]:first-child'),
+      ).map((node) => node.textContent),
     ).toEqual(["01", "02", "03"]);
   });
 
@@ -100,12 +100,13 @@ describe("Folha de rascunho: conteúdo", () => {
 });
 
 describe("Folha de rascunho: estados Draft e Final", () => {
-  it("começa em DRAFT: data-edited=false, botão 'Apply the edits' não pressionado", () => {
+  it("começa em DRAFT: data-edited=false, botão 'Apply the edits' sem aria-pressed", () => {
     const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
 
     expect(root(container).getAttribute("data-edited")).toBe("false");
     const button = screen.getByRole("button", { name: "Apply the edits" });
-    expect(button.getAttribute("aria-pressed")).toBe("false");
+    // O nome do botão muda conforme a ação: não combina com aria-pressed (WAI-ARIA).
+    expect(button.hasAttribute("aria-pressed")).toBe(false);
     expect(screen.getByRole("status").textContent).toBe(
       "Draft: the edits have not been applied.",
     );
@@ -124,7 +125,7 @@ describe("Folha de rascunho: estados Draft e Final", () => {
     });
     expect(root(container).getAttribute("data-edited")).toBe("true");
     const button = screen.getByRole("button", { name: "Undo the edits" });
-    expect(button.getAttribute("aria-pressed")).toBe("true");
+    expect(button.hasAttribute("aria-pressed")).toBe(false);
     expect(screen.getByRole("status").textContent).toBe(
       "Final: the edits were applied.",
     );
@@ -143,10 +144,8 @@ describe("Folha de rascunho: estados Draft e Final", () => {
     });
     expect(root(container).getAttribute("data-edited")).toBe("false");
     expect(
-      screen
-        .getByRole("button", { name: "Apply the edits" })
-        .getAttribute("aria-pressed"),
-    ).toBe("false");
+      screen.getByRole("button", { name: "Apply the edits" }),
+    ).toBeTruthy();
   });
 
   it("o foco no botão também cancela a aplicação automática (teclado)", () => {
@@ -179,11 +178,80 @@ describe("Folha de rascunho: estados Draft e Final", () => {
     const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
 
     expect(root(container).getAttribute("data-edited")).toBe("true");
-    expect(
-      screen
-        .getByRole("button", { name: "Undo the edits" })
-        .getAttribute("aria-pressed"),
-    ).toBe("true");
+    expect(screen.getByRole("button", { name: "Undo the edits" })).toBeTruthy();
+  });
+
+  it("os botões da folha e da faixa nunca usam aria-pressed", () => {
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+
+    expect(container.querySelector("[aria-pressed]")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Apply the edits" }));
+    expect(container.querySelector("[aria-pressed]")).toBeNull();
+  });
+
+  it("no estado DRAFT as respostas e o resultado ficam fora da árvore de acessibilidade (aria-hidden)", () => {
+    render(<DraftSheet sheet={en.hero.sheet} />);
+
+    const answer = screen.getByText("One dashboard for the whole team.");
+    const result = screen.getByText(/Result:/);
+    expect(answer.getAttribute("aria-hidden")).toBe("true");
+    expect(result.getAttribute("aria-hidden")).toBe("true");
+
+    fireEvent.click(screen.getByRole("button", { name: "Apply the edits" }));
+    expect(answer.hasAttribute("aria-hidden")).toBe(false);
+    expect(result.hasAttribute("aria-hidden")).toBe(false);
+  });
+
+  it("o texto de estado é uma região educada e atômica", () => {
+    render(<DraftSheet sheet={en.hero.sheet} />);
+
+    const status = screen.getByRole("status");
+    expect(status.getAttribute("aria-live")).toBe("polite");
+    expect(status.getAttribute("aria-atomic")).toBe("true");
+    expect(status.className).toContain("sr-only");
+  });
+
+  it("dois cliques seguidos no mesmo ciclo voltam ao estado original", () => {
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+
+    const button = screen.getByRole("button", { name: "Apply the edits" });
+    act(() => {
+      button.click();
+      button.click();
+    });
+
+    expect(root(container).getAttribute("data-edited")).toBe("false");
+  });
+
+  it("mudar de movimento reduzido para normal depois de montar não faz a folha piscar para DRAFT", () => {
+    let listener: (() => void) | undefined;
+    let reduce = true;
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn().mockImplementation((query: string) => ({
+        get matches() {
+          return reduce && query.includes("prefers-reduced-motion");
+        },
+        media: query,
+        addEventListener: (_: string, cb: () => void) => {
+          listener = cb;
+        },
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+    expect(root(container).getAttribute("data-edited")).toBe("true");
+
+    // Depois dos 1,8 s a aplicação automática já ocorreu: a preferência pode mudar.
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+    reduce = false;
+    act(() => {
+      listener?.();
+    });
+
+    expect(root(container).getAttribute("data-edited")).toBe("true");
   });
 
   it("initialEdited fixa o estado inicial e não agenda aplicação automática", () => {

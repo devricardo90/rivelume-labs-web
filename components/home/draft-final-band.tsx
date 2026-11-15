@@ -12,7 +12,8 @@ type DraftFinalBandProps = {
 // build the final.".
 //
 // Acessibilidade (WCAG 2.2.2): a V4 só pausa no hover; aqui há um BOTÃO de
-// pausa/retomada (teclado e toque, `aria-pressed`) e a faixa também pausa no hover.
+// pausa/retomada (teclado e toque; o NOME muda conforme a próxima ação, então não usa
+// `aria-pressed`, padrão WAI-ARIA) e a faixa também pausa no hover.
 // Com `prefers-reduced-motion` não há animação (regra global) e a lista passa a
 // quebrar em linhas, centralizada, sem a cópia decorativa nem o botão. A segunda
 // cópia dos nomes é `aria-hidden` (só existe para o laço contínuo).
@@ -29,7 +30,6 @@ export function DraftFinalBand({ band }: DraftFinalBandProps) {
       <div className="flex justify-end px-[clamp(20px,5vw,80px)] pt-4 motion-reduce:hidden">
         <button
           type="button"
-          aria-pressed={paused}
           onClick={() => setPaused((value) => !value)}
           className="min-h-11 cursor-pointer border-2 border-paper bg-transparent px-4 font-mono text-xs tracking-[0.16em] text-paper uppercase"
         >
@@ -68,14 +68,14 @@ function FileList({
       role="list"
       aria-hidden={decorative || undefined}
       className={
-        "m-0 flex shrink-0 list-none p-0 font-mono text-[22px] whitespace-nowrap motion-reduce:flex-wrap motion-reduce:justify-center" +
+        "m-0 flex shrink-0 list-none p-0 font-mono text-[22px] whitespace-nowrap motion-reduce:min-w-0 motion-reduce:shrink motion-reduce:flex-wrap motion-reduce:justify-center" +
         (decorative ? " motion-reduce:hidden" : "")
       }
     >
       {files.map((file) => (
         <li
           key={file}
-          className="after:mx-8 after:text-rose after:content-['/']"
+          className="after:mx-8 after:text-rose after:content-['/'] motion-reduce:px-3 motion-reduce:whitespace-normal motion-reduce:[overflow-wrap:anywhere] motion-reduce:after:content-none"
         >
           {file}
         </li>

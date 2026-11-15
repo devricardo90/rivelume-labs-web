@@ -42,13 +42,15 @@ const ROW_DELAYS = ["[--d:0s]", "[--d:0.5s]", "[--d:1s]"] as const;
 // - Se a pessoa não interagiu, 1,8 s depois as edições se aplicam sozinhas
 //   ("momento da transformação"): riscos Red Pen em sequência (0, 0,5 s, 1 s), as
 //   respostas manuscritas surgem, o resultado entra a 1,5 s e o selo troca para FINAL.
-// - O botão alterna "Apply the edits" / "Undo the edits" (`aria-pressed`). Clicar
-//   nele cancela a aplicação automática; desfazer volta ao estado DRAFT e NÃO
+// - O botão alterna "Apply the edits" / "Undo the edits" (o NOME muda conforme a
+//   próxima ação, então NÃO usa `aria-pressed`: padrão WAI-ARIA, decisão do Owner).
+//   Clicar nele cancela a aplicação automática; desfazer volta ao estado DRAFT e NÃO
 //   reaplica sozinho.
 //
 // Acessibilidade e controle (acréscimos sobre a V4): o foco no botão também cancela a
 // aplicação automática (o estado não muda embaixo de quem navega por teclado); a
-// mudança é anunciada por TEXTO (`role="status"`), não só por cor; com
+// mudança é anunciada por TEXTO (`role="status"`, educado), não só por cor; no estado
+// DRAFT as respostas ficam `aria-hidden` (ainda não foram aplicadas); com
 // `prefers-reduced-motion` as edições se aplicam de imediato e sem animação
 // (as transições são desligadas globalmente em globals.css). O texto riscado usa
 // <del>. O estado é `data-edited`, usado pelo CSS (`.strike` e as variantes
@@ -72,16 +74,18 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
   const edited = manual ?? (reduced || auto);
 
   useEffect(() => {
-    if (initialEdited || reduced) return;
+    // O temporizador roda mesmo com movimento reduzido (a folha já abre em FINAL):
+    // se a preferência mudar para "sem reduzir" em seguida, não há piscada de DRAFT.
+    if (initialEdited) return;
     const timer = window.setTimeout(() => {
       if (!touched.current) setAuto(true);
     }, AUTO_APPLY_MS);
     return () => window.clearTimeout(timer);
-  }, [initialEdited, reduced]);
+  }, [initialEdited]);
 
   function toggle() {
     touched.current = true;
-    setManual(!edited);
+    setManual((previous) => !(previous ?? (reduced || auto)));
   }
 
   return (
@@ -132,7 +136,10 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
               <p className="m-0 text-2xl leading-[1.35] font-medium">
                 <del className="strike no-underline">{item.before}</del>
               </p>
-              <HandNote className="mt-2 translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100">
+              <HandNote
+                aria-hidden={!edited || undefined}
+                className="mt-2 translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
+              >
                 {item.after}
               </HandNote>
             </li>
@@ -144,7 +151,6 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
         <Button
           type="button"
           variant="ink"
-          aria-pressed={edited}
           onClick={toggle}
           onFocus={() => {
             touched.current = true;
@@ -154,13 +160,19 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
         </Button>
         <HandNote
           size="sm"
+          aria-hidden={!edited || undefined}
           className="translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
         >
           {sheet.result}
         </HandNote>
       </div>
 
-      <p role="status" className="sr-only">
+      <p
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
         {edited ? sheet.statusFinal : sheet.statusDraft}
       </p>
     </div>
