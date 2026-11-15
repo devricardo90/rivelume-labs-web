@@ -2,7 +2,8 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cx } from "@/lib/cx";
 
 // Rótulo técnico da V4: Geist Mono, caixa alta, espaçamento de 0,16em. O marcador
-// ("01 /", "/") pode ter outra cor. O tom do texto é escolhido pelo fundo.
+// ("01 /", "/") pode ter outra cor e é DECORATIVO (`aria-hidden`: leitores de tela
+// não leem "zero um barra", RIV-35). O tom do texto é escolhido pelo fundo.
 export const EYEBROW_TONES = ["muted", "rose", "inherit"] as const;
 export type EyebrowTone = (typeof EYEBROW_TONES)[number];
 
@@ -50,7 +51,9 @@ export function Eyebrow({
     >
       {marker ? (
         <>
-          <span className={MARKER_CLASSES[markerTone]}>{marker}</span>{" "}
+          <span className={MARKER_CLASSES[markerTone]} aria-hidden="true">
+            {marker}
+          </span>{" "}
         </>
       ) : null}
       {children}

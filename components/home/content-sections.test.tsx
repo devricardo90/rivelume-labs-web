@@ -189,6 +189,38 @@ describe("How We Work", () => {
     ).toBeTruthy();
   });
 
+  it("a linha-resumo do processo é decorativa; a lista ordenada é lida uma vez só", () => {
+    render(<ProcessSection process={en.process} />);
+
+    const flow = screen.getByText("understand → plan → build → deliver");
+    expect(flow.getAttribute("aria-hidden")).toBe("true");
+    expect(screen.getByRole("list").tagName).toBe("OL");
+  });
+
+  it("os marcadores numéricos dos eyebrows são decorativos", () => {
+    const { container } = render(
+      <>
+        <ServicesSection services={en.services} />
+        <WorkSection work={en.work} />
+        <ProcessSection process={en.process} />
+        <AboutSection about={en.about} />
+      </>,
+    );
+
+    const markers = Array.from(
+      container.querySelectorAll("section > div > p span"),
+    ).filter((node) => /^\d\d \/$/.test(node.textContent ?? ""));
+    expect(markers.map((m) => m.textContent)).toEqual([
+      "01 /",
+      "02 /",
+      "03 /",
+      "04 /",
+    ]);
+    expect(markers.every((m) => m.getAttribute("aria-hidden") === "true")).toBe(
+      true,
+    );
+  });
+
   it("não usa Listen, Map nem Maintain e não promete manutenção recorrente", () => {
     const { container } = render(<ProcessSection process={en.process} />);
 

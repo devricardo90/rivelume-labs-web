@@ -45,7 +45,7 @@ export function SiteHeader({ locale, nav, language }: SiteHeaderProps) {
       >
         <span className="font-serif text-[30px] font-extrabold tracking-[-0.02em]">
           Rivelume
-        </span>
+        </span>{" "}
         <span className="inline-block -rotate-4 font-hand text-[30px] font-bold text-red-pen">
           labs
         </span>

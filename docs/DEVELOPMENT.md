@@ -221,6 +221,10 @@ Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[la
 - **Contraste medido (WCAG 2.1):** texto riscado `#6F685C` sobre a folha 5,4:1 e Red Pen sobre a folha 5,6:1 (selos e respostas); na faixa, Paper sobre Burgundy 8,5:1, Rose (separadores) sobre Burgundy 6,0:1, Ink sobre Highlight 13,1:1 e o foco Highlight sobre Burgundy 7,3:1. Sem declaração de conformidade WCAG AA.
 - **Limites:** os nomes de arquivo da faixa são genéricos e ilustrativos (não representam cliente); copy provisória; o aviso "Example" da folha permanece. A faixa e a folha dependem de JavaScript só para a interação (conteúdo legível sem ele).
 
+## Auditoria integrada (RIV-35)
+
+O relatório completo (severidades, fidelidade à V4, responsividade, acessibilidade, desempenho, funcionamento integrado e pendências) está em `docs/AUDIT-RIV-35.md`. Correções da tarefa: nome acessível do logotipo contém o texto visível (WCAG 2.5.3); marcadores "01 /" e a linha-resumo do processo são `aria-hidden`; a fonte Caveat usa só o peso 700 (arquivo latin de 72 para 49 KB, sem mudar a tipografia). **Não se declara conformidade WCAG AA** (RIV-37 aberta; sem leitor de tela, Safari real nem aparelhos reais).
+
 ## Integração contínua (RIV-19)
 
 O workflow `.github/workflows/ci.yml` (GitHub Actions) roda **a cada Pull Request para `main`**, ao abrir, atualizar ou reabrir, e uma nova atualização cancela a execução anterior. Passos, em ordem: `npm ci`, `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm test`, `npm run build` e `npm audit --omit=dev`. Para reproduzir localmente:

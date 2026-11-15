@@ -34,6 +34,11 @@ describe("Cabeçalho", () => {
       name: "Rivelume Labs, voltar ao início",
     });
     expect(logo.getAttribute("href")).toBe("/pt");
+    // WCAG 2.5.3: o nome acessível contém o texto visível ("Rivelume labs").
+    expect(logo.textContent).toBe("Rivelume labs");
+    expect(logo.getAttribute("aria-label")?.toLowerCase()).toContain(
+      (logo.textContent ?? "").toLowerCase(),
+    );
   });
 
   it("tem a navegação principal SEM Home, na ordem da V4", () => {

@@ -52,6 +52,8 @@ describe("Eyebrow (V4 Red Pen)", () => {
     const marker = screen.getByText("01 /");
     expect(marker.classList.contains("text-red-pen")).toBe(true);
     expect(marker.parentElement?.textContent).toBe("01 / Services");
+    // O marcador é decorativo: leitores de tela não leem "zero um barra" (RIV-35).
+    expect(marker.getAttribute("aria-hidden")).toBe("true");
   });
 
   it.each(EYEBROW_MARKER_TONES)("marcador no tom %s", (markerTone) => {
