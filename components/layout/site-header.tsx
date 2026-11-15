@@ -19,7 +19,9 @@ const PANEL_ID = "site-menu";
 // Cabeçalho da V4 Red Pen (RIV-30). Logotipo (volta ao início no idioma atual),
 // navegação por âncoras SEM "Home" e seletor EN | PT. A V4 não define o mobile:
 // abaixo de 768px a navegação e o seletor ficam num painel aberto por um botão
-// com `aria-expanded` (alvo de 44px). Escape fecha e devolve o foco ao botão; o
+// com `aria-expanded` (alvo de 44px). Os links da navegação têm 2px de área de
+// toque a mais de cada lado (`px-0.5 -mx-0.5`, sem mudar o layout) para chegar a
+// 44px de largura mesmo em "Work" (RIV-35). Escape fecha e devolve o foco ao botão; o
 // clique em um link também fecha. O menu móvel depende de JavaScript.
 export function SiteHeader({ locale, nav, language }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
@@ -45,7 +47,7 @@ export function SiteHeader({ locale, nav, language }: SiteHeaderProps) {
       >
         <span className="font-serif text-[30px] font-extrabold tracking-[-0.02em]">
           Rivelume
-        </span>
+        </span>{" "}
         <span className="inline-block -rotate-4 font-hand text-[30px] font-bold text-red-pen">
           labs
         </span>
@@ -79,7 +81,7 @@ export function SiteHeader({ locale, nav, language }: SiteHeaderProps) {
               <li key={item.id}>
                 <a
                   href={`${localePath(locale)}#${item.id}`}
-                  className={TEXT_LINK_CLASSES}
+                  className={`${TEXT_LINK_CLASSES} -mx-0.5 px-0.5`}
                 >
                   {nav[item.label]}
                 </a>

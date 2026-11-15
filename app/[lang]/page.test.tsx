@@ -10,6 +10,9 @@ describe("Página inicial por idioma", () => {
 
     const main = screen.getByRole("main");
     expect(main.id).toBe("main");
+    // Destino do skip link: focável por programa (tabindex=-1), sem anel no contêiner.
+    expect(main.getAttribute("tabindex")).toBe("-1");
+    expect(main.classList.contains("focus-visible:outline-none")).toBe(true);
     expect(screen.getByText("Technology studio")).toBeTruthy();
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   });

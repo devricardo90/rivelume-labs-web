@@ -36,6 +36,7 @@ const geistMono = Geist_Mono({
 
 // Anotações manuscritas (a V4 usa 500 e 700).
 const caveat = Caveat({
+  weight: "700",
   subsets: ["latin"],
   variable: "--font-caveat",
   display: "swap",

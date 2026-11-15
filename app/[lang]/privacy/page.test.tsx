@@ -14,6 +14,10 @@ describe("Política de Privacidade (rascunho)", () => {
     render(await PrivacyPage({ params: params("en") }));
 
     expect(screen.getByRole("main").id).toBe("main");
+    expect(screen.getByRole("main").getAttribute("tabindex")).toBe("-1");
+    expect(
+      screen.getByRole("main").classList.contains("focus-visible:outline-none"),
+    ).toBe(true);
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "Privacy Policy",
     );

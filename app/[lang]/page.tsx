@@ -22,7 +22,7 @@ export default async function Home({
 
   const dictionary = await getDictionary(lang);
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1} className="focus-visible:outline-none">
       <Hero hero={dictionary.hero} />
       <DraftFinalBand band={dictionary.band} />
       <ServicesSection services={dictionary.services} />

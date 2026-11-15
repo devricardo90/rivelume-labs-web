@@ -42,7 +42,11 @@ export function ProcessSection({ process }: ProcessSectionProps) {
             {process.headingEmphasis}
           </Em>
         </Heading>
-        <Eyebrow className="m-0 mb-[72px]">{process.flow}</Eyebrow>
+        {/* Resumo visual que repete os quatro passos da lista abaixo: decorativo para
+            leitores de tela (RIV-35), que já leem a lista ordenada. */}
+        <Eyebrow aria-hidden="true" className="m-0 mb-[72px]">
+          {process.flow}
+        </Eyebrow>
 
         <ol
           role="list"

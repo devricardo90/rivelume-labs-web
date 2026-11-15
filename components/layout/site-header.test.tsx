@@ -34,6 +34,11 @@ describe("Cabeçalho", () => {
       name: "Rivelume Labs, voltar ao início",
     });
     expect(logo.getAttribute("href")).toBe("/pt");
+    // WCAG 2.5.3: o nome acessível contém o texto visível ("Rivelume labs").
+    expect(logo.textContent).toBe("Rivelume labs");
+    expect(logo.getAttribute("aria-label")?.toLowerCase()).toContain(
+      (logo.textContent ?? "").toLowerCase(),
+    );
   });
 
   it("tem a navegação principal SEM Home, na ordem da V4", () => {
@@ -56,6 +61,16 @@ describe("Cabeçalho", () => {
       "/en#contact",
     ]);
     expect(screen.queryByText("Home")).toBeNull();
+  });
+
+  it("os links da navegação ganham 4px de área de toque sem mudar o layout (px-0.5 -mx-0.5)", () => {
+    renderHeader();
+
+    const nav = screen.getByRole("navigation", { name: "Primary" });
+    for (const link of Array.from(nav.querySelectorAll("a"))) {
+      expect(link.classList.contains("px-0.5")).toBe(true);
+      expect(link.classList.contains("-mx-0.5")).toBe(true);
+    }
   });
 
   it("traduz a navegação para PT-BR sem mudar as âncoras", () => {
