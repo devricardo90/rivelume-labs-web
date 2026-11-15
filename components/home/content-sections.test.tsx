@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { AboutSection } from "@/components/home/about-section";
+import { ContactSection } from "@/components/home/contact-section";
 import { ProcessSection } from "@/components/home/process-section";
 import { ServicesSection } from "@/components/home/services-section";
 import { WorkSection } from "@/components/home/work-section";
@@ -197,24 +198,26 @@ describe("How We Work", () => {
     expect(screen.getByRole("list").tagName).toBe("OL");
   });
 
-  it("os marcadores numéricos dos eyebrows são decorativos", () => {
+  it("os marcadores numéricos dos eyebrows (01 a 05) são decorativos", () => {
     const { container } = render(
       <>
         <ServicesSection services={en.services} />
         <WorkSection work={en.work} />
         <ProcessSection process={en.process} />
         <AboutSection about={en.about} />
+        <ContactSection contact={en.contact} />
       </>,
     );
 
-    const markers = Array.from(
-      container.querySelectorAll("section > div > p span"),
-    ).filter((node) => /^\d\d \/$/.test(node.textContent ?? ""));
+    const markers = Array.from(container.querySelectorAll("p span")).filter(
+      (node) => /^\d\d \/$/.test(node.textContent ?? ""),
+    );
     expect(markers.map((m) => m.textContent)).toEqual([
       "01 /",
       "02 /",
       "03 /",
       "04 /",
+      "05 /",
     ]);
     expect(markers.every((m) => m.getAttribute("aria-hidden") === "true")).toBe(
       true,

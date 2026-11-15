@@ -223,7 +223,7 @@ Implementados sobre a V4 Red Pen e a infraestrutura da RIV-16; ficam no `app/[la
 
 ## Auditoria integrada (RIV-35)
 
-O relatório completo (severidades, fidelidade à V4, responsividade, acessibilidade, desempenho, funcionamento integrado e pendências) está em `docs/AUDIT-RIV-35.md`. Correções da tarefa: nome acessível do logotipo contém o texto visível (WCAG 2.5.3); marcadores "01 /" e a linha-resumo do processo são `aria-hidden`; a fonte Caveat usa só o peso 700 (arquivo latin de 72 para 49 KB, sem mudar a tipografia). **Não se declara conformidade WCAG AA** (RIV-37 aberta; sem leitor de tela, Safari real nem aparelhos reais).
+O relatório completo (severidades, fidelidade à V4, responsividade, acessibilidade, desempenho, funcionamento integrado e pendências) está em `docs/AUDIT-RIV-35.md`. Correções da tarefa: nome acessível do logotipo contém o texto visível (WCAG 2.5.3); marcadores "01 /" e a linha-resumo do processo são `aria-hidden`; a fonte Caveat usa só o peso 700 (arquivo latin de 74.572 para 51.068 B, −8,5% do total pré-carregado, sem mudar a tipografia). **Não se declara conformidade WCAG AA** (RIV-37 aberta; sem leitor de tela, Safari real nem aparelhos reais).
 
 ## Integração contínua (RIV-19)
 
