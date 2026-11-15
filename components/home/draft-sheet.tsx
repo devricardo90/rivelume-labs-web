@@ -53,8 +53,9 @@ const ROW_DELAYS = ["[--d:0s]", "[--d:0.5s]", "[--d:1s]"] as const;
 // DRAFT as respostas ficam `aria-hidden` (ainda não foram aplicadas); com
 // `prefers-reduced-motion` as edições se aplicam de imediato e sem animação
 // (as transições são desligadas globalmente em globals.css). O texto riscado usa
-// <del>. Os selos ficam 12px mais altos que na V4 (`-top-9`, antes `-top-6`) para não
-// cobrir a etiqueta "Example" (RIV-35, decisão do Owner). O estado é `data-edited`, usado pelo CSS (`.strike` e as variantes
+// <del>. Os selos ficam 12px mais altos que na V4 (24px para 36px acima da folha)
+// para não cobrir a etiqueta "Example" (RIV-35, decisão do Owner). O estado é
+// `data-edited`, usado pelo CSS (`.strike` e as variantes
 // `group-data-[edited=true]:`). É um EXEMPLO ilustrativo (selo "Example").
 export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
   // `manual` é a escolha explícita (botão); `auto` é a aplicação automática de 1,8 s.
