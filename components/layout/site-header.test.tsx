@@ -63,6 +63,16 @@ describe("Cabeçalho", () => {
     expect(screen.queryByText("Home")).toBeNull();
   });
 
+  it("os links da navegação ganham 4px de área de toque sem mudar o layout (px-0.5 -mx-0.5)", () => {
+    renderHeader();
+
+    const nav = screen.getByRole("navigation", { name: "Primary" });
+    for (const link of Array.from(nav.querySelectorAll("a"))) {
+      expect(link.classList.contains("px-0.5")).toBe(true);
+      expect(link.classList.contains("-mx-0.5")).toBe(true);
+    }
+  });
+
   it("traduz a navegação para PT-BR sem mudar as âncoras", () => {
     renderHeader("pt");
 

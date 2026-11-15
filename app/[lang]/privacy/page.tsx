@@ -35,7 +35,7 @@ export default async function PrivacyPage({ params }: PrivacyParams) {
   const { privacy } = await getDictionary(lang);
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1} className="focus-visible:outline-none">
       <Section tone="paper">
         <Container>
           <div className="max-w-[720px]">
