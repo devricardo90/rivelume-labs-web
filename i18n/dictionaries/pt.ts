@@ -127,6 +127,13 @@ export const pt: Dictionary = {
     pause: "Pausar movimento",
     play: "Retomar movimento",
   },
+  notFound: {
+    eyebrow: "Página não encontrada",
+    headingLead: "Esta página",
+    headingEmphasis: "não existe.",
+    body: "O endereço pode estar errado ou a página pode ter mudado de lugar. Volte à página inicial e comece por lá.",
+    home: "Voltar ao início",
+  },
   work: {
     eyebrow: "Trabalhos selecionados",
     headingLead: "Um portfólio",

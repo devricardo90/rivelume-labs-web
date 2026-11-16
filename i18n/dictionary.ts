@@ -115,6 +115,14 @@ export type Dictionary = {
     pause: string;
     play: string;
   };
+  // Página 404 (RIV-37). Texto provisório, pendente de validação do Owner.
+  notFound: {
+    eyebrow: string;
+    headingLead: string;
+    headingEmphasis: string;
+    body: string;
+    home: string;
+  };
   work: {
     eyebrow: string;
     headingLead: string;

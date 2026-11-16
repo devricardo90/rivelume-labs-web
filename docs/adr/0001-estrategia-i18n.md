@@ -152,3 +152,7 @@ Verificação de 03/11/2026 contra o texto da Fonte da Verdade V1.0:
 ## 10. Aprovação
 
 **Aprovado pelo Owner em 03/11/2026:** solução nativa do Next.js sem biblioteca inicial e as decisões P1 a P4 conforme a seção 6.1. Registrado em `docs/DECISIONS.md` como **ADR-0001**. A implementação pertence à RIV-16 (Sprint 3), que **não foi iniciada**. O PR deste ADR (#3) foi mesclado em 03/11/2026 (`ce1ef45`) com autorização do Owner.
+
+## Atualização RIV-37 (15/11/2026): página 404 com `lang`
+
+A estratégia de rotas (`app/[lang]`, `dynamicParams = false`, `/` -> `/en` por 307) **não mudou**. Para que as respostas 404 tenham `<html lang>` (WCAG 3.1.1), os caminhos desconhecidos passaram a ser reescritos (`rewrites`, `afterFiles`) para um Route Handler (`app/error-404/[lang]`) que responde um HTML 404 completo, sem JavaScript. O item 1 desta ADR ("idioma desconhecido responde 404 via `hasLocale` + `notFound()`") continua valendo para as páginas, mas a resposta de idioma inválido agora vem do Route Handler. Um `proxy.ts` (estável) normaliza a caixa do slug (`/PT` -> `/pt`, `/en/PRIVACY` -> `/en/privacy`) por redirecionamento 308, sem mudar rotas nem caminhos aprovados. Detalhes, verificação e o resíduo (caminhos internos `/error-404` e `/_next`) em `docs/DEVELOPMENT.md`, seção "Página 404 com `lang` (RIV-37)".
