@@ -1,13 +1,15 @@
-# Estado operacional — 08/11/2026
+# Estado operacional — 17/11/2026 (reconciliado na RIV-49)
+
+As seções históricas de 01 a 08/11/2026 (Sprint 0, Sprint 1, board 233) foram preservadas como registro; o estado vigente das Sprints 2 e 3, das decisões e do GitHub está nas seções "Sprint 2, Sprint 3 e Sprint 4" e "GitHub".
 
 ## Source of Truth
 
 - **Documento:** [FONTE DA VERDADE — RIVELUME LABS](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit)
 - **Document ID:** `1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo`
-- **Versão/status:** V1.0 — APROVADA PELO OWNER em 11/10/2026; relida integralmente em 13/10/2026.
-- **Escopo da aprovação:** objetivo e escopo B2B inicial, DEC-RIV-006 (stack) e governança. DEC-RIV-005 e DEC-RIV-007–009, proposta de valor final, contato e demais propostas seguem explicitamente pendentes. Não são aprovação implícita.
-- **Stack aprovada:** Next.js, TypeScript, Tailwind CSS e Vercel. Nenhum website ou infraestrutura de produção iniciado.
-- **Sugestões de atualização (V1.1, proposta):** registradas em modo SUGGEST em 07/11/2026, **sem aceitar**: §19 (Jira RIV criado e Sprint 1 iniciada), novo registro DEC-RIV-011 (ADR-0001, decisões P1 a P4) na §18 e linha 1.1 na §20. Aguardam revisão e aceite do Owner; a V1.0 continua sendo a versão vigente até lá. A numeração DEC-RIV-011 deve ser conferida pelo Owner.
+- **Versão/status:** **V1.1** (08/11/2026) APROVADA PELO OWNER no aceite das sugestões (operacional, sem alterar decisões comerciais); V1.0 aprovada em 11/10/2026. Lida integralmente no Google Docs em 16/11/2026.
+- **Decisões (Fonte da Verdade V1.1, lidas em 16/11/2026):** DEC-RIV-005 (página única, seis seções) **aprovada em 08/11/2026**; DEC-RIV-006 (stack) aprovada; DEC-RIV-007 (sistema visual) aprovada em 11/11/2026 e substituída como referência visual pela **DEC-RIV-012** (V4 Red Pen, **aprovada em 14/11/2026**); DEC-RIV-011 (i18n, ADR-0001) aprovada; **DEC-RIV-013** (aprovação do mockup V4, 16/11/2026) registrada. **Pendentes:** DEC-RIV-008 (domínio e e-mail), DEC-RIV-009 (portfólio público), textos comerciais definitivos, logotipo definitivo, verificação jurídica da marca. Nenhuma publicação em produção autorizada.
+- **Stack aprovada:** Next.js, TypeScript, Tailwind CSS e Vercel. Website implementado e aprovado como mockup (baseline `d55ba95`); **nenhuma publicação em produção, nenhum projeto Vercel vinculado**.
+- **Sugestões da V1.1:** aceitas pelo Owner (08/11/2026).
 
 ## Jira
 
@@ -30,6 +32,12 @@
 | RIV-7 | Launch Readiness |
 
 Épicos não correspondem a sprints. Analytics não consta na Fonte da Verdade e ficou fora. Tarefas de RIV-3, RIV-4, RIV-6 e RIV-7 serão criadas antes das respectivas sprints.
+
+### Sprint 2, Sprint 3 e Sprint 4 (lido do Jira em 17/11/2026)
+
+Sprints do board 233: **Sprint 1** (id 179) encerrada em 08/11/2026; **Sprint 2** (id 212, Design Foundation) encerrada em 11/11/2026, com RIV-21 a RIV-26 em Feito; **Sprint 3** (id 213, Website Implementation) **ativa** (11/11 a 04/12/2026 planejado), com RIV-16 e RIV-27 a RIV-37 em Feito. A RIV-36 (gate OWNER WEBSITE VALIDATION) foi concluída em 16/11/2026 com o mockup aprovado pelo Owner (**MOCKUP APPROVED**, DEC-RIV-013); a RIV-37 (404 com `lang`) foi entregue com exceções aceitas pelo Owner. A Sprint 3 não foi encerrada (decisão do Owner).
+
+**Sprint 4 (Quality and Launch): não criada nem iniciada.** Tarefas no backlog, sem sprint: RIV-38 domínio/`SITE_URL`/e-mail, RIV-39 contato funcional, RIV-40 SEO, RIV-41 favicon e logotipo, RIV-42 privacidade definitiva, RIV-43 copy EN/PT, RIV-44 Selected Work (DEC-RIV-009), RIV-45 verificação da marca, **RIV-46 segurança (Feito, 17/11/2026)**, RIV-47 acessibilidade manual e cross-browser, RIV-48 desempenho em aparelho real, RIV-49 esta reconciliação, RIV-50 plano de publicação/rollback/Vercel, RIV-51 preview final, RIV-52 gate OWNER LAUNCH APPROVAL (pendente), RIV-53 dependências de desenvolvimento com alertas. Dependências por links "Blocks" (RIV-38 a RIV-51 e RIV-36 bloqueiam a RIV-52). Cada tarefa só começa com autorização específica do Owner.
 
 ### Governança (Sprint 0 residual)
 
@@ -57,10 +65,10 @@ Dependências registradas como links "Blocks" e lidas de volta (RIV-20 tem 8 lin
 
 ## GitHub
 
-- **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web). `main` em `1c678214cb16509d02fb2789b60eb58a35b6908e` em 08/11/2026 (merge do PR #13, última alteração da Sprint 1; PRs posteriores só de documentação avançam a `main` sem mudar o código). Merges: PR #1 `54267d6`, #2 `5644df8`, #3 `ce1ef45`, #4 `575550b`, #5 `8984a38`, #6 `9edfa08`, #7 `b4d886b`, #8 `d8477ce`, #9 `9c3a7ae`, #10 `2631b4a`, #11 `8fc9106`, #13 `1c67821` (o #12 foi um PR descartável, fechado sem merge). Baseline completa em `docs/REPOSITORY.md`.
+- **Repositório:** [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web). `main` em `ea243b2` em 17/11/2026 (merge do PR #26, RIV-46). **Baseline do mockup aprovado:** `d55ba95dcac73a3138e3e32fcc642a5a670ba6f6`, tag anotada `mockup-v4-approved-2026-11-16` (marco de histórico; **não** é release nem aprovação de publicação). Merges da Sprint 1: PR #1 `54267d6`, #2 `5644df8`, #3 `ce1ef45`, #4 `575550b`, #5 `8984a38`, #6 `9edfa08`, #7 `b4d886b`, #8 `d8477ce`, #9 `9c3a7ae`, #10 `2631b4a`, #11 `8fc9106`, #13 `1c67821`, #14 `1790f4b` (o #12 foi descartável, fechado sem merge). Sprints 2 e 3: #16 `0e5edb0` (RIV-29), #17 `3b8255a` (RIV-16), #18 `bdf2ce7` (RIV-27, RIV-28), #19 `c70f203` (RIV-30), #20 `fcf7a8a` (RIV-31), #21 `001747b` (RIV-32), #22 `e4ae138` (RIV-33), #23 `39fa745` (RIV-34), #24 `cfb92ca` (RIV-35), #25 `d55ba95` (RIV-37), #26 `ea243b2` (RIV-46). Baseline completa em `docs/REPOSITORY.md`.
 - **Visibilidade:** pública. **Proteção de `main`:** ativa. Ruleset "Protect Main" (id 24971542), verificado por leitura da API em 13/10/2026 e 02/11/2026: PR obrigatório com 0 aprovações, bloqueio de force-push e de exclusão, sem bypass e sem checks exigidos (configuração do Owner; 0 aprovações é a decisão vigente).
 - **CI:** `CI_CONFIGURED` — `.github/workflows/ci.yml` (RIV-19) roda a cada Pull Request para `main`: `npm ci`, lint, `format:check`, typecheck, `npm test`, build e `npm audit --omit=dev`, em Node 22. Execução verde na branch da tarefa e falha proposital reportada (ver o comentário da RIV-19). **Não é check obrigatório:** o ruleset continua exigindo só Pull Request; torná-lo obrigatório é decisão do Owner. O workflow não roda em `push` para `main`.
-- **Ferramentas de qualidade:** ESLint 9.39.5 (descontinuado pelo npm; risco aceito), Prettier 3.9.10, Vitest 5.1.0, React Testing Library e jsdom, em versões exatas. Node mínimo do projeto: **22.12** (`engines`). `npm audit --omit=dev`: 0 vulnerabilidades; o `npm audit` completo mostra 8 avisos moderados do `minimatch` (GHSA-g3hv-75wg-m249), só em desenvolvimento, aceitos pelo Owner (ver `docs/DEVELOPMENT.md`).
+- **Ferramentas de qualidade:** Next.js **16.4.6** (atualizada de 16.4.4 na RIV-46), Tailwind 4.3.3, ESLint 9.39.5 (descontinuado pelo npm; risco aceito), Prettier 3.9.10, Vitest 5.1.0, React Testing Library, jsdom e axe-core 4.14.0, em versões exatas; **333 testes**. Node mínimo: **22.12**. `npm audit --omit=dev`: **0 vulnerabilidades** (17/11/2026). O `npm audit` completo tem 17 avisos (6 moderados, 11 altos), todos em dependências de desenvolvimento, **aceitos temporariamente pelo Owner e não resolvidos** (tarefa RIV-53; ver `docs/DEVELOPMENT.md`, "Segurança (RIV-46)").
 
 ## Protocolo
 
@@ -71,8 +79,8 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 | Entrega | Evidência | Estado |
 | --- | --- | --- |
 | Fonte da verdade aprovada | V1.0 aprovada em 11/10/2026, relida | Cumprida |
-| Escopo do MVP | §6, aprovado como escopo B2B inicial; DEC-RIV-005 (página única/seis seções) ainda proposta | Parcial |
-| Identidade comercial definida | Nome aprovado com ressalva jurídica (DEC-RIV-002); proposta de valor, identidade visual (DEC-RIV-007) e domínio (DEC-RIV-008) pendentes | Parcial |
+| Escopo do MVP | §6; DEC-RIV-005 (página única, seis seções) aprovada pelo Owner em 08/11/2026 | Cumprida |
+| Identidade comercial definida | Nome aprovado com ressalva jurídica (DEC-RIV-002); sistema visual aprovado (DEC-RIV-007, 11/11/2026; V4 Red Pen na DEC-RIV-012, 14/11/2026); proposta de valor, domínio (DEC-RIV-008), logotipo definitivo e verificação da marca pendentes | Parcial |
 | Arquitetura aprovada | DEC-RIV-006 | Cumprida |
 | Estratégia de internacionalização | Idiomas EN/PT-BR definidos; estratégia de roteamento e tradução **decidida no ADR-0001** (`docs/adr/0001-estrategia-i18n.md`, RIV-15; aprovado pelo Owner em 03/11/2026, vigente desde o merge do PR #3 em `ce1ef45`). A Fonte da Verdade §15 lista a estratégia nas Sprints 0 e 1; §11.6 a adia para a fundação técnica | Cumprida |
 | Repositório definido | Repositório, `main` e branch de governança verificados | Cumprida; `main` protegida pelo ruleset 24971542 |
@@ -83,4 +91,4 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 
 ## Limites
 
-A Sprint 1 foi **encerrada em 08/11/2026** por autorização do Owner, com as 9 tarefas em Feito (RIV-20 validada com exceções). **Não há sprint ativa:** a Sprint 2 não foi criada nem iniciada e só começa com autorização do Owner. Não iniciar a RIV-16. Não implementar internacionalização antes da Sprint 3 (RIV-16 não iniciada; o ADR-0001 já está vigente). Não publicar em produção. Merges só com autorização do Owner. Não alterar segredos, visibilidade ou plano do GitHub.
+Sprints 1 e 2 **encerradas**; Sprint 3 **ativa** (não encerrada; decisão do Owner); **Sprint 4 não criada nem iniciada**. Website aprovado como **mockup** (DEC-RIV-013); o gate OWNER LAUNCH APPROVAL (RIV-52) permanece pendente. **Não publicar em produção** (sem projeto Vercel nem domínio), não fazer merge sem autorização do Owner vinculada a um HEAD específico e não iniciar tarefa sem autorização. Não declarar conformidade WCAG AA. Não alterar segredos, visibilidade ou plano do GitHub.
