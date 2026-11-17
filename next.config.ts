@@ -17,6 +17,53 @@ export const NOT_FOUND_REWRITES = [
   },
 ];
 
+// Headers de segurança (RIV-46, Fonte da Verdade §13.4). O site é estático, sem
+// backend, cookies nem coleta de dados; as proteções são as de baixo custo e sem
+// efeito visível: sem sniffing de tipo, sem página dentro de iframe de terceiros, sem
+// APIs de dispositivo, Referer só com a origem em outro site.
+export const SECURITY_HEADERS = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+];
+
+// CSP: o site só carrega recursos da própria origem (fontes locais via next/font,
+// sem scripts, estilos, imagens nem requisições de terceiros). `'unsafe-inline'` em
+// script e estilo é necessário: o Next.js injeta o script de hidratação (RSC) e
+// estilos em linha, e um CSP com nonce ou hash obrigaria a renderizar todas as
+// páginas sob demanda (perde a geração estática). Por isso o CSP NÃO protege contra
+// XSS por script em linha; o ganho é bloquear recursos externos, plugins, `<base>`,
+// envio de formulário a outro site e enquadramento. Sem `'unsafe-eval'`: só em
+// produção, porque `next dev` precisa de eval.
+export const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
+export function buildSecurityHeaders(
+  production: boolean = process.env.NODE_ENV === "production",
+) {
+  return production
+    ? [
+        ...SECURITY_HEADERS,
+        { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
+      ]
+    : SECURITY_HEADERS;
+}
+
 // Configuração mínima (RIV-12).
 // - Cache Components e Partial Prefetching ficam desativados por decisão do
 //   Owner; qualquer ativação exige nova aprovação.
@@ -25,6 +72,11 @@ export const NOT_FOUND_REWRITES = [
 //   não pode ser alterado por ferramentas de terceiros.
 const nextConfig: NextConfig = {
   agentRules: false,
+  // RIV-46: não anuncia o framework (`X-Powered-By: Next.js`).
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: buildSecurityHeaders() }];
+  },
   // ADR-0001, P4: `/` redireciona para `/en` com HTTP 307 (`permanent: false`),
   // sem `proxy` e sem detectar o idioma do navegador. O destino é o idioma
   // padrão (DEFAULT_LOCALE em i18n/config.ts; um teste garante que coincidem).
