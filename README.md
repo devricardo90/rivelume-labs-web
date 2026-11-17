@@ -1,10 +1,10 @@
 # Rivelume Labs
 
-Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0. A aplicação base (RIV-12, Sprint 1) é um placeholder técnico em Next.js, sem conteúdo comercial; o website comercial ainda não foi implementado. Como executá-la: `docs/DEVELOPMENT.md`.
+Repositório do website institucional e comercial B2B da Rivelume Labs, um estúdio independente de tecnologia. A fundação de governança foi preparada na Sprint 0. O website V4 Red Pen está implementado em Next.js (EN/PT) e foi **aprovado pelo Owner como mockup** em 16/11/2026 (DEC-RIV-013); contato demonstrativo e política de privacidade em rascunho; **não está publicado em produção**. Como executá-la: `docs/DEVELOPMENT.md`.
 
 ## Estado
 
-- A Fonte da Verdade canônica está na versão 1.0, aprovada pelo Owner em 11/10/2026. A aprovação cobre o objetivo e o escopo inicial B2B, a stack inicial e a governança; as propostas e decisões pendentes continuam sem autorização até decisão do Owner.
+- A Fonte da Verdade canônica está na versão 1.1 (08/11/2026; a V1.0 foi aprovada em 11/10/2026). As decisões pendentes (por exemplo DEC-RIV-008, domínio e e-mail, e DEC-RIV-009, portfólio) continuam sem autorização até decisão do Owner.
 - Stack aprovada para o website B2B inicial: Next.js, TypeScript, Tailwind CSS e Vercel. A aprovação não autoriza SaaS, autenticação, dashboard, banco de dados, CMS complexo ou backend sem requisito explícito na Fonte da Verdade.
 - O projeto Jira RIV foi criado pelo Owner e verificado em 13/10/2026 (ver `docs/ops/STATUS.md`). Não usar AXY nem outro projeto.
 - `main` é inicializada a partir da branch validada `governance/sprint-0-foundation`. Depois do bootstrap, o fluxo normal é branch → revisão/evidências → PR → main; push direto para main não é o fluxo de desenvolvimento.
@@ -25,4 +25,4 @@ Google Docs governa o produto, Jira organiza a execução e GitHub comprova o qu
 2. Releia integralmente a Fonte da Verdade vigente antes de iniciar uma tarefa de produto.
 3. Confirme o projeto e o item RIV, seus estados reais, dependências, critérios e gate antes de iniciar trabalho.
 4. Use branch, revisão/evidências e PR para integrar alterações em `main`.
-5. Não implemente nada além do escopo aprovado nem inicie tarefa fora da Sprint 1 ativa (RIV-11 a RIV-15 e RIV-17 a RIV-20) nem antes de suas dependências estarem satisfeitas; não inicie RIV-16.
+5. Não implemente nada além do escopo aprovado nem inicie tarefa sem autorização específica do Owner (a Sprint 4 não foi criada; as tarefas RIV-38 a RIV-53 estão no backlog) nem antes de suas dependências estarem satisfeitas; não publique em produção.

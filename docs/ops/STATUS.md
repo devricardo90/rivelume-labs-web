@@ -9,14 +9,14 @@ As seções históricas de 01 a 08/11/2026 (Sprint 0, Sprint 1, board 233) foram
 - **Versão/status:** **V1.1** (08/11/2026) APROVADA PELO OWNER no aceite das sugestões (operacional, sem alterar decisões comerciais); V1.0 aprovada em 11/10/2026. Lida integralmente no Google Docs em 16/11/2026.
 - **Decisões (Fonte da Verdade V1.1, lidas em 16/11/2026):** DEC-RIV-005 (página única, seis seções) **aprovada em 08/11/2026**; DEC-RIV-006 (stack) aprovada; DEC-RIV-007 (sistema visual) aprovada em 11/11/2026 e substituída como referência visual pela **DEC-RIV-012** (V4 Red Pen, **aprovada em 14/11/2026**); DEC-RIV-011 (i18n, ADR-0001) aprovada; **DEC-RIV-013** (aprovação do mockup V4, 16/11/2026) registrada. **Pendentes:** DEC-RIV-008 (domínio e e-mail), DEC-RIV-009 (portfólio público), textos comerciais definitivos, logotipo definitivo, verificação jurídica da marca. Nenhuma publicação em produção autorizada.
 - **Stack aprovada:** Next.js, TypeScript, Tailwind CSS e Vercel. Website implementado e aprovado como mockup (baseline `d55ba95`); **nenhuma publicação em produção, nenhum projeto Vercel vinculado**.
-- **Sugestões da V1.1:** aceitas pelo Owner (08/11/2026).
+- **Sugestões da V1.1:** aceitas pelo Owner (V1.1 de 08/11/2026; a data exata do aceite consta no histórico de revisões do Google Docs, não consultado nesta tarefa).
 
 ## Jira
 
 - **Projeto:** Rivelume Labs, chave `RIV`, id 10232, Software team-managed, em `https://ricardodesouzafrancisco.atlassian.net/browse/RIV`. Criado pelo Owner; verificado por leitura de retorno em 13/10/2026 e 02/11/2026.
 - **Tipos de issue:** Epic, História, Tarefa, Bug, Subtask. **Estados reais** (transições globais): "A fazer", "Fazendo", "Feito". Não há READY, REVIEW nem Remote DONE; mapeamento em `docs/GOVERNANCE.md`. Board 233 e sprint 179 verificados em 01/11/2026 (ver abaixo).
 - **Links disponíveis:** Blocks, Cloners, Duplicate, Relates.
-- **Board e sprint (verificados em 01/11/2026 pelo conector Atlassian MCP, leitura direta):** board 233 "RIV board" (tipo simple, projeto RIV), colunas A fazer / Fazendo / Feito, iguais ao workflow. Única sprint do board: **"RIV Sprint 1", id 179, estado `closed`**: encerrada em 08/11/2026 por autorização expressa do Owner, com as 9 tarefas em Feito (lido de volta do Jira; irreversível). O Owner autorizou o início em 02/11/2026; a sprint foi iniciada em 02/11/2026 e tinha fim planejado em 13/11/2026 (duração de 2 semanas escolhida pelo Owner, porque a Fonte da Verdade não define duração). Releitura em 02/11/2026: sprint 179 `active`, de 02/11 a 13/11/2026, com as 9 tarefas. Contém, pelo campo Sprint, exatamente RIV-11 a RIV-15 e RIV-17 a RIV-20 (9 tarefas); RIV-16, RIV-8, RIV-9 e RIV-10 estão fora. Labels `sprint-1` não são a evidência: vale o campo Sprint.
+- **Board e sprint (registro histórico; verificados em 01/11/2026 pelo conector Atlassian MCP, leitura direta; as Sprints 2 e 3 estão na seção seguinte):** board 233 "RIV board" (tipo simple, projeto RIV), colunas A fazer / Fazendo / Feito, iguais ao workflow. Única sprint do board: **"RIV Sprint 1", id 179, estado `closed`**: encerrada em 08/11/2026 por autorização expressa do Owner, com as 9 tarefas em Feito (lido de volta do Jira; irreversível). O Owner autorizou o início em 02/11/2026; a sprint foi iniciada em 02/11/2026 e tinha fim planejado em 13/11/2026 (duração de 2 semanas escolhida pelo Owner, porque a Fonte da Verdade não define duração). Releitura em 02/11/2026: sprint 179 `active`, de 02/11 a 13/11/2026, com as 9 tarefas. Contém, pelo campo Sprint, exatamente RIV-11 a RIV-15 e RIV-17 a RIV-20 (9 tarefas); RIV-16, RIV-8, RIV-9 e RIV-10 estão fora. Labels `sprint-1` não são a evidência: vale o campo Sprint.
 - **Marcadores de prontidão** (o workflow não tem estado READY): rótulos `ready`, `waiting-dependency`, `blocked-owner`, `owner-decision`, `owner-gate`, `owner-assisted`, `evidence-verified`, `sprint-1`, `sprint-3-backlog`, `sprint-0-residual` (mais `epic-*` nos épicos).
 
 ### Épicos
@@ -78,7 +78,7 @@ Sem versão global aprovada do Rick Loop. Vigora o fluxo local de `docs/GOVERNAN
 
 | Entrega | Evidência | Estado |
 | --- | --- | --- |
-| Fonte da verdade aprovada | V1.0 aprovada em 11/10/2026, relida | Cumprida |
+| Fonte da verdade aprovada | V1.0 aprovada em 11/10/2026, relida (registro histórico; vigente: V1.1, 08/11/2026) | Cumprida |
 | Escopo do MVP | §6; DEC-RIV-005 (página única, seis seções) aprovada pelo Owner em 08/11/2026 | Cumprida |
 | Identidade comercial definida | Nome aprovado com ressalva jurídica (DEC-RIV-002); sistema visual aprovado (DEC-RIV-007, 11/11/2026; V4 Red Pen na DEC-RIV-012, 14/11/2026); proposta de valor, domínio (DEC-RIV-008), logotipo definitivo e verificação da marca pendentes | Parcial |
 | Arquitetura aprovada | DEC-RIV-006 | Cumprida |

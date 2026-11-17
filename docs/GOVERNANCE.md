@@ -8,7 +8,7 @@
 | Jira | Epics, sprints, tarefas, estados, responsáveis, dependências, evidências e bloqueadores. |
 | GitHub | Código implementado, testes, histórico de commits, PRs, revisões e evidências técnicas. |
 
-A [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) é a versão 1.0 aprovada pelo Owner em 11/10/2026. Propostas e pendências continuam abertas conforme indicadas no documento. O projeto Jira RIV foi criado pelo Owner e verificado em 13/10/2026 (ver `docs/ops/STATUS.md`); não reutilizar AXY nem outros projetos do site. O repositório é [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web).
+A [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit) está na versão 1.1 (08/11/2026; a V1.0 foi aprovada em 11/10/2026). Propostas e pendências continuam abertas conforme indicadas no documento. O projeto Jira RIV foi criado pelo Owner e verificado em 13/10/2026 (ver `docs/ops/STATUS.md`); não reutilizar AXY nem outros projetos do site. O repositório é [devricardo90/rivelume-labs-web](https://github.com/devricardo90/rivelume-labs-web).
 
 ## Contrato de trabalho Jira
 
@@ -42,7 +42,7 @@ Estados reais lidos do Jira em 13/10/2026 (transições globais): **A fazer**, *
 | REVIEW independente e revisão do Owner | "Fazendo" + comentário com evidências do PR e da revisão (lacuna: sem estado próprio) |
 | Remote DONE | "Feito" somente após merge em `main`, estado remoto verificado e DoD (§17) comprovada |
 
-O board 233 e a sprint "RIV Sprint 1" (id 179; iniciada pelo Owner em 02/11/2026) foram verificados em 01/11/2026 (ver `docs/ops/STATUS.md`); a associação de tarefas à sprint é lida pelo campo Sprint, não por labels. Uma tarefa só vai a "Feito" com evidência. Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e estado Jira coerentes. Commit, push ou resposta de API isolados não significam conclusão.
+O board 233 e as sprints (Sprint 1, id 179; Sprint 2, id 212; Sprint 3, id 213) foram verificados no Jira (a Sprint 1 em 01/11/2026 e as demais em 17/11/2026; ver `docs/ops/STATUS.md`); a associação de tarefas à sprint é lida pelo campo Sprint, não por labels. Uma tarefa só vai a "Feito" com evidência. Uma tarefa só termina com critérios atendidos, revisão exigida, testes pertinentes, evidências, gates, histórico Git e estado Jira coerentes. Commit, push ou resposta de API isolados não significam conclusão.
 
 REVIEW deve ser independente do implementador. Gates canônicos de produto, identidade visual, validação do website e lançamento continuam exigindo aprovação humana quando aplicáveis. Publicação em produção exige aprovação explícita.
 

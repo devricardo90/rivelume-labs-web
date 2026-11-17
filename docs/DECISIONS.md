@@ -1,6 +1,6 @@
 # Registro de decisões
 
-Referência canônica de produto: [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 1.1 (08/11/2026), aprovada pelo Owner no aceite das sugestões; a V1.0 foi aprovada em 11/10/2026. Este registro resume decisões e seu estado; não transforma propostas em decisões.
+Referência canônica de produto: [Fonte da Verdade — Rivelume Labs](https://docs.google.com/document/d/1hfrUEnS6E12huzGAPq7sFH00rKnBqny0tD5BnUqGlmo/edit), versão 1.1 (08/11/2026), aprovada pelo Owner no aceite das sugestões (data do aceite no histórico do Google Docs); a V1.0 foi aprovada em 11/10/2026. Este registro resume decisões e seu estado; não transforma propostas em decisões.
 
 | ID | Data | Contexto / decisão | Autoridade | Status | Referência |
 | --- | --- | --- | --- | --- | --- |
