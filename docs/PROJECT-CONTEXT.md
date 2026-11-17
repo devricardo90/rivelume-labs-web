@@ -8,7 +8,7 @@ O documento canônico é a [Fonte da Verdade — Rivelume Labs](https://docs.goo
 
 ## Escopo inicial
 
-Website comercial B2B institucional. A Fonte da Verdade mantém decisões de página, proposta de valor, contato, identidade visual, domínio/e-mail e portfólio como propostas ou pendências quando assim identificadas. A aprovação V1.0 não as aprova implicitamente. Não iniciar funcionalidade associada a decisão pendente até decisão explícita do Owner.
+Website comercial B2B institucional. A Fonte da Verdade mantém decisões de página, proposta de valor, contato, identidade visual, domínio/e-mail e portfólio como propostas ou pendências quando assim identificadas. Estado em 17/11/2026: página única (DEC-RIV-005), sistema visual (DEC-RIV-007/012) e mockup (DEC-RIV-013) estão aprovados; domínio/e-mail (DEC-RIV-008), portfólio (DEC-RIV-009), textos comerciais e contato definitivos seguem pendentes (ver `docs/DECISIONS.md`). Nenhuma aprovação implícita. Não iniciar funcionalidade associada a decisão pendente até decisão explícita do Owner.
 
 Está explicitamente fora de escopo sem requisito aprovado: SaaS, autenticação, dashboard, banco de dados, CMS complexo e backend. O conteúdo de projetos públicos depende de auditoria e aprovação.
 
