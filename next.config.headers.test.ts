@@ -46,7 +46,17 @@ describe("next.config: headers de segurança (RIV-46)", () => {
     expect(csp).toContain("base-uri 'self'");
     expect(csp).toContain("form-action 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
+    expect(csp).toContain("connect-src 'self'");
+    expect(csp).toContain("font-src 'self'");
     expect(csp).not.toContain("'unsafe-eval'");
     expect(csp).not.toMatch(/https?:|\*/);
+  });
+
+  it("script-src só aceita a própria origem e script em linha (sem data:, blob:)", () => {
+    const script = CONTENT_SECURITY_POLICY.split("; ").find((d) =>
+      d.startsWith("script-src "),
+    );
+
+    expect(script).toBe("script-src 'self' 'unsafe-inline'");
   });
 });
