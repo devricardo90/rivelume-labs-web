@@ -28,7 +28,7 @@ const STEP_ICONS: ReactNode[] = [
 // Build → Deliver (os nomes Listen/Map/Build/Maintain da V4 foram substituídos por
 // decisão do Owner). "Deliver" NÃO é compromisso de manutenção recorrente.
 // A borda superior de cada passo se preenche em Red Pen no hover (e foco interno).
-// TEXTO COMERCIAL PROVISÓRIO, pendente de validação do Owner.
+// Texto comercial aprovado pelo Owner em 18/11/2026 (RIV-43).
 export function ProcessSection({ process }: ProcessSectionProps) {
   return (
     <Section id="process" tone="paper">

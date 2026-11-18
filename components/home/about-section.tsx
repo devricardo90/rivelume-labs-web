@@ -10,8 +10,8 @@ type AboutSectionProps = {
 
 // About da V4 (RIV-32): faixa Highlight Yellow com bordas Ink. Apresenta a
 // Rivelume Labs como um pequeno estúdio de tecnologia; sem equipe, certificações,
-// experiência ou histórico inventados. TEXTO COMERCIAL PROVISÓRIO, pendente de
-// validação do Owner.
+// experiência ou histórico inventados. Texto comercial aprovado pelo
+// Owner em 18/11/2026 (RIV-43).
 export function AboutSection({ about }: AboutSectionProps) {
   return (
     <Section id="about" tone="highlight" bordered>

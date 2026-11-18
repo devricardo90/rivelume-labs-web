@@ -19,7 +19,7 @@ const PIN_STYLES = [
 // tracejada de conceito, sem cliente, projeto, resultado, métrica ou depoimento
 // reais (Fonte §8, DEC-RIV-012). Um case só entra com confirmação e aprovação do
 // Owner. Rótulos "Concept 0N" e o texto de apoio deixam isso explícito.
-// TEXTO COMERCIAL PROVISÓRIO, pendente de validação do Owner.
+// Texto comercial aprovado pelo Owner em 18/11/2026 (RIV-43); os projetos seguem conceituais até a RIV-44.
 export function WorkSection({ work }: WorkSectionProps) {
   return (
     <Section id="work" tone="burgundy-deep" className="pb-[136px]">

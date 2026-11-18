@@ -1,10 +1,12 @@
 import type { Dictionary } from "@/i18n/dictionary";
 
-// Português do Brasil (PT-BR). Texto provisório, sem revisão do Owner.
+// Português do Brasil (PT-BR). Copy comercial aprovada pelo Owner em 18/11/2026
+// (RIV-43); Contato (formulário e e-mail) e Privacidade seguem provisórios.
 export const pt: Dictionary = {
   meta: {
-    title: "Rivelume Labs",
-    description: "Site da Rivelume Labs (em construção).",
+    title: "Rivelume Labs | Software sob medida, automação e IA prática",
+    description:
+      "A Rivelume Labs é um pequeno estúdio de tecnologia que cria software sob medida, automação de processos e soluções práticas de IA para empresas em crescimento.",
   },
   a11y: {
     skipToContent: "Ir para o conteúdo",
@@ -69,13 +71,13 @@ export const pt: Dictionary = {
     legalHeading: "Legal",
     privacy: "Política de Privacidade (rascunho)",
     tagline: "Desenhado à mão. Construído em código.",
-    copyright: "© Rivelume Labs",
+    copyright: "© 2026 Rivelume Labs",
   },
   services: {
     eyebrow: "Serviços",
-    headingLead: "Tecnologia com um",
-    headingEmphasis: "trabalho",
-    headingTail: "a fazer.",
+    headingLead: "Tecnologia para resolver",
+    headingEmphasis: "problemas",
+    headingTail: "reais.",
     intro:
       "Mantemos o trabalho focado no seu negócio: menos complexidade, operações mais claras e ferramentas em que as pessoas podem confiar.",
     items: [
@@ -147,21 +149,24 @@ export const pt: Dictionary = {
         badge: "Conceito",
         placeholder: "[ painel / conceito ]",
         title: "Conceito: Painel Interno",
-        problem: "Uma descrição clara do desafio ficará aqui.",
+        problem:
+          "Equipes costumam montar à mão os mesmos números a partir de várias planilhas. Este conceito mostra como um único painel poderia reuni-los.",
       },
       {
         label: "Conceito 02",
         badge: "Conceito",
         placeholder: "[ fluxo / conceito ]",
-        title: "Conceito: Demonstração Técnica",
-        problem: "Uma descrição clara do desafio ficará aqui.",
+        title: "Conceito: Automação de Processos",
+        problem:
+          "Este conceito explora como um fluxo automatizado poderia conectar ferramentas empresariais e reduzir tarefas manuais repetitivas.",
       },
       {
         label: "Conceito 03",
         badge: "Conceito",
         placeholder: "[ chat / conceito ]",
         title: "Conceito: Assistente de Chat",
-        problem: "Uma descrição clara do desafio ficará aqui.",
+        problem:
+          "Encontrar uma resposta em uma pilha de documentos leva tempo. Este conceito mostra um assistente que ajuda a equipe a buscar e resumir os próprios documentos.",
       },
     ],
   },
@@ -184,12 +189,12 @@ export const pt: Dictionary = {
       {
         title: "Construir",
         description:
-          "Entregamos em etapas pequenas e utilizáveis, que você pode revisar ao longo do caminho.",
+          "Construímos em etapas pequenas e utilizáveis, que você pode revisar ao longo do caminho.",
       },
       {
         title: "Entregar",
         description:
-          "Entregamos uma solução documentada e explicamos como ela funciona.",
+          "Revisamos com você o trabalho concluído e alinhamos os próximos passos.",
       },
     ],
   },
@@ -197,8 +202,8 @@ export const pt: Dictionary = {
     eyebrow: "Sobre a Rivelume Labs",
     headingLead: "Estúdio pequeno. Sério nos",
     headingEmphasis: "detalhes.",
-    lead: "A Rivelume Labs é um pequeno estúdio de tecnologia focado em resolver problemas de negócio com software prático, automação cuidadosa e IA útil.",
-    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, desenvolvimento de qualidade, transparência e soluções construídas com qualidade e pensadas para serem fáceis de manter.",
+    lead: "A Rivelume Labs é um pequeno estúdio independente de tecnologia, focado em resolver problemas empresariais com software sob medida, automação de processos e soluções úteis de inteligência artificial.",
+    body: "Valorizamos comunicação clara, relacionamento direto com o cliente, transparência e soluções bem construídas, fáceis de manter.",
     values: [
       "Tecnologia prática",
       "Comunicação clara",
