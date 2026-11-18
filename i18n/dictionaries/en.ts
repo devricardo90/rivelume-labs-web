@@ -2,8 +2,9 @@ import type { Dictionary } from "@/i18n/dictionary";
 
 export const en: Dictionary = {
   meta: {
-    title: "Rivelume Labs",
-    description: "Rivelume Labs website (under construction).",
+    title: "Rivelume Labs | Custom Software, Automation & Practical AI",
+    description:
+      "Rivelume Labs is a small technology studio building custom software, business automation and practical AI for growing businesses.",
   },
   a11y: {
     skipToContent: "Skip to content",
@@ -69,7 +70,7 @@ export const en: Dictionary = {
     legalHeading: "Legal",
     privacy: "Privacy Policy (draft)",
     tagline: "Drawn by hand. Built in code.",
-    copyright: "© Rivelume Labs",
+    copyright: "© 2026 Rivelume Labs",
   },
   services: {
     eyebrow: "Services",
@@ -147,21 +148,24 @@ export const en: Dictionary = {
         badge: "Concept",
         placeholder: "[ dashboard / concept ]",
         title: "Concept: Internal Dashboard",
-        problem: "A clear description of the challenge will live here.",
+        problem:
+          "Teams often assemble the same numbers by hand from several spreadsheets. This concept shows how one dashboard could bring them together.",
       },
       {
         label: "Concept 02",
         badge: "Concept",
         placeholder: "[ workflow / concept ]",
-        title: "Concept: Technical Demonstration",
-        problem: "A clear description of the challenge will live here.",
+        title: "Concept: Workflow Automation",
+        problem:
+          "This concept explores how a simple workflow could connect business tools and reduce repetitive manual tasks.",
       },
       {
         label: "Concept 03",
         badge: "Concept",
         placeholder: "[ chat / concept ]",
         title: "Concept: Chat Assistant",
-        problem: "A clear description of the challenge will live here.",
+        problem:
+          "Finding an answer in a pile of documents takes time. This concept shows an assistant that helps a team search and summarize its own documents.",
       },
     ],
   },
@@ -189,7 +193,7 @@ export const en: Dictionary = {
       {
         title: "Deliver",
         description:
-          "We hand over a documented solution and walk you through how it works.",
+          "We review the completed work with you and agree on the next steps.",
       },
     ],
   },
@@ -197,8 +201,8 @@ export const en: Dictionary = {
     eyebrow: "About Rivelume Labs",
     headingLead: "Small studio. Serious about the",
     headingEmphasis: "details.",
-    lead: "Rivelume Labs is a small technology studio focused on solving business problems with practical software, thoughtful automation, and useful AI.",
-    body: "We value clear communication, direct client relationships, quality development, transparency, and solutions built with quality and designed to be easy to maintain.",
+    lead: "Rivelume Labs is a small, independent technology studio focused on solving business problems with practical software, thoughtful automation, and useful AI.",
+    body: "We value clear communication, direct relationships with clients, transparency, and well-built solutions that are easy to maintain.",
     values: [
       "Practical technology",
       "Clear communication",

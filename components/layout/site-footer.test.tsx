@@ -34,7 +34,7 @@ describe("Rodapé", () => {
       ),
     ).toBeTruthy();
     expect(screen.getByText("Drawn by hand. Built in code.")).toBeTruthy();
-    expect(screen.getByText("© Rivelume Labs")).toBeTruthy();
+    expect(screen.getByText("© 2026 Rivelume Labs")).toBeTruthy();
   });
 
   it("tem a navegação do rodapé com as mesmas âncoras, SEM Home", () => {

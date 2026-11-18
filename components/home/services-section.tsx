@@ -15,7 +15,7 @@ type ServicesSectionProps = {
 // No hover (e `focus-within`, para quando houver itens focáveis) a linha ganha um
 // fundo leve, o título recebe o marcador amarelo, o exemplo é sublinhado em Red
 // Pen e a seta avança. As linhas não são focáveis (são texto): o efeito é de
-// ponteiro. TEXTO COMERCIAL PROVISÓRIO, pendente de validação do Owner.
+// ponteiro. Texto comercial aprovado pelo Owner em 18/11/2026 (RIV-43).
 export function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <Section id="services" tone="paper">

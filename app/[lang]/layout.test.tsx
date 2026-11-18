@@ -96,10 +96,23 @@ describe("Layout por idioma", () => {
     const en = await generateMetadata({ params: params("en") });
     const pt = await generateMetadata({ params: params("pt") });
 
-    expect(en.title).toBe("Rivelume Labs");
-    expect(en.description).toBe("Rivelume Labs website (under construction).");
-    expect(pt.title).toBe("Rivelume Labs");
-    expect(pt.description).toBe("Site da Rivelume Labs (em construção).");
+    expect(en.title).toBe(
+      "Rivelume Labs | Custom Software, Automation & Practical AI",
+    );
+    expect(en.description).toBe(
+      "Rivelume Labs is a small technology studio building custom software, business automation and practical AI for growing businesses.",
+    );
+    expect(pt.title).toBe(
+      "Rivelume Labs | Software sob medida, automação e IA prática",
+    );
+    expect(pt.description).toBe(
+      "A Rivelume Labs é um pequeno estúdio de tecnologia que cria software sob medida, automação de processos e soluções práticas de IA para empresas em crescimento.",
+    );
+    // Sem "em construção"/"under construction" (RIV-43) e descrição de SEO de tamanho útil.
+    expect(en.description).not.toMatch(/construction/i);
+    expect(pt.description).not.toMatch(/constru[çc][ãa]o/i);
+    expect(String(en.description).length).toBeLessThanOrEqual(160);
+    expect(String(pt.description).length).toBeLessThanOrEqual(170);
   });
 
   it("não emite canonical nem hreflang sem SITE_URL", async () => {

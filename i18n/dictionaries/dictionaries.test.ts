@@ -47,7 +47,7 @@ describe("Dicionários EN e PT", () => {
   });
 });
 
-describe("Conteúdo comercial provisório (RIV-32)", () => {
+describe("Conteúdo comercial (RIV-32; copy aprovada na RIV-43)", () => {
   it("mantém os três serviços oficiais e o processo aprovado em EN", () => {
     expect(en.services.items.map((item) => item.title)).toEqual([
       "Custom Software Development",
@@ -85,6 +85,67 @@ describe("Conteúdo comercial provisório (RIV-32)", () => {
       (step) => step.title,
     );
     expect(titles.join("|")).not.toMatch(/Maintain|Manter|Listen|Map\b/);
+  });
+});
+
+describe("Copy comercial aprovada pelo Owner (RIV-43)", () => {
+  it("não deixa texto de preenchimento nem 'em construção' nas seções comerciais", () => {
+    for (const dictionary of [en, pt]) {
+      const sections = JSON.stringify([
+        dictionary.services,
+        dictionary.work,
+        dictionary.process,
+        dictionary.about,
+      ]);
+      expect(sections).not.toMatch(
+        /will live here|ficará aqui|Technical Demonstration|Demonstração Técnica/,
+      );
+      // O título "Um portfólio em construção" do Selected Work é texto legítimo;
+      // "em construção" só é proibido nos metadados do site.
+      expect(JSON.stringify(dictionary.meta)).not.toMatch(
+        /under construction|em construção/i,
+      );
+    }
+  });
+
+  it("usa os títulos e o passo Entregar aprovados, sem prometer documentação", () => {
+    expect(pt.services.headingLead).toBe("Tecnologia para resolver");
+    expect(pt.services.headingEmphasis).toBe("problemas");
+    expect(pt.services.headingTail).toBe("reais.");
+    expect(en.work.items[1].title).toBe("Concept: Workflow Automation");
+    expect(pt.work.items[1].title).toBe("Conceito: Automação de Processos");
+    expect(en.process.steps[3].description).toBe(
+      "We review the completed work with you and agree on the next steps.",
+    );
+    expect(pt.process.steps[3].description).toBe(
+      "Revisamos com você o trabalho concluído e alinhamos os próximos passos.",
+    );
+    expect(pt.process.steps[2].description).toMatch(/^Construímos/);
+    for (const dictionary of [en, pt]) {
+      expect(JSON.stringify(dictionary.process)).not.toMatch(
+        /document(ed|ada|ação)/i,
+      );
+    }
+  });
+
+  it("não inventa clientes, métricas, resultados nem certificações", () => {
+    for (const dictionary of [en, pt]) {
+      const text = JSON.stringify([dictionary.work, dictionary.about]);
+      expect(text).not.toMatch(
+        /\d+\s?%|\d+\+?\s?(clients|clientes|projects|projetos)|certif|award|prêmio|testimonial|depoimento/i,
+      );
+    }
+  });
+
+  it("não apresenta o e-mail comercial como canal ativo antes da configuração (RIV-38/RIV-39)", () => {
+    for (const dictionary of [en, pt]) {
+      expect(JSON.stringify(dictionary)).not.toMatch(/@rivelumelabs\.com/);
+    }
+  });
+
+  it("copyright com o ano nos dois idiomas", () => {
+    expect(en.footer.copyright).toBe("© 2026 Rivelume Labs");
+    expect(pt.footer.copyright).toBe("© 2026 Rivelume Labs");
   });
 });
 

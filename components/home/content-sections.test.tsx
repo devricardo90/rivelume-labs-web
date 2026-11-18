@@ -134,7 +134,7 @@ describe("Selected Work", () => {
       screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
     ).toEqual([
       "Concept: Internal Dashboard",
-      "Concept: Technical Demonstration",
+      "Concept: Workflow Automation",
       "Concept: Chat Assistant",
     ]);
     expect(screen.getAllByText("Business problem")).toHaveLength(3);
@@ -288,7 +288,9 @@ describe("About", () => {
   it("apresenta um pequeno estúdio, sem equipe, certificações nem histórico", () => {
     const { container } = render(<AboutSection about={en.about} />);
 
-    expect(screen.getByText(/is a small technology studio/)).toBeTruthy();
+    expect(
+      screen.getByText(/is a small, independent technology studio/),
+    ).toBeTruthy();
     expect(container.textContent).not.toMatch(
       /founded|since \d{4}|years of experience|certified|certification|our team|award/i,
     );
@@ -360,7 +362,9 @@ describe("Conteúdo PT-BR", () => {
     expect(screen.getByText("Automação de Negócios")).toBeTruthy();
     expect(screen.getByText("Conceito 01")).toBeTruthy();
     expect(screen.getByText("Entender")).toBeTruthy();
-    expect(screen.getByText(/pequeno estúdio de tecnologia/)).toBeTruthy();
+    expect(
+      screen.getByText(/pequeno estúdio independente de tecnologia/),
+    ).toBeTruthy();
     expect(screen.queryByText("Business Automation")).toBeNull();
   });
 });
