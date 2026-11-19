@@ -80,9 +80,7 @@ describe("Conteúdo comercial (RIV-32; copy aprovada na RIV-43)", () => {
         expect(item.badge).toMatch(/^(Concept|Conceito)$/);
         expect(item.link).toBeUndefined();
       }
-      expect(project.title).toMatch(
-        /^(Founder Project|Projeto do fundador): Ricardo Tour$/,
-      );
+      expect(project.title).toBe("Ricardo Tour");
       expect(project.badge).toMatch(/^(Founder project|Projeto do fundador)$/);
       expect(project.link?.href).toBe("https://www.ricardotour.com");
       expect(project.placeholder).toBe("[ ricardotour.com ]");

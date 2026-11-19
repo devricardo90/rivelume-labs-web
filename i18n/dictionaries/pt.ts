@@ -148,7 +148,7 @@ export const pt: Dictionary = {
         label: "Projeto 01",
         badge: "Projeto do fundador",
         placeholder: "[ ricardotour.com ]",
-        title: "Projeto do fundador: Ricardo Tour",
+        title: "Ricardo Tour",
         problemLabel: "Sobre o projeto",
         problem:
           "Website multilíngue desenvolvido para o negócio de turismo do fundador, com apresentação de passeios guiados no Rio de Janeiro e uma experiência digital voltada a visitantes internacionais.",

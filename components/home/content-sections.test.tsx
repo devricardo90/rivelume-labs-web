@@ -177,7 +177,7 @@ describe("Selected Work", () => {
     expect(
       screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
     ).toEqual([
-      "Founder Project: Ricardo Tour",
+      "Ricardo Tour",
       "Concept: Workflow Automation",
       "Concept: Chat Assistant",
     ]);

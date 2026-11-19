@@ -147,7 +147,7 @@ export const en: Dictionary = {
         label: "Project 01",
         badge: "Founder project",
         placeholder: "[ ricardotour.com ]",
-        title: "Founder Project: Ricardo Tour",
+        title: "Ricardo Tour",
         problemLabel: "About the project",
         problem:
           "A multilingual tourism website developed for the founder’s own business, featuring guided tours in Rio de Janeiro and a digital experience designed for international visitors.",
