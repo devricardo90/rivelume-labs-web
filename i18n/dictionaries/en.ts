@@ -140,16 +140,23 @@ export const en: Dictionary = {
     headingLead: "A portfolio",
     headingEmphasis: "in progress.",
     intro:
-      "These concepts show how we will present selected work. Exploring practical ideas through software, automation and AI.",
+      "One real project and two concepts show how we will present selected work. Exploring practical ideas through software, automation and AI.",
     problemLabel: "Business problem",
     items: [
       {
-        label: "Concept 01",
-        badge: "Concept",
-        placeholder: "[ dashboard / concept ]",
-        title: "Concept: Internal Dashboard",
+        label: "Project 01",
+        badge: "Founder project",
+        placeholder: "[ ricardotour.com ]",
+        title: "Founder Project: Ricardo Tour",
+        problemLabel: "About the project",
         problem:
-          "Teams often assemble the same numbers by hand from several spreadsheets. This concept shows how one dashboard could bring them together.",
+          "A multilingual tourism website developed for the founder’s own business, featuring guided tours in Rio de Janeiro and a digital experience designed for international visitors.",
+        languages: "Portuguese · English · Spanish",
+        link: {
+          label: "View live site",
+          href: "https://www.ricardotour.com",
+          ariaLabel: "View live site: Ricardo Tour (opens in a new tab)",
+        },
       },
       {
         label: "Concept 02",

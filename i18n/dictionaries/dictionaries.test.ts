@@ -69,14 +69,23 @@ describe("Conteúdo comercial (RIV-32; copy aprovada na RIV-43)", () => {
     expect(pt.about.values).toHaveLength(en.about.values.length);
   });
 
-  it("identifica todos os cartões de Selected Work como conceito, sem estudo de caso", () => {
+  it("Selected Work: Card 01 é o projeto do fundador; Cards 02 e 03 são conceitos, sem estudo de caso", () => {
     for (const dictionary of [en, pt]) {
-      for (const item of dictionary.work.items) {
+      const [project, ...concepts] = dictionary.work.items;
+      expect(concepts).toHaveLength(2);
+      for (const item of concepts) {
         expect(item.label).toMatch(/Concept|Conceito/);
         expect(item.placeholder).toMatch(/concept|conceito/);
         expect(item.title).toMatch(/^(Concept|Conceito):/);
         expect(item.badge).toMatch(/^(Concept|Conceito)$/);
+        expect(item.link).toBeUndefined();
       }
+      expect(project.title).toMatch(
+        /^(Founder Project|Projeto do fundador): Ricardo Tour$/,
+      );
+      expect(project.badge).toMatch(/^(Founder project|Projeto do fundador)$/);
+      expect(project.link?.href).toBe("https://www.ricardotour.com");
+      expect(project.placeholder).toBe("[ ricardotour.com ]");
     }
   });
 
@@ -140,6 +149,25 @@ describe("Copy comercial aprovada pelo Owner (RIV-43)", () => {
   it("não apresenta o e-mail comercial como canal ativo antes da configuração (RIV-38/RIV-39)", () => {
     for (const dictionary of [en, pt]) {
       expect(JSON.stringify(dictionary)).not.toMatch(/@rivelumelabs\.com/);
+    }
+  });
+
+  it("Ricardo Tour (RIV-44, DEC-RIV-009): só português, inglês e espanhol; sem texto técnico de pendência nem funcionalidades não verificadas", () => {
+    expect(en.work.items[0].languages).toBe("Portuguese · English · Spanish");
+    expect(pt.work.items[0].languages).toBe("Português · Inglês · Espanhol");
+    for (const dictionary of [en, pt]) {
+      const card = JSON.stringify(dictionary.work.items[0]);
+      expect(card).not.toMatch(
+        /pending|pendente|swedish|sueco|svenska|admin|booking|reserva|payment|pagamento|\bAI\b|\bIA\b/i,
+      );
+      expect(dictionary.work.items[0].problemLabel).toMatch(
+        /^(About the project|Sobre o projeto)$/,
+      );
+      expect(dictionary.work.items[1].problemLabel).toBeUndefined();
+      expect(dictionary.work.items[2].problemLabel).toBeUndefined();
+      expect(dictionary.work.intro).toMatch(
+        /(Exploring practical ideas through software, automation and AI\.|Explorando ideias práticas com software, automação e inteligência artificial\.)$/,
+      );
     }
   });
 

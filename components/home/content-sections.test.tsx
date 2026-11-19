@@ -88,7 +88,7 @@ describe("Services", () => {
 });
 
 describe("Selected Work", () => {
-  it("é a seção #work sobre Deep Burgundy com três cartões de CONCEITO", () => {
+  it("é a seção #work sobre Deep Burgundy: 1 projeto do fundador e 2 cartões de CONCEITO", () => {
     const { container } = render(<WorkSection work={en.work} />);
 
     const section = container.querySelector("section") as HTMLElement;
@@ -96,19 +96,28 @@ describe("Selected Work", () => {
     expect(section.getAttribute("data-tone")).toBe("burgundy-deep");
     const cards = screen.getAllByRole("article");
     expect(cards).toHaveLength(3);
+    // Card 01: projeto real do fundador (DEC-RIV-009), sem selo de conceito.
+    expect(cards[0].textContent).toContain("Project 01");
+    expect(cards[0].textContent).toContain("Founder project");
+    expect(cards[0].textContent).toContain("[ ricardotour.com ]");
+    expect(cards[0].textContent).not.toMatch(/concept|pending/i);
+    // Cards 02 e 03: conceitos.
     for (const [index, card] of cards.entries()) {
+      expect(card.textContent).not.toMatch(/Case study/i);
+      if (index === 0) continue;
       expect(card.textContent).toContain(`Concept 0${index + 1}`);
       expect(card.textContent).toContain("Concept");
-      expect(card.textContent).not.toMatch(/Case study/i);
       expect(card.textContent).toContain("/ concept ]");
     }
   });
 
-  it("deixa explícito que são conceitos e apresenta a frase de apoio aprovada", () => {
+  it("apresenta um projeto real e dois conceitos e mantém a frase de apoio aprovada", () => {
     render(<WorkSection work={en.work} />);
 
     expect(
-      screen.getByText(/These concepts show how we will present selected work/),
+      screen.getByText(
+        /One real project and two concepts show how we will present selected work/,
+      ),
     ).toBeTruthy();
     expect(
       screen.getByText(
@@ -118,13 +127,48 @@ describe("Selected Work", () => {
     expect(screen.queryByText(/subject to approval/)).toBeNull();
   });
 
-  it("não traz cliente, depoimento, resultado, métrica nem link de case", () => {
+  it("não traz cliente, depoimento, resultado nem métrica; só UM link, para o site do projeto do fundador", () => {
     const { container } = render(<WorkSection work={en.work} />);
 
-    expect(container.querySelectorAll("a")).toHaveLength(0);
-    expect(container.textContent).not.toMatch(
-      /testimonial|%|\d+x\b|increase|saved|revenue|ROI/i,
+    const links = container.querySelectorAll("a");
+    expect(links).toHaveLength(1);
+    const link = links[0] as HTMLAnchorElement;
+    expect(link.getAttribute("href")).toBe("https://www.ricardotour.com");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    // O nome acessível começa pelo texto visível (WCAG 2.5.3) e avisa a nova aba.
+    expect(link.getAttribute("aria-label")).toBe(
+      "View live site: Ricardo Tour (opens in a new tab)",
     );
+    expect(link.textContent).toContain("View live site");
+    // O cartão é de papel claro dentro de uma seção escura: o foco do link usa Red Pen
+    // (a regra global de seção escura daria Highlight amarelo, sem contraste no papel).
+    expect(link.className).toContain("focus-visible:outline-red-pen");
+    expect(screen.getAllByRole("article")[0].contains(link)).toBe(true);
+    expect(container.textContent).not.toMatch(
+      /testimonial|%|\d+x\b|increase|saved|revenue|ROI|booking|reserva|admin|swedish|sueco/i,
+    );
+  });
+
+  it("o Card 01 mostra os três idiomas e o rótulo 'About the project' só nele", () => {
+    render(<WorkSection work={en.work} />);
+
+    expect(screen.getByText("Portuguese · English · Spanish")).toBeTruthy();
+    expect(screen.getAllByText("About the project")).toHaveLength(1);
+    expect(screen.getAllByText("Business problem")).toHaveLength(2);
+  });
+
+  it("em PT: projeto do fundador, idiomas e link com nome acessível", () => {
+    render(<WorkSection work={pt.work} />);
+
+    expect(screen.getByText("Projeto do fundador")).toBeTruthy();
+    expect(screen.getByText("Português · Inglês · Espanhol")).toBeTruthy();
+    expect(screen.getByText("Sobre o projeto")).toBeTruthy();
+    expect(screen.getAllByText("Problema do negócio")).toHaveLength(2);
+    const link = screen.getByRole("link", {
+      name: "Ver site no ar: Ricardo Tour (abre em nova aba)",
+    });
+    expect(link.getAttribute("href")).toBe("https://www.ricardotour.com");
   });
 
   it("cada cartão tem h3, rótulo de problema e fita decorativa", () => {
@@ -133,11 +177,11 @@ describe("Selected Work", () => {
     expect(
       screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
     ).toEqual([
-      "Concept: Internal Dashboard",
+      "Founder Project: Ricardo Tour",
       "Concept: Workflow Automation",
       "Concept: Chat Assistant",
     ]);
-    expect(screen.getAllByText("Business problem")).toHaveLength(3);
+    expect(screen.getAllByText("Business problem")).toHaveLength(2);
     expect(
       container.querySelectorAll("article > [aria-hidden='true']"),
     ).toHaveLength(3);
@@ -324,7 +368,7 @@ describe("Conteúdo PT-BR", () => {
     const text = JSON.stringify(sections);
 
     expect(text).not.toMatch(
-      /depoimento|\d+\s?%|\d+x|fundad|desde \d{4}|anos de experi|certificad|nossa equipe|premiad/i,
+      /depoimento|\d+\s?%|\d+x|fundad[ao]|desde \d{4}|anos de experi|certificad|nossa equipe|premiad/i,
     );
     expect(text).not.toMatch(
       /suporte cont[ií]nuo|manuten[cç][aã]o recorrente|acompanhamento cont[ií]nuo|Manter|Mapear/i,
@@ -360,7 +404,9 @@ describe("Conteúdo PT-BR", () => {
     );
 
     expect(screen.getByText("Automação de Negócios")).toBeTruthy();
-    expect(screen.getByText("Conceito 01")).toBeTruthy();
+    expect(screen.getByText("Projeto 01")).toBeTruthy();
+    expect(screen.getByText("Conceito 02")).toBeTruthy();
+    expect(screen.getByText("Conceito 03")).toBeTruthy();
     expect(screen.getByText("Entender")).toBeTruthy();
     expect(
       screen.getByText(/pequeno estúdio independente de tecnologia/),
