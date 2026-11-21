@@ -141,16 +141,23 @@ export const pt: Dictionary = {
     headingLead: "Um portfólio",
     headingEmphasis: "em construção.",
     intro:
-      "Estes conceitos mostram como apresentaremos os trabalhos selecionados. Explorando ideias práticas com software, automação e inteligência artificial.",
+      "Um projeto real e dois conceitos mostram como apresentaremos os trabalhos selecionados. Explorando ideias práticas com software, automação e inteligência artificial.",
     problemLabel: "Problema do negócio",
     items: [
       {
-        label: "Conceito 01",
-        badge: "Conceito",
-        placeholder: "[ painel / conceito ]",
-        title: "Conceito: Painel Interno",
+        label: "Projeto 01",
+        badge: "Projeto do fundador",
+        placeholder: "[ ricardotour.com ]",
+        title: "Ricardo Tour",
+        problemLabel: "Sobre o projeto",
         problem:
-          "Equipes costumam montar à mão os mesmos números a partir de várias planilhas. Este conceito mostra como um único painel poderia reuni-los.",
+          "Website multilíngue desenvolvido para o negócio de turismo do fundador, com apresentação de passeios guiados no Rio de Janeiro e uma experiência digital voltada a visitantes internacionais.",
+        languages: "Português · Inglês · Espanhol",
+        link: {
+          label: "Ver site no ar",
+          href: "https://www.ricardotour.com",
+          ariaLabel: "Ver site no ar: Ricardo Tour (abre em nova aba)",
+        },
       },
       {
         label: "Conceito 02",

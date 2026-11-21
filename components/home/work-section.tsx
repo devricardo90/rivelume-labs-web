@@ -2,6 +2,7 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Em, Heading } from "@/components/ui/heading";
+import { TEXT_LINK_CLASSES } from "@/components/ui/text-link";
 import type { Dictionary } from "@/i18n/dictionary";
 
 type WorkSectionProps = {
@@ -15,11 +16,13 @@ const PIN_STYLES = [
   { card: "-rotate-[0.8deg]", tape: "-rotate-1" },
 ] as const;
 
-// Selected Work da V4 (RIV-32). SÃO CONCEITOS: cartões "pin" com fita, selo e área
-// tracejada de conceito, sem cliente, projeto, resultado, métrica ou depoimento
-// reais (Fonte §8, DEC-RIV-012). Um case só entra com confirmação e aprovação do
-// Owner. Rótulos "Concept 0N" e o texto de apoio deixam isso explícito.
-// Texto comercial aprovado pelo Owner em 18/11/2026 (RIV-43); os projetos seguem conceituais até a RIV-44.
+// Selected Work da V4 (RIV-32; RIV-44). Cartões "pin" com fita, selo e área
+// tracejada. O Card 01 é o ÚNICO projeto real: Ricardo Tour, "Projeto do fundador"
+// (DEC-RIV-009, 19/11/2026): negócio do próprio fundador, não contrato de cliente,
+// sem código, dados administrativos, reservas, métricas nem imagens com direitos
+// não verificados (o placeholder tracejado permanece). Os Cards 02 e 03 seguem
+// CONCEITOS (rótulo "Concept 0N", selo "Concept"): sem cliente, resultado ou
+// depoimento (Fonte §8, DEC-RIV-012). Texto aprovado pelo Owner (RIV-43, RIV-44).
 export function WorkSection({ work }: WorkSectionProps) {
   return (
     <Section id="work" tone="burgundy-deep" className="pb-[136px]">
@@ -72,11 +75,27 @@ export function WorkSection({ work }: WorkSectionProps) {
                   {item.title}
                 </Heading>
                 <Eyebrow size="sm" className="m-0 mb-1">
-                  {work.problemLabel}
+                  {item.problemLabel ?? work.problemLabel}
                 </Eyebrow>
                 <p className="m-0 text-[17px] leading-normal text-body">
                   {item.problem}
                 </p>
+                {item.languages ? (
+                  <Eyebrow size="sm" className="m-0 mt-4">
+                    {item.languages}
+                  </Eyebrow>
+                ) : null}
+                {item.link ? (
+                  <a
+                    href={item.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.link.ariaLabel}
+                    className={`${TEXT_LINK_CLASSES} mt-1 text-[17px] font-medium focus-visible:outline-red-pen`}
+                  >
+                    {item.link.label} <span aria-hidden="true">↗</span>
+                  </a>
+                ) : null}
               </article>
             );
           })}

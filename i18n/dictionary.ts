@@ -129,13 +129,22 @@ export type Dictionary = {
     headingEmphasis: string;
     intro: string;
     problemLabel: string;
-    // Cartões de CONCEITO: nunca projetos entregues.
+    // Cartões: CONCEITOS (sem cliente, resultado ou projeto entregue) e, desde a
+    // RIV-44 (DEC-RIV-009), UM projeto real do fundador (Ricardo Tour). Os campos
+    // opcionais só existem no cartão do projeto real.
     items: ReadonlyArray<{
       label: string;
       badge: string;
       placeholder: string;
       title: string;
       problem: string;
+      // Substitui `work.problemLabel` neste cartão (ex.: "About the project").
+      problemLabel?: string;
+      // Idiomas do site apresentado (linha informativa).
+      languages?: string;
+      // Link para o site público (abre em nova aba). `ariaLabel` começa pelo texto
+      // visível (WCAG 2.5.3) e avisa que abre em nova aba.
+      link?: { label: string; href: string; ariaLabel: string };
     }>;
   };
   process: {
