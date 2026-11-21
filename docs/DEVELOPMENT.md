@@ -260,6 +260,10 @@ Auditoria de 17/11/2026 (Fonte da Verdade §13.4), sobre a `main` aprovada como 
 
 **Riscos residuais:** CSP com `'unsafe-inline'` (acima); `POST` em páginas estáticas responde 200 sem efeito (comportamento do Next.js, sem backend nem estado); avisos de desenvolvimento acima; sem WAF, limitação de taxa nem monitoramento (fora de escopo do site estático); HSTS a verificar na Vercel.
 
+## Identidade: logotipo e ícones (RIV-41)
+
+O logotipo da V4 Red Pen (texto "Rivelume" em Fraunces 800 mais "labs" em Caveat 700 girado, no cabeçalho e no rodapé) foi mantido como **definitivo** por decisão do Owner (21/11/2026), e o site passou a ter ícones: `app/favicon.ico` (16, 32 e 48 px), `app/icon.svg` e `app/apple-icon.png` (180 × 180), variante B (fundo Highlight, R em Ink, traço Red Pen) otimizada para tamanho pequeno. Antes não havia nenhum arquivo de ícone: o navegador pedia `/favicon.ico` e recebia a página 404 (1 erro 404 de console por carga). Os arquivos do logotipo em SVG ficam em `public/brand/`. Especificação, regras de uso, licença das fontes (SIL OFL 1.1) e procedimento de geração em `docs/BRAND.md`. Android/manifest ficam adiados e a imagem Open Graph é da RIV-40.
+
 ## Integração contínua (RIV-19)
 
 O workflow `.github/workflows/ci.yml` (GitHub Actions) roda **a cada Pull Request para `main`**, ao abrir, atualizar ou reabrir, e uma nova atualização cancela a execução anterior. Passos, em ordem: `npm ci`, `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm test`, `npm run build` e `npm audit --omit=dev`. Para reproduzir localmente:
