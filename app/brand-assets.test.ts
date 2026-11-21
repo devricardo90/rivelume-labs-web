@@ -1,5 +1,7 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { inflateSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 
 // Ícones e logotipo (RIV-41). Os arquivos de ícone seguem a convenção de metadados
@@ -27,6 +29,48 @@ function pngSize(buffer: Buffer) {
   expect(buffer.subarray(12, 16).toString("ascii")).toBe("IHDR");
   return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
 }
+
+// Decodifica um PNG RGBA de 8 bits sem entrelaçamento (suficiente para o apple-icon).
+function decodeRgba(png: Buffer) {
+  const { width, height } = pngSize(png);
+  expect(png.readUInt8(25)).toBe(6); // RGBA
+  expect(png.readUInt8(28)).toBe(0); // sem entrelaçamento
+  const chunks: Buffer[] = [];
+  for (let at = 8; at < png.length;) {
+    const length = png.readUInt32BE(at);
+    const type = png.subarray(at + 4, at + 8).toString("ascii");
+    if (type === "IDAT") chunks.push(png.subarray(at + 8, at + 8 + length));
+    at += 12 + length;
+  }
+  const raw = inflateSync(Buffer.concat(chunks));
+  const stride = width * 4;
+  const out = Buffer.alloc(stride * height);
+  for (let y = 0; y < height; y++) {
+    const filter = raw[y * (stride + 1)];
+    for (let x = 0; x < stride; x++) {
+      const cur = raw[y * (stride + 1) + 1 + x];
+      const left = x >= 4 ? out[y * stride + x - 4] : 0;
+      const up = y > 0 ? out[(y - 1) * stride + x] : 0;
+      const upLeft = x >= 4 && y > 0 ? out[(y - 1) * stride + x - 4] : 0;
+      let value = cur;
+      if (filter === 1) value = cur + left;
+      else if (filter === 2) value = cur + up;
+      else if (filter === 3) value = cur + Math.floor((left + up) / 2);
+      else if (filter === 4) {
+        const p = left + up - upLeft;
+        const pa = Math.abs(p - left);
+        const pb = Math.abs(p - up);
+        const pc = Math.abs(p - upLeft);
+        value = cur + (pa <= pb && pa <= pc ? left : pb <= pc ? up : upLeft);
+      }
+      out[y * stride + x] = value & 0xff;
+    }
+  }
+  return { width, height, pixels: out };
+}
+
+const sha256 = (path: string) =>
+  createHash("sha256").update(read(path)).digest("hex");
 
 describe("favicon.ico (RIV-41)", () => {
   const ico = read("app/favicon.ico");
@@ -69,6 +113,25 @@ describe("apple-icon.png (RIV-41)", () => {
     expect(png.readUInt8(24)).toBe(8);
     // Tipo de cor 2 (RGB) ou 6 (RGBA, com a área toda opaca, conferida no navegador).
     expect([2, 6]).toContain(png.readUInt8(25));
+  });
+  it("é toda opaca e quadrada: os quatro cantos têm o fundo Highlight (#F6E24B), sem transparência", () => {
+    const { width, height, pixels } = decodeRgba(read("app/apple-icon.png"));
+    let minAlpha = 255;
+    for (let i = 3; i < pixels.length; i += 4)
+      minAlpha = Math.min(minAlpha, pixels[i]);
+    expect(minAlpha).toBe(255);
+
+    const at = (x: number, y: number) => [
+      ...pixels.subarray((y * width + x) * 4, (y * width + x) * 4 + 3),
+    ];
+    for (const [x, y] of [
+      [0, 0],
+      [width - 1, 0],
+      [0, height - 1],
+      [width - 1, height - 1],
+    ]) {
+      expect(at(x, y)).toEqual([0xf6, 0xe2, 0x4b]);
+    }
   });
 });
 
@@ -116,4 +179,38 @@ describe("Logotipo: wordmark em SVG (public/brand, RIV-41)", () => {
       expect(svg).toMatch(/transform="rotate\(-4 /);
     },
   );
+});
+
+describe("Arquivos aprovados pelo Owner em 21/11/2026 (RIV-41)", () => {
+  // Qualquer alteração de geometria, cor ou dimensão muda o hash e exige nova
+  // aprovação visual do Owner: atualize estes valores SÓ depois dessa aprovação
+  // (e regenere os PNG/ICO a partir do SVG; ver docs/BRAND.md).
+  const APPROVED = {
+    "app/icon.svg":
+      "abc4e88123eaf31037006b5e9f79aaf728a49865168ce369e4ae2d8cc5743698",
+    "app/apple-icon.png":
+      "3e21ab5edf001bfa1aa76ab4a30e3c4c134201ddde98485343baa2868f7b8e36",
+    "app/favicon.ico":
+      "417dafefe6a79f145bdafb2ec7f7c1e369d397aab41461ab67f1b167bf197118",
+    "public/brand/wordmark-on-paper.svg":
+      "8e3c40f8a784321d11f0a0ae66b01b3160f7f08a1de8a5ecd1525fe67f7a6198",
+    "public/brand/wordmark-on-ink.svg":
+      "bc062d803ded1862d1783b19a1fa79d2f07934b25da3142beaa0f10abe444d05",
+  } as const;
+
+  it.each(Object.entries(APPROVED))(
+    "%s é exatamente o arquivo aprovado",
+    (path, hash) => {
+      expect(sha256(path)).toBe(hash);
+    },
+  );
+
+  it("os wordmarks mantêm o viewBox aprovado (proporção do logotipo)", () => {
+    expect(text("public/brand/wordmark-on-paper.svg")).toContain(
+      'viewBox="-18.0 -276.0 1940.1 402.0"',
+    );
+    expect(text("public/brand/wordmark-on-ink.svg")).toMatch(
+      /viewBox="-18.0 -276.0 18\d\d\.\d 402.0"/,
+    );
+  });
 });

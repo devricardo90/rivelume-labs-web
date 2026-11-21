@@ -17,12 +17,12 @@ No site o logotipo continua sendo **texto** (`components/layout/site-header.tsx`
 | `public/brand/wordmark-on-paper.svg` | fundos claros (Paper) | cabeçalho (30 px; `opsz` 30; "labs" a 10 px do "Rivelume") |
 | `public/brand/wordmark-on-ink.svg` | fundos escuros (Ink) | rodapé (44 px; `opsz` 44; espaço comum; tracking também no "labs") |
 
-A Fraunces usa o eixo óptico `opsz` igual ao tamanho da fonte; por isso cada arquivo segue o tamanho que espelha. **Fidelidade medida (21/11/2026, Chrome):** a caixa do desenho difere da do cabeçalho e do rodapé reais em até cerca de 1% de largura e de altura (cabeçalho 764 × 97 contra 757 × 96; rodapé 801 × 106 contra 794 × 107, em pixels ampliados); a sobreposição de máscara é de cerca de 75% nos dois (o restante é suavização de borda).
+A Fraunces usa o eixo óptico `opsz` igual ao tamanho da fonte; por isso cada arquivo segue o tamanho que espelha. **Fidelidade medida (21/11/2026, Chrome, ampliado 3 a 4 vezes, comparando o SVG com o cabeçalho e o rodapé reais):** as caixas do desenho diferem em cerca de 1% de largura e de altura (cabeçalho 764 × 97 contra 757 × 96 e 766 × 96 em outra medição; rodapé 801 × 106 contra 794 × 107). A sobreposição de máscara (IoU) depende do alinhamento: cabeçalho de 0,75 (caixas de tinta normalizadas) a 0,95 (alinhamento pelo canto); rodapé de 0,74 a 0,78. **Diferença conhecida:** no rodapé o "labs" do SVG fica cerca de 2 px de CSS mais à direita que no site (visível só ampliado 4 vezes).
 
 **Regras de uso**
 
 - **Área de respiro:** pelo menos a altura da letra "R" ao redor do logotipo.
-- **Tamanho mínimo:** 90 px de largura em tela (equivale a cerca de 21 px de fonte); abaixo disso usar o ícone.
+- **Tamanho mínimo:** 100 px de largura em tela (cerca de 16 px de fonte; o cabeçalho do site usa 30 px de fonte e cerca de 191 px de largura); abaixo disso usar o ícone.
 - **Não:** esticar ou comprimir, trocar fontes ou cores, mudar o giro do "labs", adicionar sombra, contorno ou efeito, colocar o "labs" Red Pen sobre fundo escuro, usar sobre fotografia sem fundo sólido, nem recriar o logotipo digitando o texto em outra fonte.
 
 ## Ícone (favicon e ícone da tela inicial)
