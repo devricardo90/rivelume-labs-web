@@ -25,6 +25,7 @@ const SIZE_CLASSES: Record<HeadingSize, string> = {
   // 56px, mas nunca mais largo que a coluna: a palavra mais longa ("Understand") mede
   // cerca de 5,4 a 5,7 vezes o corpo (conforme o motor de fontes), então abaixo de
   // ~376px de viewport o corpo diminui (coluna = 100vw - 40px de margens, dividida por 6).
+  // Premissa: a margem lateral do Section é 20px nessa faixa (piso do clamp(20px,5vw,80px)).
   // A rede de segurança (texto ampliado, espaçamento de texto) é o `overflow-wrap:
   // break-word` do `body` e o `min-w-0` da base: quebra a palavra em vez de estourar
   // a coluna, sem cortar conteúdo (RIV-47).
