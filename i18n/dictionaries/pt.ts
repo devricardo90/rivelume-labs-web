@@ -235,7 +235,8 @@ export const pt: Dictionary = {
       topics: ["Software", "Automação", "IA", "Ainda não sei"],
       messageLabel: "Mensagem (opcional)",
       messagePlaceholder: "Algumas palavras sobre a situação",
-      error: "Informe seu nome e um e-mail válido para que possamos responder.",
+      errorName: "Informe seu nome para que possamos responder.",
+      errorEmail: "Informe um e-mail válido para que possamos responder.",
       submit: "Vamos conversar sobre o seu projeto",
     },
     preview: {

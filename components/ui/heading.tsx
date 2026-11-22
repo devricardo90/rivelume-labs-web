@@ -22,7 +22,13 @@ const SIZE_CLASSES: Record<HeadingSize, string> = {
   contact: "text-[clamp(44px,6.8vw,96px)] leading-[0.96] tracking-[-0.03em]",
   service: "text-[clamp(30px,3.6vw,50px)] leading-[1.05] tracking-[-0.02em]",
   card: "text-[34px] leading-[1.05] tracking-[-0.02em]",
-  step: "text-[56px] italic leading-none tracking-[-0.02em]",
+  // 56px, mas nunca mais largo que a coluna: a palavra mais longa ("Understand") mede
+  // cerca de 5,4 a 5,7 vezes o corpo (conforme o motor de fontes), então abaixo de
+  // ~376px de viewport o corpo diminui (coluna = 100vw - 40px de margens, dividida por 6).
+  // A rede de segurança (texto ampliado, espaçamento de texto) é o `overflow-wrap:
+  // break-word` do `body` e o `min-w-0` da base: quebra a palavra em vez de estourar
+  // a coluna, sem cortar conteúdo (RIV-47).
+  step: "text-[min(56px,calc((100vw_-_40px)/6))] italic leading-none tracking-[-0.02em]",
   panel: "text-[44px] leading-[1.05] tracking-[-0.02em]",
 };
 
@@ -37,7 +43,7 @@ export function Heading({ level, size, className, ...props }: HeadingProps) {
   return (
     <Tag
       className={cx(
-        "m-0 font-serif font-extrabold",
+        "m-0 min-w-0 font-serif font-extrabold",
         SIZE_CLASSES[size],
         className,
       )}

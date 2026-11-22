@@ -32,7 +32,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
             </Highlight>{" "}
             {services.headingTail}
           </Heading>
-          <p className="m-0 max-w-[420px] flex-[1_1_300px] text-[21px] leading-normal text-body">
+          <p className="m-0 max-w-[420px] min-w-0 flex-[1_1_300px] text-[21px] leading-normal text-body">
             {services.intro}
           </p>
         </div>
@@ -61,7 +61,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 </p>
               </div>
 
-              <div className="max-w-[420px] flex-[1_1_300px]">
+              <div className="max-w-[420px] min-w-0 flex-[1_1_300px]">
                 <Eyebrow size="sm" className="m-0 mb-2">
                   {services.applicationLabel}
                 </Eyebrow>

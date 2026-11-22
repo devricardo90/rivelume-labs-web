@@ -111,6 +111,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder={form.namePlaceholder}
+          aria-required="true"
           aria-invalid={error === "name" || undefined}
           aria-describedby={error === "name" ? "contact-error" : undefined}
           className={FIELD}
@@ -129,6 +130,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder={form.emailPlaceholder}
+          aria-required="true"
           aria-invalid={error === "email" || undefined}
           aria-describedby={error === "email" ? "contact-error" : undefined}
           className={FIELD}
@@ -186,7 +188,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           role="alert"
           className="m-0 text-[17px] font-semibold text-highlight"
         >
-          {form.error}
+          {error === "name" ? form.errorName : form.errorEmail}
         </p>
       ) : null}
 

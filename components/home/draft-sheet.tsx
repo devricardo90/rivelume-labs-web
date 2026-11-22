@@ -109,7 +109,7 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
       </div>
 
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-5 py-3">
-        <span className="font-mono text-xs leading-normal tracking-[0.1em] uppercase">
+        <span className="min-w-0 font-mono text-xs leading-normal tracking-[0.1em] [overflow-wrap:anywhere] uppercase">
           {sheet.title}
         </span>
         <span className="border-[1.5px] border-ink bg-highlight px-2 py-0.5 font-mono text-[11px] tracking-[0.16em] uppercase">
@@ -135,12 +135,12 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
               >
                 {String(index + 1).padStart(2, "0")}
               </Eyebrow>
-              <p className="m-0 text-2xl leading-[1.35] font-medium">
+              <p className="m-0 text-2xl leading-[1.35] font-medium [overflow-wrap:anywhere]">
                 <del className="strike no-underline">{item.before}</del>
               </p>
               <HandNote
                 aria-hidden={!edited || undefined}
-                className="mt-2 translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
+                className="mt-2 translate-y-2 -rotate-[1.2deg] [overflow-wrap:anywhere] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
               >
                 {item.after}
               </HandNote>
@@ -163,7 +163,7 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
         <HandNote
           size="sm"
           aria-hidden={!edited || undefined}
-          className="translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
+          className="translate-y-2 -rotate-[1.2deg] [overflow-wrap:anywhere] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
         >
           {sheet.result}
         </HandNote>

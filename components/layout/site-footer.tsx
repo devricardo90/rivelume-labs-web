@@ -21,7 +21,7 @@ export function SiteFooter({ locale, footer, nav }: SiteFooterProps) {
     >
       <Container>
         <div className="flex flex-wrap justify-between gap-x-20 gap-y-12">
-          <div className="max-w-[460px] flex-[1_1_320px]">
+          <div className="max-w-[460px] min-w-0 flex-[1_1_320px]">
             <p className="m-0 mb-3 font-serif text-[44px] leading-none font-extrabold tracking-[-0.02em]">
               Rivelume{" "}
               <span className="inline-block -rotate-4 font-hand font-bold text-highlight">

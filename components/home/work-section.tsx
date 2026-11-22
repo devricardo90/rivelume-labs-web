@@ -41,7 +41,7 @@ export function WorkSection({ work }: WorkSectionProps) {
             {work.headingLead}{" "}
             <Em className="text-highlight">{work.headingEmphasis}</Em>
           </Heading>
-          <p className="m-0 max-w-[420px] flex-[1_1_300px] text-[21px] leading-normal text-rose">
+          <p className="m-0 max-w-[420px] min-w-0 flex-[1_1_300px] text-[21px] leading-normal text-rose">
             {work.intro}
           </p>
         </div>
@@ -52,7 +52,7 @@ export function WorkSection({ work }: WorkSectionProps) {
             return (
               <article
                 key={item.label}
-                className={`relative max-w-[400px] flex-[1_1_320px] border-2 border-ink bg-paper px-6 pt-7 pb-[26px] text-ink shadow-[8px_8px_0_var(--color-ink)] transition-[rotate,translate] duration-300 focus-within:-translate-y-2 focus-within:rotate-0 hover:-translate-y-2 hover:rotate-0 ${style.card}`}
+                className={`relative max-w-[400px] min-w-0 flex-[1_1_320px] border-2 border-ink bg-paper px-6 pt-7 pb-[26px] text-ink shadow-[8px_8px_0_var(--color-ink)] transition-[rotate,translate] duration-300 focus-within:-translate-y-2 focus-within:rotate-0 hover:-translate-y-2 hover:rotate-0 ${style.card}`}
               >
                 <div
                   aria-hidden="true"
@@ -67,11 +67,15 @@ export function WorkSection({ work }: WorkSectionProps) {
                   </span>
                 </div>
                 <div className="box-content mb-5 flex h-[200px] items-center justify-center border-2 border-dashed border-ink bg-[repeating-linear-gradient(135deg,transparent_0,transparent_9px,var(--color-rule)_9px,var(--color-rule)_10px)]">
-                  <span className="border-[1.5px] border-ink bg-paper px-2.5 py-1 font-mono text-sm leading-normal">
+                  <span className="max-w-full border-[1.5px] border-ink bg-paper px-2.5 py-1 font-mono text-sm leading-normal [overflow-wrap:anywhere]">
                     {item.placeholder}
                   </span>
                 </div>
-                <Heading level={3} size="card" className="mb-3.5">
+                <Heading
+                  level={3}
+                  size="card"
+                  className="mb-3.5 [overflow-wrap:anywhere]"
+                >
                   {item.title}
                 </Heading>
                 <Eyebrow size="sm" className="m-0 mb-1">

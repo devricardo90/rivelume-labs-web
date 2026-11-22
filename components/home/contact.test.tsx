@@ -111,9 +111,7 @@ describe("Formulário de contato (demonstração)", () => {
     submit();
 
     const alert = screen.getByRole("alert");
-    expect(alert.textContent).toBe(
-      "Please add your name and a valid email so we can reply.",
-    );
+    expect(alert.textContent).toBe("Please add your name so we can reply.");
     const name = screen.getByLabelText("Name");
     expect(name.getAttribute("aria-invalid")).toBe("true");
     expect(name.getAttribute("aria-describedby")).toBe(alert.id);
@@ -156,6 +154,58 @@ describe("Formulário de contato (demonstração)", () => {
     );
     expect(email.getAttribute("aria-invalid")).toBe("true");
     expect(document.activeElement).toBe(email);
+  });
+
+  it("nome e e-mail são anunciados como obrigatórios; a mensagem é opcional (RIV-47)", () => {
+    render(<ContactForm contact={en.contact} />);
+
+    expect(screen.getByLabelText("Name").getAttribute("aria-required")).toBe(
+      "true",
+    );
+    expect(screen.getByLabelText("Email").getAttribute("aria-required")).toBe(
+      "true",
+    );
+    expect(
+      screen.getByLabelText("Message (optional)").getAttribute("aria-required"),
+    ).toBeNull();
+  });
+
+  it("o erro diz qual campo corrigir, em EN e PT, e só o campo com erro aponta para a mensagem (RIV-47)", () => {
+    const { unmount } = render(<ContactForm contact={en.contact} />);
+    fill("Ana", "ana@");
+    submit();
+    expect(screen.getByRole("alert").textContent).toBe(
+      "Please add a valid email so we can reply.",
+    );
+    expect(
+      screen.getByLabelText("Name").getAttribute("aria-describedby"),
+    ).toBeNull();
+    expect(
+      screen.getByLabelText("Name").getAttribute("aria-invalid"),
+    ).toBeNull();
+    unmount();
+
+    const fillPt = (name: string, email: string) => {
+      fireEvent.change(screen.getByLabelText("Nome"), {
+        target: { value: name },
+      });
+      fireEvent.change(screen.getByLabelText("E-mail"), {
+        target: { value: email },
+      });
+      fireEvent.click(screen.getByRole("button", { name: /Vamos conversar/ }));
+    };
+    const { unmount: unmountPt } = render(<ContactForm contact={pt.contact} />);
+    fillPt("", "ana@example.com");
+    expect(screen.getByRole("alert").textContent).toBe(
+      "Informe seu nome para que possamos responder.",
+    );
+    unmountPt();
+
+    render(<ContactForm contact={pt.contact} />);
+    fillPt("Ana", "ana@");
+    expect(screen.getByRole("alert").textContent).toBe(
+      "Informe um e-mail válido para que possamos responder.",
+    );
   });
 
   it("com dados válidos mostra a prévia que NÃO soa como envio", () => {

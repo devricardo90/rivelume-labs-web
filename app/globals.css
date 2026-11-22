@@ -58,6 +58,16 @@
     line-height: 1.5;
   }
 
+  /* Telas estreitas (320px, texto ampliado, espaçamento de texto): palavra que não cabe
+     na coluna quebra em vez de estourar ou ser cortada (RIV-47). Só age quando a
+     palavra não cabe. Fica de fora do desktop de propósito: lá o "Understand" dos
+     passos transborda de leve para o espaço entre colunas e não deve quebrar. */
+  @media (max-width: 479px) {
+    body {
+      overflow-wrap: break-word;
+    }
+  }
+
   /* Foco visível (WCAG 2.4.7): 3px Red Pen com offset de 3px sobre Paper; sobre
      fundos escuros (Burgundy, Deep Burgundy e Ink) o anel passa a Highlight. */
   :focus-visible {
