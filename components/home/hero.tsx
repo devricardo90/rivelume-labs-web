@@ -84,7 +84,7 @@ export function Hero({ hero }: HeroProps) {
             </div>
           </div>
 
-          <div className="ml-auto box-content max-w-[640px] min-w-0 flex-[1_1_520px] px-[18px] pt-6">
+          <div className="@container ml-auto box-content max-w-[640px] min-w-0 flex-[1_1_520px] px-[18px] pt-6">
             <DraftSheet sheet={hero.sheet} />
           </div>
         </div>

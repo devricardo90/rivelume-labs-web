@@ -111,7 +111,9 @@ describe("Formulário de contato (demonstração)", () => {
     submit();
 
     const alert = screen.getByRole("alert");
-    expect(alert.textContent).toBe("Please add your name so we can reply.");
+    expect(alert.textContent).toBe(
+      "Please enter your name to continue the preview.",
+    );
     const name = screen.getByLabelText("Name");
     expect(name.getAttribute("aria-invalid")).toBe("true");
     expect(name.getAttribute("aria-describedby")).toBe(alert.id);
@@ -175,7 +177,7 @@ describe("Formulário de contato (demonstração)", () => {
     fill("Ana", "ana@");
     submit();
     expect(screen.getByRole("alert").textContent).toBe(
-      "Please add a valid email so we can reply.",
+      "Please enter a valid email address to continue the preview.",
     );
     expect(
       screen.getByLabelText("Name").getAttribute("aria-describedby"),
@@ -197,14 +199,14 @@ describe("Formulário de contato (demonstração)", () => {
     const { unmount: unmountPt } = render(<ContactForm contact={pt.contact} />);
     fillPt("", "ana@example.com");
     expect(screen.getByRole("alert").textContent).toBe(
-      "Informe seu nome para que possamos responder.",
+      "Informe seu nome para continuar a prévia.",
     );
     unmountPt();
 
     render(<ContactForm contact={pt.contact} />);
     fillPt("Ana", "ana@");
     expect(screen.getByRole("alert").textContent).toBe(
-      "Informe um e-mail válido para que possamos responder.",
+      "Informe um e-mail válido para continuar a prévia.",
     );
   });
 

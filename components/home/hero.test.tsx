@@ -111,4 +111,11 @@ describe("Hero", () => {
       await expectNoA11yViolations(container);
     },
   );
+
+  it("o contêiner da folha é um @container, base do reflow com texto ampliado (RIV-47)", () => {
+    const { container } = render(<Hero hero={en.hero} />);
+    const sheet = container.querySelector("div.group") as HTMLElement;
+
+    expect(sheet.parentElement?.classList.contains("@container")).toBe(true);
+  });
 });

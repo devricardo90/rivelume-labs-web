@@ -93,26 +93,26 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
   return (
     <div
       data-edited={edited}
-      className="group relative -rotate-[1.4deg] border-2 border-ink bg-sheet shadow-[10px_12px_0_var(--color-ink)]"
+      className="group relative -rotate-[1.4deg] [overflow-wrap:normal] @max-[14em]:[overflow-wrap:anywhere] border-2 border-ink bg-sheet shadow-[10px_12px_0_var(--color-ink)]"
     >
       <div
         aria-hidden="true"
-        className="absolute -top-9 -right-[18px] rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen transition-opacity duration-[400ms] group-data-[edited=true]:opacity-0"
+        className="absolute -top-9 -right-[18px] @max-[14em]:right-0 rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen transition-opacity duration-[400ms] group-data-[edited=true]:opacity-0"
       >
         {sheet.stampDraft}
       </div>
       <div
         aria-hidden="true"
-        className="absolute -top-9 -right-[18px] rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen opacity-0 transition-opacity duration-[400ms] group-data-[edited=true]:opacity-100"
+        className="absolute -top-9 -right-[18px] @max-[14em]:right-0 rotate-[7deg] border-[3px] border-red-pen bg-sheet px-3.5 py-2 font-mono text-[15px] font-medium tracking-[0.18em] text-red-pen opacity-0 transition-opacity duration-[400ms] group-data-[edited=true]:opacity-100"
       >
         {sheet.stampFinal}
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-5 py-3">
-        <span className="min-w-0 font-mono text-xs leading-normal tracking-[0.1em] [overflow-wrap:anywhere] uppercase">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-5 py-3 @max-[14em]:flex-wrap @max-[14em]:gap-y-2 @max-[14em]:px-3">
+        <span className="font-mono text-xs leading-normal tracking-[0.1em] uppercase @max-[14em]:min-w-0 @max-[14em]:tracking-normal">
           {sheet.title}
         </span>
-        <span className="border-[1.5px] border-ink bg-highlight px-2 py-0.5 font-mono text-[11px] tracking-[0.16em] uppercase">
+        <span className="border-[1.5px] border-ink bg-highlight px-2 py-0.5 font-mono text-[11px] tracking-[0.16em] uppercase @max-[14em]:shrink-0 @max-[14em]:[overflow-wrap:normal]">
           {sheet.example}
         </span>
       </div>
@@ -122,7 +122,10 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
           aria-hidden="true"
           className="absolute inset-y-0 left-[52px] w-0.5 bg-red-pen/35"
         />
-        <ol role="list" className="m-0 list-none py-1 pr-7 pl-[76px]">
+        <ol
+          role="list"
+          className="m-0 list-none py-1 pr-7 pl-[76px] @max-[14em]:pr-3"
+        >
           {sheet.items.map((item, index) => (
             <li
               key={item.before}
@@ -135,12 +138,12 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
               >
                 {String(index + 1).padStart(2, "0")}
               </Eyebrow>
-              <p className="m-0 text-2xl leading-[1.35] font-medium [overflow-wrap:anywhere]">
+              <p className="m-0 text-2xl leading-[1.35] font-medium @max-[14em]:text-xl">
                 <del className="strike no-underline">{item.before}</del>
               </p>
               <HandNote
                 aria-hidden={!edited || undefined}
-                className="mt-2 translate-y-2 -rotate-[1.2deg] [overflow-wrap:anywhere] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
+                className="mt-2 translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
               >
                 {item.after}
               </HandNote>
@@ -163,7 +166,7 @@ export function DraftSheet({ sheet, initialEdited = false }: DraftSheetProps) {
         <HandNote
           size="sm"
           aria-hidden={!edited || undefined}
-          className="translate-y-2 -rotate-[1.2deg] [overflow-wrap:anywhere] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
+          className="translate-y-2 -rotate-[1.2deg] opacity-0 transition-[opacity,translate] duration-[450ms] delay-[calc(var(--d,0s)+0.3s)] [--d:1.5s] group-data-[edited=true]:translate-y-0 group-data-[edited=true]:opacity-100"
         >
           {sheet.result}
         </HandNote>
