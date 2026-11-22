@@ -138,4 +138,18 @@ describe("Tokens da V4 Red Pen (globals.css)", () => {
     expect(css).toMatch(/color-scheme:\s*light;/);
     expect(css).not.toContain("light dark");
   });
+
+  it("em telas estreitas (até 479px) o body quebra a palavra que não cabe; no desktop não (RIV-47)", () => {
+    const narrow = css.match(
+      /@media \(max-width: 479px\)\s*{\s*body\s*{([^}]*)}/,
+    )?.[1];
+    expect(narrow).toContain("overflow-wrap: break-word");
+    // Fora do bloco estreito o body não quebra palavras: o "Understand" do desktop
+    // transborda de leve para o espaço entre colunas e deve ficar inteiro.
+    const outside = css.replace(
+      /@media \(max-width: 479px\)\s*{\s*body\s*{[^}]*}\s*}/,
+      "",
+    );
+    expect(outside).not.toMatch(/body\s*{[^}]*overflow-wrap/);
+  });
 });

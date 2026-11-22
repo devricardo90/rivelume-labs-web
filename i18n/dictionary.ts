@@ -184,7 +184,8 @@ export type Dictionary = {
       topics: ReadonlyArray<string>;
       messageLabel: string;
       messagePlaceholder: string;
-      error: string;
+      errorName: string;
+      errorEmail: string;
       submit: string;
     };
     preview: {

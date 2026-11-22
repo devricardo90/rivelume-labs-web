@@ -49,7 +49,7 @@ describe("Heading (V4 Red Pen)", () => {
       contact: "text-[clamp(44px,6.8vw,96px)]",
       service: "text-[clamp(30px,3.6vw,50px)]",
       card: "text-[34px]",
-      step: "text-[56px]",
+      step: "text-[min(56px,calc((100vw_-_40px)/6))]",
       panel: "text-[44px]",
     };
     for (const size of HEADING_SIZES) {

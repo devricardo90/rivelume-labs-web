@@ -29,7 +29,7 @@ export function AboutSection({ about }: AboutSectionProps) {
             {about.headingLead}{" "}
             <Em className="text-burgundy">{about.headingEmphasis}</Em>
           </Heading>
-          <div className="max-w-[480px] flex-[1_1_340px] pt-3">
+          <div className="max-w-[480px] min-w-0 flex-[1_1_340px] pt-3">
             <p className="m-0 mb-5 text-[22px] leading-normal font-medium">
               {about.lead}
             </p>

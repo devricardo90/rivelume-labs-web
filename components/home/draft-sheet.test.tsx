@@ -31,6 +31,48 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
+describe("Folha de rascunho: reflow com texto ampliado (RIV-47)", () => {
+  // O jsdom não avalia container queries: o efeito é verificado no navegador
+  // (docs/DEVELOPMENT.md). Aqui se fixa o contrato: o modo padrão não quebra palavras
+  // (aparência V4 a 320px com texto normal) e a quebra só vale no modo estreito (14em).
+  it("não quebra palavras por padrão e só as quebra quando a folha está estreita em relação ao texto", () => {
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+    const sheet = root(container);
+
+    expect(sheet.classList.contains("[overflow-wrap:normal]")).toBe(true);
+    expect(
+      sheet.classList.contains("@max-[14em]:[overflow-wrap:anywhere]"),
+    ).toBe(true);
+    // Nenhum filho força a quebra em todas as larguras.
+    expect(container.innerHTML).not.toMatch(
+      /(^|[\s"])\[overflow-wrap:anywhere\]/,
+    );
+  });
+
+  it("preserva a inclinação de -1,4° e puxa os selos para dentro só no modo estreito", () => {
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+
+    expect(root(container).classList.contains("-rotate-[1.4deg]")).toBe(true);
+    const stamps = Array.from(
+      container.querySelectorAll('div[aria-hidden="true"].absolute'),
+    ).filter((node) => node.classList.contains("-top-9"));
+    expect(stamps).toHaveLength(2);
+    for (const stamp of stamps) {
+      expect(stamp.classList.contains("-right-[18px]")).toBe(true);
+      expect(stamp.classList.contains("@max-[14em]:right-0")).toBe(true);
+    }
+  });
+
+  it("no modo estreito o cabeçalho quebra de linha e o texto reduz margem e corpo, sem overflow hidden", () => {
+    const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
+
+    expect(container.innerHTML).toContain("@max-[14em]:flex-wrap");
+    expect(container.innerHTML).toContain("@max-[14em]:pr-3");
+    expect(container.innerHTML).toContain("@max-[14em]:text-xl");
+    expect(container.innerHTML).not.toContain("overflow-hidden");
+  });
+});
+
 describe("Folha de rascunho: conteúdo", () => {
   it("mostra as três linhas riscadas em <del> e as respostas manuscritas", () => {
     const { container } = render(<DraftSheet sheet={en.hero.sheet} />);
