@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import PrivacyPage, { generateMetadata } from "@/app/[lang]/privacy/page";
 import { expectNoA11yViolations } from "@/test/a11y";
+import { enableIndexingFixture, SEO_ORIGIN } from "@/test/seo-env";
 
 const params = (lang: string) => Promise.resolve({ lang });
 
@@ -60,16 +61,14 @@ describe("Política de Privacidade (rascunho)", () => {
   });
 
   it("fica fora dos mecanismos de busca e aponta o canonical para a própria página", async () => {
-    vi.stubEnv("SITE_URL", "https://example.com");
+    enableIndexingFixture();
 
     const metadata = await generateMetadata({ params: params("pt") });
     expect(metadata.robots).toEqual({ index: false, follow: false });
     expect(metadata.title).toBe(
       "Política de Privacidade (rascunho) — Rivelume Labs",
     );
-    expect(metadata.alternates?.canonical).toBe(
-      "https://example.com/pt/privacy",
-    );
+    expect(metadata.alternates?.canonical).toBe(`${SEO_ORIGIN}/pt/privacy`);
   });
 
   it("responde 404 para idioma desconhecido", async () => {

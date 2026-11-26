@@ -7,6 +7,7 @@ import { TextLink } from "@/components/ui/text-link";
 import { hasLocale, localePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { buildAlternates } from "@/i18n/seo";
+import { getIndexableSiteUrl } from "@/lib/indexing";
 
 type PrivacyParams = { params: Promise<{ lang: string }> };
 
@@ -24,7 +25,7 @@ export async function generateMetadata({
     title: privacy.metaTitle,
     description: privacy.metaDescription,
     robots: { index: false, follow: false },
-    alternates: buildAlternates(lang, undefined, "/privacy"),
+    alternates: buildAlternates(lang, getIndexableSiteUrl(), "/privacy"),
   };
 }
 

@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import { getIndexableSiteUrl } from "./lib/indexing";
+
+const NOINDEX_HEADER = { key: "X-Robots-Tag", value: "noindex" };
 
 // Caminhos desconhecidos -> `/error-404/<idioma>` (ver `rewrites`).
 // 1) idioma válido com subcaminho que não seja a Privacidade: no idioma da URL.
@@ -75,7 +78,27 @@ const nextConfig: NextConfig = {
   // RIV-46: não anuncia o framework (`X-Powered-By: Next.js`).
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/:path*", headers: buildSecurityHeaders() }];
+    const base = getIndexableSiteUrl();
+    const headers = buildSecurityHeaders();
+    if (!base) {
+      return [{ source: "/:path*", headers: [...headers, NOINDEX_HEADER] }];
+    }
+
+    return [
+      { source: "/:path*", headers },
+      {
+        source: "/:path*",
+        missing: [
+          { type: "host", value: base.hostname.replaceAll(".", "\\.") },
+        ],
+        headers: [NOINDEX_HEADER],
+      },
+      {
+        source: "/:path*",
+        missing: [{ type: "header", key: "x-forwarded-proto", value: "https" }],
+        headers: [NOINDEX_HEADER],
+      },
+    ];
   },
   // ADR-0001, P4: `/` redireciona para `/en` com HTTP 307 (`permanent: false`),
   // sem `proxy` e sem detectar o idioma do navegador. O destino é o idioma
