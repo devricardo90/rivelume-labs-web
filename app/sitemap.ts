@@ -1,14 +1,11 @@
 import type { MetadataRoute } from "next";
 import { LOCALES, localePath } from "@/i18n/config";
 import { buildLanguageAlternates } from "@/i18n/seo";
-import { getSiteUrl } from "@/lib/site-url";
+import { getIndexableSiteUrl } from "@/lib/indexing";
 
-// Sitemap com as duas versões e os mesmos alternates das páginas, incluindo
-// `x-default` (ADR-0001, 6.2 item 4). Precisa
-// de URLs absolutas: sem `SITE_URL` (DEC-RIV-008 pendente) fica vazio, em vez de
-// publicar URLs inventadas.
+// Publica só as duas Homes, com os mesmos alternates do HTML (ADR-0001).
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl();
+  const base = getIndexableSiteUrl();
   if (!base) return [];
 
   const languages = buildLanguageAlternates(base);

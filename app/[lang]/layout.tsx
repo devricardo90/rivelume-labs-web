@@ -7,6 +7,7 @@ import { SkipLink } from "@/components/layout/skip-link";
 import { LOCALES, LOCALE_TAGS, hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { buildAlternates } from "@/i18n/seo";
+import { getIndexableSiteUrl } from "@/lib/indexing";
 import "../globals.css";
 
 // Layout raiz por idioma (RIV-16, ADR-0001). Todas as rotas ficam sob `[lang]`;
@@ -28,10 +29,12 @@ export async function generateMetadata({
   if (!hasLocale(lang)) notFound();
 
   const dictionary = await getDictionary(lang);
+  const base = getIndexableSiteUrl();
   return {
     title: dictionary.meta.title,
     description: dictionary.meta.description,
-    alternates: buildAlternates(lang),
+    alternates: buildAlternates(lang, base),
+    robots: base ? undefined : { index: false },
   };
 }
 

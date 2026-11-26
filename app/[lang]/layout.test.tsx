@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { enableIndexingFixture, SEO_ORIGIN } from "@/test/seo-env";
 // O next/font só funciona dentro do compilador do Next.js; no Vitest o módulo de
 // fontes é substituído por um valor fixo. As fontes reais são verificadas no
 // build e no Chrome.
@@ -116,23 +117,29 @@ describe("Layout por idioma", () => {
   });
 
   it("não emite canonical nem hreflang sem SITE_URL", async () => {
+    enableIndexingFixture();
     vi.stubEnv("SITE_URL", "");
 
     const metadata = await generateMetadata({ params: params("en") });
     expect(metadata.alternates).toBeUndefined();
+    expect(metadata.robots).toEqual({ index: false });
   });
 
-  it("emite canonical e hreflang quando SITE_URL está definida", async () => {
-    vi.stubEnv("SITE_URL", "https://example.com");
+  it.each(["en", "pt"])(
+    "emite canonical e hreflang recíprocos após a liberação (%s)",
+    async (lang) => {
+      enableIndexingFixture();
 
-    const metadata = await generateMetadata({ params: params("pt") });
-    expect(metadata.alternates).toEqual({
-      canonical: "https://example.com/pt",
-      languages: {
-        en: "https://example.com/en",
-        "pt-BR": "https://example.com/pt",
-        "x-default": "https://example.com/en",
-      },
-    });
-  });
+      const metadata = await generateMetadata({ params: params(lang) });
+      expect(metadata.robots).toBeUndefined();
+      expect(metadata.alternates).toEqual({
+        canonical: `${SEO_ORIGIN}/${lang}`,
+        languages: {
+          en: `${SEO_ORIGIN}/en`,
+          "pt-BR": `${SEO_ORIGIN}/pt`,
+          "x-default": `${SEO_ORIGIN}/en`,
+        },
+      });
+    },
+  );
 });
